@@ -1,12 +1,21 @@
 #!/usr/bin/env python3
 """Genera el tablero CRM Solicitudes (solo leads desde FECHA_CORTE en adelante)."""
 import os, json, re, html, sys
-from datetime import datetime
+from datetime import datetime, timedelta
 
 BASE = os.path.dirname(os.path.abspath(__file__))
 URL = os.environ.get('ODOO_URL', 'https://latinbien.com').rstrip('/')
 DB = os.environ.get('ODOO_DB', 'erp_production')
 FECHA_CORTE = os.environ.get('FECHA_CORTE', '2026-10-22')
+TZ_OFFSET_H = int(os.environ.get('ODOO_TZ_OFFSET', '-4'))
+
+def a_local(fecha_odoo):
+    try:
+        d = datetime.strptime((fecha_odoo or '')[:19], '%Y-%m-%d %H:%M:%S')
+    except ValueError:
+        return fecha_odoo or ''
+    loc = d + timedelta(hours=TZ_OFFSET_H)
+    return loc.strftime('%Y-%m-%d %H:%M:%S')
 
 def cred():
     u = os.environ.get('ODOO_USER'); p = os.environ.get('ODOO_PASS')
@@ -102,7 +111,8 @@ def main():
     leads = []
     for r in leads_raw:
         if not is_solicitud_form(r): continue
-        if (r.get('create_date') or '')[:10] < FECHA_CORTE: continue
+        fecha_local = a_local(r.get('create_date'))
+        if fecha_local[:10] < FECHA_CORTE: continue
         niche = extract_niche(r)
         desc = html.unescape(r.get('description') or '')
         m = re.search(r'Producto deseado:\s*(.+?)(?:<br|\n|</|$)', desc, re.I)
@@ -110,7 +120,7 @@ def main():
         leads.append({
             'id': r.get('id'),
             'name': html.unescape(r.get('name') or ''),
-            'create_date': r.get('create_date'),
+            'create_date': fecha_local,
             'contact_name': html.unescape(r.get('contact_name') or ''),
             'phone': r.get('phone') or '',
             'email_from': r.get('email_from') or '',
@@ -135,17 +145,14 @@ def main():
     data = {'generado': datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
             'fecha_corte': FECHA_CORTE, 'total': len(leads), 'leads': leads}
 
-    # write data json
     with open(os.path.join(BASE, 'data.json'), 'w', encoding='utf-8') as fh:
         json.dump(data, fh, ensure_ascii=False, indent=2)
 
-    # build index.html
     template_path = os.path.join(BASE, 'index_template.html')
     with open(template_path, 'r', encoding='utf-8') as fh:
         tpl = fh.read()
     json_str = json.dumps(data, ensure_ascii=False).replace('</script>', '<\\/script>')
     html_out = tpl.replace('__DATA_JSON__', json_str)
-    # adjust title
     html_out = html_out.replace('Solicitudes Web - Leads Latinbien',
                                 'CRM Solicitudes - Leads desde ' + FECHA_CORTE)
     with open(os.path.join(BASE, 'index.html'), 'w', encoding='utf-8') as fh:
