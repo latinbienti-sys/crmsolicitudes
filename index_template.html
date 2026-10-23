@@ -125,6 +125,7 @@ tr:hover{background:#f8fafc;}
 const DATA = __DATA_JSON__;
 const leads = (DATA.leads || []).map(l => ({...l}));
 let filtered = [...leads];
+function localDateStr(dt){ return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0'); }
 
 function fmtDate(s){ return (s||'').slice(0,10); }
 function money(v){ const n=Number(v||0); return n? n.toLocaleString('es-VE',{minimumFractionDigits:2,maximumFractionDigits:2}) : '-'; }
@@ -161,8 +162,8 @@ function applyFilters(){
 
 function renderKPIs(){
   const total = filtered.length;
-  const hoy = new Date().toISOString().slice(0,10);
-  const last7 = new Date(Date.now()-6*86400000).toISOString().slice(0,10);
+  const hoy = localDateStr(new Date());
+  const last7 = localDateStr(new Date(Date.now()-6*86400000));
   const hoyCount = filtered.filter(l=>fmtDate(l.create_date)===hoy).length;
   const last7Count = filtered.filter(l=>fmtDate(l.create_date)>=last7).length;
   // top niche
@@ -257,8 +258,8 @@ document.getElementById('btn-limpiar').addEventListener('click', ()=>{
 
 populateSelects();
 // default date range: last 30 days
-const hasta = new Date().toISOString().slice(0,10);
-const desde = new Date(Date.now()-29*86400000).toISOString().slice(0,10);
+const hasta = localDateStr(new Date());
+const desde = localDateStr(new Date(Date.now()-29*86400000));
 document.getElementById('f-desde').value = desde;
 document.getElementById('f-hasta').value = hasta;
 document.getElementById('meta-gen').textContent = 'Generado: ' + (DATA.generado||'');

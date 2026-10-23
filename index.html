@@ -122,9 +122,10 @@ tr:hover{background:#f8fafc;}
 </main>
 
 <script>
-const DATA = {"generado": "2026-10-23T01:23:45Z", "fecha_corte": "2026-10-22", "total": 4, "leads": [{"id": 66342, "name": "SLCA Solicitud - Motos", "create_date": "2026-10-22 18:01:19", "contact_name": "Prueba", "phone": "+5804121213454", "email_from": "shd@gmail.con", "estado": "", "ciudad": "", "pago": "", "ingreso": 0, "inicial": 0, "tiempo_inicial": "", "ingresos_proviene": "", "linea_activa": "Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.", "operador": "0412", "zona": "", "etapa": "Prospecto LC", "asignado": "", "nicho": "Motos", "producto": ""}, {"id": 66345, "name": "SLCA Solicitud - Celulares", "create_date": "2026-10-22 18:06:44", "contact_name": "Anais Paola", "phone": "+5804140414210", "email_from": "anaispaola28@gmail.com", "estado": "", "ciudad": "", "pago": "", "ingreso": 0, "inicial": 0, "tiempo_inicial": "", "ingresos_proviene": "", "linea_activa": "Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.", "operador": "0414", "zona": "", "etapa": "Prospecto LC", "asignado": "", "nicho": "Celulares", "producto": ""}, {"id": 66349, "name": "Solicitud - Motos", "create_date": "2026-10-22 19:19:33", "contact_name": "Yeifersson Josué Quintero calderon", "phone": "+5804247199340", "email_from": "yeiferssonjosue4@gmail.com", "estado": "MERIDA (VE)", "ciudad": "El chama", "pago": "hasta_200", "ingreso": 600.0, "inicial": 400.0, "tiempo_inicial": "", "ingresos_proviene": "contratado_en_Institucion_publica", "linea_activa": "No_seria_mi_primera_vez_en_Latinbien", "operador": "0424", "zona": "Libertador", "etapa": "Prospecto LC", "asignado": "", "nicho": "Motos", "producto": ""}, {"id": 66350, "name": "Solicitud - Motos", "create_date": "2026-10-22 20:48:27", "contact_name": "Maelo Quintero", "phone": "+5804247227943", "email_from": "maeloquintero70@gmail.com", "estado": "MERIDA (VE)", "ciudad": "Caño seco II ", "pago": "mas_200", "ingreso": 600.0, "inicial": 200.0, "tiempo_inicial": "", "ingresos_proviene": "generacion_independiente", "linea_activa": "No_seria_mi_primera_vez_en_Latinbien", "operador": "0424", "zona": "El Vigia", "etapa": "Prospecto LC", "asignado": "", "nicho": "Motos", "producto": ""}]};
+const DATA = {"generado": "2026-10-23T01:26:53Z", "fecha_corte": "2026-10-22", "total": 4, "leads": [{"id": 66342, "name": "SLCA Solicitud - Motos", "create_date": "2026-10-22 18:01:19", "contact_name": "Prueba", "phone": "+5804121213454", "email_from": "shd@gmail.con", "estado": "", "ciudad": "", "pago": "", "ingreso": 0, "inicial": 0, "tiempo_inicial": "", "ingresos_proviene": "", "linea_activa": "Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.", "operador": "0412", "zona": "", "etapa": "Prospecto LC", "asignado": "", "nicho": "Motos", "producto": ""}, {"id": 66345, "name": "SLCA Solicitud - Celulares", "create_date": "2026-10-22 18:06:44", "contact_name": "Anais Paola", "phone": "+5804140414210", "email_from": "anaispaola28@gmail.com", "estado": "", "ciudad": "", "pago": "", "ingreso": 0, "inicial": 0, "tiempo_inicial": "", "ingresos_proviene": "", "linea_activa": "Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.", "operador": "0414", "zona": "", "etapa": "Prospecto LC", "asignado": "", "nicho": "Celulares", "producto": ""}, {"id": 66349, "name": "Solicitud - Motos", "create_date": "2026-10-22 19:19:33", "contact_name": "Yeifersson Josué Quintero calderon", "phone": "+5804247199340", "email_from": "yeiferssonjosue4@gmail.com", "estado": "MERIDA (VE)", "ciudad": "El chama", "pago": "hasta_200", "ingreso": 600.0, "inicial": 400.0, "tiempo_inicial": "", "ingresos_proviene": "contratado_en_Institucion_publica", "linea_activa": "No_seria_mi_primera_vez_en_Latinbien", "operador": "0424", "zona": "Libertador", "etapa": "Prospecto LC", "asignado": "", "nicho": "Motos", "producto": ""}, {"id": 66350, "name": "Solicitud - Motos", "create_date": "2026-10-22 20:48:27", "contact_name": "Maelo Quintero", "phone": "+5804247227943", "email_from": "maeloquintero70@gmail.com", "estado": "MERIDA (VE)", "ciudad": "Caño seco II ", "pago": "mas_200", "ingreso": 600.0, "inicial": 200.0, "tiempo_inicial": "", "ingresos_proviene": "generacion_independiente", "linea_activa": "No_seria_mi_primera_vez_en_Latinbien", "operador": "0424", "zona": "El Vigia", "etapa": "Prospecto LC", "asignado": "", "nicho": "Motos", "producto": ""}]};
 const leads = (DATA.leads || []).map(l => ({...l}));
 let filtered = [...leads];
+function localDateStr(dt){ return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0'); }
 
 function fmtDate(s){ return (s||'').slice(0,10); }
 function money(v){ const n=Number(v||0); return n? n.toLocaleString('es-VE',{minimumFractionDigits:2,maximumFractionDigits:2}) : '-'; }
@@ -161,8 +162,8 @@ function applyFilters(){
 
 function renderKPIs(){
   const total = filtered.length;
-  const hoy = new Date().toISOString().slice(0,10);
-  const last7 = new Date(Date.now()-6*86400000).toISOString().slice(0,10);
+  const hoy = localDateStr(new Date());
+  const last7 = localDateStr(new Date(Date.now()-6*86400000));
   const hoyCount = filtered.filter(l=>fmtDate(l.create_date)===hoy).length;
   const last7Count = filtered.filter(l=>fmtDate(l.create_date)>=last7).length;
   // top niche
@@ -257,8 +258,8 @@ document.getElementById('btn-limpiar').addEventListener('click', ()=>{
 
 populateSelects();
 // default date range: last 30 days
-const hasta = new Date().toISOString().slice(0,10);
-const desde = new Date(Date.now()-29*86400000).toISOString().slice(0,10);
+const hasta = localDateStr(new Date());
+const desde = localDateStr(new Date(Date.now()-29*86400000));
 document.getElementById('f-desde').value = desde;
 document.getElementById('f-hasta').value = hasta;
 document.getElementById('meta-gen').textContent = 'Generado: ' + (DATA.generado||'');
