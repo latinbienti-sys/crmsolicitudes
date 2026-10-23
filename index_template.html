@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Solicitudes Web - Leads Latinbien</title>
+<style>
+:root{--azul:#1f3b73;--verde:#1e8e5a;--naranja:#e07b2a;--rojo:#c0392b;--gris:#eef1f5;--borde:#d3dae3;--fondo:#f4f6f9;}
+*{box-sizing:border-box;}
+body{font-family:"Segoe UI",Arial,sans-serif;margin:0;background:var(--fondo);color:#1c2733;}
+header{background:var(--azul);color:#fff;padding:14px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+header h1{font-size:18px;margin:0 0 2px;}
+.sub{font-size:12px;opacity:.85;}
+main{padding:20px;max-width:1400px;margin:0 auto;}
+.barra{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:16px;}
+.barra input,.barra select,.barra button{font-size:14px;padding:7px 10px;border:1px solid var(--borde);border-radius:6px;}
+.btn{background:var(--azul);color:#fff;border:none;cursor:pointer;}
+.btn:hover{filter:brightness(1.1);}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-bottom:16px;}
+.kpi{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:14px;}
+.kpi .label{font-size:12px;color:#56657a;margin-bottom:4px;}
+.kpi .value{font-size:24px;font-weight:700;color:var(--azul);}
+.kpi .hint{font-size:11px;color:#8a939c;margin-top:4px;}
+.tarjeta{background:#fff;border:1px solid var(--borde);border-radius:10px;padding:16px;margin-bottom:18px;}
+.tarjeta h2{margin:0 0 12px;font-size:15px;color:var(--azul);}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+@media (max-width:900px){.grid2{grid-template-columns:1fr;}}
+.barlist{display:flex;flex-direction:column;gap:6px;}
+.barrow{display:grid;grid-template-columns:160px 1fr 60px;gap:8px;align-items:center;font-size:13px;}
+.barfondo{background:var(--gris);border-radius:6px;height:18px;overflow:hidden;}
+.barfill{height:18px;border-radius:6px;background:var(--naranja);color:#fff;font-size:11px;line-height:18px;padding-left:6px;white-space:nowrap;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th,td{border-bottom:1px solid var(--gris);padding:8px 10px;text-align:left;vertical-align:top;}
+th{background:#f8fafc;color:#56657a;font-weight:600;position:sticky;top:0;}
+tr:hover{background:#f8fafc;}
+.pill{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;background:#eef1f5;color:#3a4a5c;}
+.pill.nicho{background:#e8f0fe;color:#1f3b73;font-weight:600;}
+.foot{color:#8a939c;font-size:12px;margin-top:10px;text-align:center;}
+.nota{font-size:12px;color:#56657a;}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Solicitudes Web - Leads (formulario latinbien.com/solicitud)</h1>
+    <div class="sub">Datos en vivo desde CRM (Odoo) - filtrado por origen del formulario</div>
+  </div>
+  <span class="sub" id="meta-gen"></span>
+</header>
+<main>
+  <div class="barra">
+    <label>Desde: <input type="date" id="f-desde"></label>
+    <label>Hasta: <input type="date" id="f-hasta"></label>
+    <label>Nicho: <select id="f-nicho"><option value="">Todos</option></select></label>
+    <label>Estado: <select id="f-estado"><option value="">Todos</option></select></label>
+    <label>Buscar: <input type="text" id="f-buscar" placeholder="contacto, telefono, email, producto"></label>
+    <button class="btn" id="btn-aplicar">Aplicar</button>
+    <button class="btn" id="btn-limpiar">Limpiar</button>
+    <span class="nota" id="rango-info"></span>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="grid2">
+    <section class="tarjeta">
+      <h2>Leads por nicho</h2>
+      <div class="barlist" id="chart-nicho"></div>
+    </section>
+    <section class="tarjeta">
+      <h2>Leads por dia</h2>
+      <div class="barlist" id="chart-dia"></div>
+    </section>
+  </div>
+
+  <div class="grid2">
+    <section class="tarjeta">
+      <h2>Top estados / ubicacion</h2>
+      <div class="barlist" id="chart-estado"></div>
+    </section>
+    <section class="tarjeta">
+      <h2>Capacidad de pago (cuota quincenal)</h2>
+      <div class="barlist" id="chart-pago"></div>
+    </section>
+  </div>
+
+  <div class="grid2">
+    <section class="tarjeta">
+      <h2>Linea de credito activa</h2>
+      <div class="barlist" id="chart-linea"></div>
+    </section>
+    <section class="tarjeta">
+      <h2>Origen de ingresos</h2>
+      <div class="barlist" id="chart-ingresos"></div>
+    </section>
+  </div>
+
+  <section class="tarjeta">
+    <h2>Listado de leads</h2>
+    <div style="overflow-x:auto;max-height:520px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Nicho</th>
+            <th>Contacto</th>
+            <th>Telefono</th>
+            <th>Email</th>
+            <th>Estado / Ciudad</th>
+            <th>Cuota</th>
+            <th>Ingreso $</th>
+            <th>Linea activa</th>
+            <th>Etapa</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-body"></tbody>
+      </table>
+    </div>
+    <div class="nota" id="tabla-info"></div>
+  </section>
+
+  <div class="foot">Generado: <span id="gen-fecha"></span> - Total leads en base: <span id="total-base"></span></div>
+</main>
+
+<script>
+const DATA = __DATA_JSON__;
+const leads = (DATA.leads || []).map(l => ({...l}));
+let filtered = [...leads];
+
+function fmtDate(s){ return (s||'').slice(0,10); }
+function money(v){ const n=Number(v||0); return n? n.toLocaleString('es-VE',{minimumFractionDigits:2,maximumFractionDigits:2}) : '-'; }
+
+function populateSelects(){
+  const nichos = [...new Set(leads.map(l=>l.nicho).filter(Boolean))].sort();
+  const estados = [...new Set(leads.map(l=>l.estado).filter(Boolean))].sort();
+  const selN = document.getElementById('f-nicho');
+  nichos.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;selN.appendChild(o);});
+  const selE = document.getElementById('f-estado');
+  estados.forEach(e=>{const o=document.createElement('option');o.value=e;o.textContent=e;selE.appendChild(o);});
+}
+
+function applyFilters(){
+  const desde = document.getElementById('f-desde').value;
+  const hasta = document.getElementById('f-hasta').value;
+  const nicho = document.getElementById('f-nicho').value;
+  const estado = document.getElementById('f-estado').value;
+  const q = (document.getElementById('f-buscar').value||'').toLowerCase().trim();
+  filtered = leads.filter(l=>{
+    const d = fmtDate(l.create_date);
+    if(desde && d < desde) return false;
+    if(hasta && d > hasta) return false;
+    if(nicho && l.nicho !== nicho) return false;
+    if(estado && l.estado !== estado) return false;
+    if(q){
+      const hay = [l.contact_name,l.phone,l.email_from,l.ciudad,l.producto,l.nicho,l.estado].join(' ').toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+  renderAll();
+}
+
+function renderKPIs(){
+  const total = filtered.length;
+  const hoy = new Date().toISOString().slice(0,10);
+  const last7 = new Date(Date.now()-6*86400000).toISOString().slice(0,10);
+  const hoyCount = filtered.filter(l=>fmtDate(l.create_date)===hoy).length;
+  const last7Count = filtered.filter(l=>fmtDate(l.create_date)>=last7).length;
+  // top niche
+  const nc = {};
+  filtered.forEach(l=>{nc[l.nicho||'Sin nicho']=(nc[l.nicho||'Sin nicho']||0)+1;});
+  const topNicho = Object.entries(nc).sort((a,b)=>b[1]-a[1])[0];
+  const ingresos = filtered.map(l=>Number(l.ingreso||0)).filter(v=>v>0);
+  const avgIngreso = ingresos.length? (ingresos.reduce((a,b)=>a+b,0)/ingresos.length) : 0;
+  const lineaActiva = filtered.filter(l=>/linea de credito activa/i.test(l.linea_activa||'')).length;
+  const conTelefono = filtered.filter(l=>l.phone).length;
+  const kpis = [
+    {label:'Total solicitudes', value:total, hint:'en el filtro actual'},
+    {label:'Hoy', value:hoyCount, hint:hoy},
+    {label:'Ultimos 7 dias', value:last7Count, hint:'incluye hoy'},
+    {label:'Nicho principal', value: topNicho? topNicho[0] : '-', hint: topNicho? (topNicho[1]+' leads') : ''},
+    {label:'Ingreso promedio $', value: avgIngreso? avgIngreso.toLocaleString('es-VE',{maximumFractionDigits:0}) : '-', hint:'mensual demostrable'},
+    {label:'Con linea activa', value:lineaActiva, hint: total? Math.round(lineaActiva/total*100)+'%' : ''},
+    {label:'Con telefono', value:conTelefono, hint:''},
+  ];
+  const cont = document.getElementById('kpis');
+  cont.innerHTML = kpis.map(k=>`<div class="kpi"><div class="label">${k.label}</div><div class="value">${k.value}</div><div class="hint">${k.hint}</div></div>`).join('');
+}
+
+function renderBar(containerId, dataObj, color){
+  const cont = document.getElementById(containerId);
+  const entries = Object.entries(dataObj).sort((a,b)=>b[1]-a[1]);
+  const max = entries.length? Math.max(...entries.map(e=>e[1])) : 1;
+  cont.innerHTML = entries.map(([label,val])=>{
+    const pct = Math.round(val/max*100);
+    return `<div class="barrow"><div title="${label}">${label}</div><div class="barfondo"><div class="barfill" style="width:${pct}%;background:${color||'var(--naranja)'}">${pct>=15?pct+'%':''}</div></div><div style="text-align:right;font-weight:600">${val}</div></div>`;
+  }).join('') || '<div class="nota">Sin datos</div>';
+}
+
+function groupBy(keyFn){
+  const out = {};
+  filtered.forEach(l=>{const k = keyFn(l)||'Sin dato'; out[k]=(out[k]||0)+1;});
+  return out;
+}
+
+function renderCharts(){
+  renderBar('chart-nicho', groupBy(l=>l.nicho), 'var(--azul)');
+  // by day
+  const byDay = groupBy(l=>fmtDate(l.create_date));
+  // sort by date ascending for display but renderBar sorts by value; instead custom:
+  const dayEntries = Object.entries(byDay).sort((a,b)=>a[0].localeCompare(b[0]));
+  const maxD = dayEntries.length? Math.max(...dayEntries.map(e=>e[1])) : 1;
+  document.getElementById('chart-dia').innerHTML = dayEntries.map(([d,v])=>{
+    const pct=Math.round(v/maxD*100);
+    return `<div class="barrow"><div>${d}</div><div class="barfondo"><div class="barfill" style="width:${pct}%;background:var(--verde)">${pct>=15?pct+'%':''}</div></div><div style="text-align:right;font-weight:600">${v}</div></div>`;
+  }).join('') || '<div class="nota">Sin datos</div>';
+  renderBar('chart-estado', groupBy(l=>l.estado), 'var(--naranja)');
+  renderBar('chart-pago', groupBy(l=>l.pago), 'var(--rojo)');
+  renderBar('chart-linea', groupBy(l=> (l.linea_activa||'').replace(/_/g,' ').trim() || 'Sin dato'), 'var(--verde)');
+  renderBar('chart-ingresos', groupBy(l=>l.ingresos_proviene), 'var(--azul)');
+}
+
+function renderTable(){
+  const tbody = document.getElementById('tabla-body');
+  const rows = [...filtered].sort((a,b)=> (b.create_date||'').localeCompare(a.create_date||''));
+  tbody.innerHTML = rows.map(l=>`
+    <tr>
+      <td>${fmtDate(l.create_date)}</td>
+      <td><span class="pill nicho">${l.nicho||'-'}</span></td>
+      <td>${l.contact_name||'-'}</td>
+      <td>${l.phone||'-'}</td>
+      <td>${l.email_from||'-'}</td>
+      <td>${l.estado||'-'}${l.ciudad? ' / '+l.ciudad : ''}</td>
+      <td>${l.pago||'-'}</td>
+      <td style="text-align:right">${money(l.ingreso)}</td>
+      <td>${(l.linea_activa||'').replace(/_/g,' ')||'-'}</td>
+      <td>${l.etapa||'-'}</td>
+    </tr>`).join('');
+  document.getElementById('tabla-info').textContent = `Mostrando ${rows.length} de ${leads.length} leads`;
+}
+
+function renderAll(){
+  renderKPIs();
+  renderCharts();
+  renderTable();
+}
+
+document.getElementById('btn-aplicar').addEventListener('click', applyFilters);
+document.getElementById('btn-limpiar').addEventListener('click', ()=>{
+  document.getElementById('f-desde').value='';
+  document.getElementById('f-hasta').value='';
+  document.getElementById('f-nicho').value='';
+  document.getElementById('f-estado').value='';
+  document.getElementById('f-buscar').value='';
+  applyFilters();
+});
+['f-desde','f-hasta','f-nicho','f-estado'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
+
+populateSelects();
+// default date range: last 30 days
+const hasta = new Date().toISOString().slice(0,10);
+const desde = new Date(Date.now()-29*86400000).toISOString().slice(0,10);
+document.getElementById('f-desde').value = desde;
+document.getElementById('f-hasta').value = hasta;
+document.getElementById('meta-gen').textContent = 'Generado: ' + (DATA.generado||'');
+document.getElementById('gen-fecha').textContent = (DATA.generado||'');
+document.getElementById('total-base').textContent = leads.length;
+applyFilters();
+</script>
+</body>
+</html>
