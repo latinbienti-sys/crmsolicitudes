@@ -1,0 +1,28 @@
+﻿name: Actualizar CRM Solicitudes
+on:
+  schedule:
+    - cron: '0 12 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install --upgrade pip requests
+      - name: Generar
+        env:
+          ODOO_USER: ${{ secrets.ODOO_USER }}
+          ODOO_PASS: ${{ secrets.ODOO_PASS }}
+          FECHA_CORTE: '2026-10-22'
+        run: python generar.py
+      - name: Commit y push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add index.html data.json
+          if git diff --cached --quiet; then echo "Sin cambios"; else git commit -m "Actualizado $(date -u '+%Y-%m-%d %H:%M UTC')"; git push; fi
