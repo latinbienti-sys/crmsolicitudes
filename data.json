@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-26T01:28:44Z",
+  "generado": "2026-10-26T07:52:32Z",
   "perdidos_crm": [
     {
       "id": 65936,
@@ -13,7 +13,8 @@
       "dias": 12.0,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 65938,
@@ -27,7 +28,8 @@
       "dias": 12.0,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 65942,
@@ -41,7 +43,8 @@
       "dias": 12.0,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 65945,
@@ -55,7 +58,8 @@
       "dias": 12.0,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 65947,
@@ -69,7 +73,8 @@
       "dias": 12.0,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 65949,
@@ -83,7 +88,8 @@
       "dias": 12.0,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 65953,
@@ -97,7 +103,8 @@
       "dias": 12.0,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 66268,
@@ -111,7 +118,8 @@
       "dias": 5.0,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 61548,
@@ -125,7 +133,8 @@
       "dias": 96.2,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 65814,
@@ -139,7 +148,8 @@
       "dias": 14.1,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 65867,
@@ -153,7 +163,8 @@
       "dias": 12.1,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 64437,
@@ -167,7 +178,8 @@
       "dias": 30.9,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 66333,
@@ -181,7 +193,8 @@
       "dias": 2.2,
       "equipo": "EQUIPO DE VENTA MILENIUM",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 61463,
@@ -195,7 +208,8 @@
       "dias": 255.1,
       "equipo": "EQUIPO DE VENTA MILENIUM",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 62924,
@@ -209,7 +223,8 @@
       "dias": 45.0,
       "equipo": "EQUIPO DE VENTA MILENIUM",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 66221,
@@ -223,7 +238,8 @@
       "dias": 3.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66224,
@@ -237,7 +253,8 @@
       "dias": 3.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66226,
@@ -251,7 +268,8 @@
       "dias": 3.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66225,
@@ -265,7 +283,8 @@
       "dias": 3.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66229,
@@ -279,7 +298,8 @@
       "dias": 3.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66216,
@@ -293,7 +313,8 @@
       "dias": 3.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66227,
@@ -307,7 +328,8 @@
       "dias": 3.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66230,
@@ -321,7 +343,8 @@
       "dias": 3.8,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66228,
@@ -335,7 +358,8 @@
       "dias": 3.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66231,
@@ -349,7 +373,8 @@
       "dias": 3.8,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66217,
@@ -363,7 +388,8 @@
       "dias": 3.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66219,
@@ -377,7 +403,8 @@
       "dias": 3.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66232,
@@ -391,7 +418,8 @@
       "dias": 3.8,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66222,
@@ -405,7 +433,8 @@
       "dias": 3.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66223,
@@ -419,7 +448,8 @@
       "dias": 3.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66220,
@@ -433,7 +463,8 @@
       "dias": 3.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66218,
@@ -447,7 +478,8 @@
       "dias": 3.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66279,
@@ -461,7 +493,8 @@
       "dias": 1.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66331,
@@ -475,7 +508,8 @@
       "dias": 0.2,
       "equipo": "",
       "fuente": "",
-      "origen_form": "RealDiag"
+      "origen_form": "RealDiag",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66330,
@@ -489,7 +523,8 @@
       "dias": 0.2,
       "equipo": "",
       "fuente": "",
-      "origen_form": "RealDiag"
+      "origen_form": "RealDiag",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66280,
@@ -503,7 +538,8 @@
       "dias": 1.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66329,
@@ -517,7 +553,8 @@
       "dias": 0.2,
       "equipo": "",
       "fuente": "",
-      "origen_form": "ZonaDiag"
+      "origen_form": "ZonaDiag",
+      "tipo": "Iniciativa"
     },
     {
       "id": 62432,
@@ -531,7 +568,8 @@
       "dias": 55.0,
       "equipo": "EQUIPO DE VENTA MILENIUM",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 64056,
@@ -545,7 +583,8 @@
       "dias": 32.9,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 65925,
@@ -559,7 +598,8 @@
       "dias": 8.0,
       "equipo": "EQUIPO DE VENTA MILENIUM",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 66283,
@@ -573,7 +613,8 @@
       "dias": 0.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "RealDiag"
+      "origen_form": "RealDiag",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66282,
@@ -587,7 +628,8 @@
       "dias": 0.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66319,
@@ -601,7 +643,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66318,
@@ -615,7 +658,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "ZonaDiag"
+      "origen_form": "ZonaDiag",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66322,
@@ -629,7 +673,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66285,
@@ -643,7 +688,8 @@
       "dias": 0.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66286,
@@ -657,7 +703,8 @@
       "dias": 0.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66281,
@@ -671,7 +718,8 @@
       "dias": 0.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66287,
@@ -685,7 +733,8 @@
       "dias": 0.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66284,
@@ -699,7 +748,8 @@
       "dias": 0.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "RealDiag"
+      "origen_form": "RealDiag",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66294,
@@ -713,7 +763,8 @@
       "dias": 0.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 62921,
@@ -727,7 +778,8 @@
       "dias": 42.1,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 66315,
@@ -741,7 +793,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66309,
@@ -755,7 +808,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "RealDiag"
+      "origen_form": "RealDiag",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66310,
@@ -769,7 +823,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "RealDiag"
+      "origen_form": "RealDiag",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66312,
@@ -783,7 +838,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66295,
@@ -797,7 +853,8 @@
       "dias": 0.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66277,
@@ -811,7 +868,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "RealDiag"
+      "origen_form": "RealDiag",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66278,
@@ -825,7 +883,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "RealDiag"
+      "origen_form": "RealDiag",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66276,
@@ -839,7 +898,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "RealDiag"
+      "origen_form": "RealDiag",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66261,
@@ -853,7 +913,8 @@
       "dias": 0.2,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66234,
@@ -867,7 +928,8 @@
       "dias": 0.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66233,
@@ -881,7 +943,8 @@
       "dias": 0.9,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66262,
@@ -895,7 +958,8 @@
       "dias": 0.2,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66275,
@@ -909,7 +973,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66269,
@@ -923,7 +988,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66270,
@@ -937,7 +1003,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "Diag"
+      "origen_form": "Diag",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66272,
@@ -951,7 +1018,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "Diag"
+      "origen_form": "Diag",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66274,
@@ -965,7 +1033,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "RealDiag"
+      "origen_form": "RealDiag",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66273,
@@ -979,7 +1048,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "RealDiag"
+      "origen_form": "RealDiag",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66271,
@@ -993,7 +1063,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "Diag"
+      "origen_form": "Diag",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66200,
@@ -1007,7 +1078,8 @@
       "dias": 1.1,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 62912,
@@ -1021,7 +1093,8 @@
       "dias": 41.2,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 62929,
@@ -1035,7 +1108,8 @@
       "dias": 40.3,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 66183,
@@ -1049,7 +1123,8 @@
       "dias": 1.1,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 60727,
@@ -1063,7 +1138,8 @@
       "dias": 343.9,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 61031,
@@ -1077,7 +1153,8 @@
       "dias": 342.7,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 66144,
@@ -1091,7 +1168,8 @@
       "dias": 1.1,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 66146,
@@ -1105,7 +1183,8 @@
       "dias": 1.0,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 66215,
@@ -1119,7 +1198,8 @@
       "dias": 0.0,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 65794,
@@ -1133,7 +1213,8 @@
       "dias": 8.8,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 66207,
@@ -1147,7 +1228,8 @@
       "dias": 0.0,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 64591,
@@ -1161,7 +1243,8 @@
       "dias": 20.2,
       "equipo": "EQUIPO DE VENTA MILENIUM",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 66196,
@@ -1175,7 +1258,8 @@
       "dias": 0.0,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 66163,
@@ -1189,7 +1273,8 @@
       "dias": 0.5,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66167,
@@ -1203,7 +1288,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66165,
@@ -1217,7 +1303,8 @@
       "dias": 0.5,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66158,
@@ -1231,7 +1318,8 @@
       "dias": 0.5,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66155,
@@ -1245,7 +1333,8 @@
       "dias": 0.6,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66154,
@@ -1259,7 +1348,8 @@
       "dias": 0.6,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66159,
@@ -1273,7 +1363,8 @@
       "dias": 0.5,
       "equipo": "",
       "fuente": "",
-      "origen_form": "moto_web"
+      "origen_form": "moto_web",
+      "tipo": "Iniciativa"
     },
     {
       "id": 52610,
@@ -1287,7 +1378,8 @@
       "dias": 459.8,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 66100,
@@ -1301,7 +1393,8 @@
       "dias": 0.1,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 66098,
@@ -1315,7 +1408,8 @@
       "dias": 0.1,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 66083,
@@ -1329,7 +1423,8 @@
       "dias": 0.2,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 66097,
@@ -1343,7 +1438,8 @@
       "dias": 0.1,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66021,
@@ -1357,7 +1453,8 @@
       "dias": 1.8,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 66031,
@@ -1371,7 +1468,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 66030,
@@ -1385,7 +1483,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 65999,
@@ -1399,7 +1498,8 @@
       "dias": 0.0,
       "equipo": "EQUIPO DE VENTA MILENIUM",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 65789,
@@ -1413,7 +1513,8 @@
       "dias": 0.0,
       "equipo": "EQUIPO DE VENTA MILENIUM",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 63167,
@@ -1427,7 +1528,8 @@
       "dias": 2.0,
       "equipo": "EQUIPO DE VENTA MILENIUM",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Oportunidad"
     },
     {
       "id": 62412,
@@ -1441,7 +1543,8 @@
       "dias": 0.9,
       "equipo": "EQUIPO DE VENTA MILENIUM",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 61913,
@@ -1455,7 +1558,8 @@
       "dias": 24.2,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 62376,
@@ -1469,7 +1573,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 62357,
@@ -1483,7 +1588,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 62354,
@@ -1497,7 +1603,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 62353,
@@ -1511,7 +1618,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 62351,
@@ -1525,7 +1633,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 62089,
@@ -1539,7 +1648,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 62045,
@@ -1553,7 +1663,8 @@
       "dias": 3.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 61957,
@@ -1567,7 +1678,8 @@
       "dias": 10.1,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 62049,
@@ -1581,7 +1693,8 @@
       "dias": 3.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 62086,
@@ -1595,7 +1708,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 62044,
@@ -1609,7 +1723,8 @@
       "dias": 3.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 62047,
@@ -1623,7 +1738,8 @@
       "dias": 3.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 62042,
@@ -1637,7 +1753,8 @@
       "dias": 3.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     },
     {
       "id": 62084,
@@ -1651,7 +1768,8 @@
       "dias": 0.0,
       "equipo": "",
       "fuente": "",
-      "origen_form": ""
+      "origen_form": "",
+      "tipo": "Iniciativa"
     }
   ],
   "favorito_perdidos": [
