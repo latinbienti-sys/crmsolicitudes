@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-26T07:52:32Z",
+  "generado": "2026-10-26T15:15:47Z",
   "perdidos_crm": [
     {
       "id": 65936,
@@ -2410,17 +2410,18 @@
       "linea_activa": "No_seria_mi_primera_vez_en_Latinbien",
       "operador": "0424",
       "zona": "Libertador",
-      "etapa": "Prospecto LC",
-      "asignado": "",
+      "etapa": "Asesoria LC",
+      "asignado": "YOHANA AUDREY LOPEZ",
       "situacion": "Abierto",
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "ultimo_movimiento": "2026-10-25 17:38:04",
-      "en_formulario": true,
-      "rastreo": "",
+      "ultimo_movimiento": "2026-10-26 10:48:46",
+      "en_formulario": false,
+      "rastreo": "Sigue en el CRM (#66425), renombrado a \"MOTOS\"",
       "nicho": "Motos",
-      "producto": ""
+      "producto": "",
+      "crm_id": 66425
     },
     {
       "id": 66437,
