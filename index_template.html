@@ -49,6 +49,17 @@ tr:hover{background:#f8fafc;}
 .pill.ganado{background:#e6f4ec;color:var(--verde);font-weight:600;}
 .pill.noencontrado{background:#eceff3;color:#56657a;font-weight:600;}
 .pill.rastreado{background:#fff4e5;color:#9a5b13;font-weight:600;}
+/* Grafico de barras horizontales: etiqueta completa arriba, barra fina, valor a la derecha */
+.grafico{background:#fbfcfd;border:1px solid var(--gris);border-radius:8px;padding:14px 16px;margin-top:6px;}
+.gbar{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:5px 0;cursor:default;}
+.gbar .glabel{font-size:13px;color:#1c2733;}
+.gbar .gvalor{font-size:13px;color:#1c2733;font-weight:600;text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;}
+.gbar .gvalor span{color:#56657a;font-weight:400;margin-left:6px;}
+.gbar .gpista{grid-column:1 / -1;height:14px;background:var(--gris);border-radius:4px;overflow:hidden;}
+.gbar .grelleno{height:14px;border-radius:0 4px 4px 0;}
+.gbar:hover .glabel{font-weight:600;}
+.gbar:hover .grelleno{filter:brightness(1.12);}
+.gbar.actual .glabel{font-weight:600;}
 </style>
 </head>
 <body>
@@ -88,11 +99,11 @@ tr:hover{background:#f8fafc;}
 
   <div class="grid2">
     <section class="tarjeta">
-      <h2>Situacion de los leads</h2>
+      <h2>Situacion de las solicitudes del formulario</h2>
       <div class="barlist" id="chart-situacion"></div>
     </section>
     <section class="tarjeta">
-      <h2>Motivos de perdida</h2>
+      <h2>Motivos de perdida (solicitudes del formulario)</h2>
       <div class="barlist" id="chart-motivos"></div>
     </section>
   </div>
@@ -137,13 +148,17 @@ tr:hover{background:#f8fafc;}
       <span class="nota">Independiente de los filtros de arriba. Mismo criterio que el favorito "Perdidos" del CRM: archivado, por fecha de cierre.</span>
     </div>
     <div class="kpis" id="p-kpis"></div>
-    <div class="grid2">
-      <div><h2>Por motivo de perdida</h2><div class="barlist" id="p-motivos"></div></div>
+    <div class="grafico">
+      <h2 id="p-motivos-titulo">Motivos de perdida del mes</h2>
+      <div id="p-motivos" role="list"></div>
+    </div>
+    <div class="grid2" style="margin-top:14px;">
+      <div><h2>Perdidos por mes</h2><div id="p-meses" role="list"></div></div>
       <div><h2>Por ejecutivo</h2><div class="barlist" id="p-ejecutivos"></div></div>
     </div>
     <div class="grid2" style="margin-top:14px;">
       <div><h2>Por equipo de ventas</h2><div class="barlist" id="p-equipos"></div></div>
-      <div><h2>Por fuente</h2><div class="barlist" id="p-fuentes"></div></div>
+      <div></div>
     </div>
     <div style="overflow-x:auto;max-height:420px;margin-top:14px;">
       <table>
@@ -635,6 +650,22 @@ function initPerdidos(){
   ['p-mes','p-equipo','p-ejecutivo','p-tipo','p-asignados'].forEach(id=>document.getElementById(id).addEventListener('change',renderPerdidos));
 }
 
+// Barras horizontales en el orden recibido. filas: [etiqueta, valor, destacada?].
+// Con total, muestra % del total; sin total, solo el valor.
+function graficoBarras(containerId, filas, total, color, vacio){
+  const max = Math.max(1, ...filas.map(f=>f[1]));
+  document.getElementById(containerId).innerHTML = filas.length ? filas.map(([etq,v,dest])=>{
+    const ancho = Math.max(2, Math.round(v/max*100));
+    const porc = total ? Math.round(v/total*100)+'%' : '';
+    const tip = `${etq}: ${v}${total? ' de '+total+' ('+porc+')' : ''}`;
+    return `<div class="gbar${dest?' actual':''}" role="listitem" title="${tip.replace(/"/g,'&quot;')}">
+      <div class="glabel">${etq}</div>
+      <div class="gvalor">${v}${porc? '<span>'+porc+'</span>' : ''}</div>
+      <div class="gpista"><div class="grelleno" style="width:${ancho}%;background:${color};${dest===false?'opacity:.55;':''}"></div></div>
+    </div>`;
+  }).join('') : `<div class="nota">${vacio}</div>`;
+}
+
 function renderPerdidos(){
   const mes = document.getElementById('p-mes').value;
   const ejecutivo = document.getElementById('p-ejecutivo').value;
@@ -655,10 +686,18 @@ function renderPerdidos(){
   ];
   document.getElementById('p-kpis').innerHTML = kpis.map(k=>`<div class="kpi"><div class="label">${k.label}</div><div class="value">${k.value}</div><div class="hint">${k.hint}</div></div>`).join('');
   const contar = fn=>{const o={}; rows.forEach(p=>{const k=fn(p); o[k]=(o[k]||0)+1;}); return o;};
-  renderBar('p-motivos', contar(p=>p.motivo||'Sin motivo registrado'), 'var(--rojo)');
+  document.getElementById('p-motivos-titulo').textContent = `Motivos de perdida - ${nombreMes(mes)} (${rows.length} perdidos)`;
+  const motivos = Object.entries(contar(p=>p.motivo||'Sin motivo registrado')).sort((a,b)=>b[1]-a[1]);
+  graficoBarras('p-motivos', motivos, rows.length, 'var(--rojo)', 'Sin perdidos en el mes con estos filtros');
+  // Tendencia: mismos filtros, todos los meses
+  const porMes = {};
+  PERDIDOS.filter(p=>(!ejecutivo || (p.ejecutivo||SIN_ASIGNAR)===ejecutivo) && (!equipo || (p.equipo||'Sin equipo')===equipo)
+                     && (!tipo || p.tipo===tipo) && (!soloAsignados || p.ejecutivo))
+          .forEach(p=>{const m=(p.fecha_cierre||'').slice(0,7); if(m) porMes[m]=(porMes[m]||0)+1;});
+  const meses = Object.entries(porMes).sort((a,b)=>a[0].localeCompare(b[0])).map(([m,v])=>[nombreMes(m),v,m===mes]);
+  graficoBarras('p-meses', meses, null, 'var(--azul)', 'Sin perdidos con estos filtros');
   renderBar('p-ejecutivos', contar(p=>p.ejecutivo||SIN_ASIGNAR), 'var(--azul)');
   renderBar('p-equipos', contar(p=>p.equipo||'Sin equipo'), 'var(--naranja)');
-  renderBar('p-fuentes', contar(p=>p.fuente||'Sin fuente'), 'var(--verde)');
   document.getElementById('p-tabla').innerHTML = rows.map(p=>`
     <tr>
       <td>${fmtDate(p.fecha_cierre)}</td>
