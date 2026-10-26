@@ -615,6 +615,7 @@ function renderRastreo(){
 }
 
 const PERDIDOS = DATA.perdidos_crm || [];
+const EQUIPO_DEFECTO = 'EQUIPO DE LINEA DE CREDITO';
 const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 function nombreMes(ym){ const [y,m]=ym.split('-'); return MESES[Number(m)-1]+' '+y; }
 
@@ -629,6 +630,8 @@ function initPerdidos(){
   [...new Set(PERDIDOS.map(p=>p.ejecutivo||SIN_ASIGNAR))].sort().forEach(x=>{const o=document.createElement('option');o.value=x;o.textContent=x;selX.appendChild(o);});
   const selQ = document.getElementById('p-equipo');
   [...new Set(PERDIDOS.map(p=>p.equipo||'Sin equipo'))].sort().forEach(x=>{const o=document.createElement('option');o.value=x;o.textContent=x;selQ.appendChild(o);});
+  // Por defecto el equipo de Linea de Credito (cuadra con el favorito 'Perdidos' del CRM)
+  if([...selQ.children].some(o=>o.value===EQUIPO_DEFECTO)) selQ.value = EQUIPO_DEFECTO;
   ['p-mes','p-equipo','p-ejecutivo','p-tipo','p-asignados'].forEach(id=>document.getElementById(id).addEventListener('change',renderPerdidos));
 }
 
