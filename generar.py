@@ -226,8 +226,13 @@ def main():
     for p in previos:
         if p['id'] in actuales: continue
         r, nota = rastrear(je, campos, p)
-        p = {**p, **(estado_crm(r, p['create_date']) if r else
-                     {'situacion': 'No encontrado', 'fecha_cierre': '', 'dias_cierre': None}),
+        est = estado_crm(r, p['create_date']) if r else {}
+        # Un registro del mismo cliente cerrado ANTES de que llegara la solicitud no es su cierre
+        if est.get('fecha_cierre') and est['fecha_cierre'] < p['create_date']:
+            nota += f'; ese registro se cerro el {est["fecha_cierre"][:10]}, antes de la solicitud'
+            est = {}
+        p = {**p, **(est or {'situacion': 'No encontrado', 'fecha_cierre': '', 'dias_cierre': None,
+                             'motivo_perdida': ''}),
              'en_formulario': False, 'rastreo': nota}
         leads.append(p)
     leads.sort(key=lambda l: l['id'])
