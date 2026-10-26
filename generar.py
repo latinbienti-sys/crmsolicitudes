@@ -158,6 +158,46 @@ def rastrear(je, campos, lead):
             return r, f'El lead original ya no existe (fusionado o eliminado); el cliente esta en #{r["id"]} "{html.unescape(r.get("name") or "")}" (por telefono)'
     return None, 'No se encuentra en el CRM (eliminado)'
 
+PERDIDOS_DESDE = os.environ.get('PERDIDOS_DESDE', '2026-08-01')
+
+def perdidos_crm(je):
+    """Todos los perdidos del CRM (cualquier origen) por fecha de cierre, como el filtro
+    estandar 'Perdidos' de Odoo: archivado y probabilidad 0. Solo lectura; sin telefono ni email."""
+    disponibles = je('crm.lead', 'fields_get', [['team_id', 'source_id', 'x_form_origen']], {'attributes': ['type']})
+    campos = ['name', 'contact_name', 'partner_name', 'user_id', 'stage_id', 'lost_reason_id',
+              'date_closed', 'create_date'] + [c for c in ('team_id', 'source_id', 'x_form_origen') if c in disponibles]
+    dominio = [['active', '=', False], ['probability', '=', 0], ['date_closed', '>=', PERDIDOS_DESDE + ' 00:00:00']]
+    salida, offset = [], 0
+    while True:
+        batch = je('crm.lead', 'search_read', [dominio],
+                   {'fields': campos, 'limit': 500, 'offset': offset, 'order': 'date_closed desc',
+                    'context': {'active_test': False}})
+        for r in batch:
+            salida.append({
+                'id': r['id'],
+                'name': html.unescape(r.get('name') or ''),
+                'contacto': html.unescape(r.get('contact_name') or r.get('partner_name') or ''),
+                'ejecutivo': (user_name(r.get('user_id')) or '').strip(),
+                'etapa': stage_name(r.get('stage_id')),
+                'motivo': user_name(r.get('lost_reason_id')) or '',
+                'fecha_cierre': a_local(r.get('date_closed')),
+                'llegada': a_local(r.get('create_date')),
+                'dias': dias_entre(r.get('create_date'), r.get('date_closed')),
+                'equipo': user_name(r.get('team_id')) or '',
+                'fuente': user_name(r.get('source_id')) or '',
+                'origen_form': r.get('x_form_origen') or '',
+            })
+        offset += len(batch)
+        if len(batch) < 500: break
+    # Favorito "Perdidos" guardado en el CRM, para comparar su dominio con el usado aqui
+    try:
+        favoritos = je('ir.filters', 'search_read', [[['model_id', '=', 'crm.lead'], ['name', 'ilike', 'perdid']]],
+                       {'fields': ['name', 'domain', 'context', 'user_id']})
+    except RuntimeError as e:
+        favoritos = [{'error': str(e)[:200]}]
+    print('perdidos CRM desde', PERDIDOS_DESDE, ':', len(salida), '| favoritos:', favoritos)
+    return salida, favoritos
+
 def main():
     uid, je = conectar()
     print('Conectado uid', uid)
@@ -241,7 +281,11 @@ def main():
           {s: sum(1 for l in leads if l['situacion'] == s) for s in ('Abierto', 'Ganado', 'Perdido', 'No encontrado')},
           'rastreados:', sum(1 for l in leads if not l['en_formulario']))
 
+    perdidos, favoritos = perdidos_crm(je)
+
     data = {'generado': datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+            'perdidos_crm': perdidos,
+            'favorito_perdidos': [{k: (user_name(v) if k == 'user_id' else v) for k, v in f.items()} for f in favoritos],
             'fecha_corte': FECHA_CORTE, 'total': len(leads),
             'etapas_crm': [{'nombre': e['name'], 'ganada': bool(e.get('is_won'))} for e in etapas],
             'leads': leads}

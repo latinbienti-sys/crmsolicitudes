@@ -126,6 +126,40 @@ tr:hover{background:#f8fafc;}
     </div>
   </section>
 
+  <section class="tarjeta" style="border-top:4px solid var(--rojo);">
+    <h2>Perdidos del CRM (todos los origenes)</h2>
+    <div class="barra" style="margin-bottom:10px;">
+      <label>Mes de cierre: <select id="p-mes"></select></label>
+      <label>Ejecutivo: <select id="p-ejecutivo"><option value="">Todos</option></select></label>
+      <span class="nota">Independiente de los filtros de arriba. Mismo criterio que el filtro "Perdidos" de Odoo: archivado, por fecha de cierre.</span>
+    </div>
+    <div class="kpis" id="p-kpis"></div>
+    <div class="grid2">
+      <div><h2>Por motivo de perdida</h2><div class="barlist" id="p-motivos"></div></div>
+      <div><h2>Por ejecutivo</h2><div class="barlist" id="p-ejecutivos"></div></div>
+    </div>
+    <div class="grid2" style="margin-top:14px;">
+      <div><h2>Por equipo de ventas</h2><div class="barlist" id="p-equipos"></div></div>
+      <div><h2>Por fuente</h2><div class="barlist" id="p-fuentes"></div></div>
+    </div>
+    <div style="overflow-x:auto;max-height:420px;margin-top:14px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Fecha cierre</th>
+            <th>Oportunidad</th>
+            <th>Contacto</th>
+            <th>Ejecutivo</th>
+            <th>Ultima etapa</th>
+            <th>Motivo de perdida</th>
+            <th class="num">Dias abierto</th>
+          </tr>
+        </thead>
+        <tbody id="p-tabla"></tbody>
+      </table>
+    </div>
+  </section>
+
   <section class="tarjeta">
     <h2>Solicitudes que salieron del formulario - donde estan hoy en el CRM</h2>
     <div class="nota" style="margin-bottom:8px;">Solicitudes que llegaron por el formulario y luego dejaron de aparecer como tales en Odoo (fusionadas con un cliente existente, renombradas o eliminadas). Se rastrean por ID, email o telefono, solo lectura.</div>
@@ -585,6 +619,54 @@ function renderRastreo(){
     </tr>`).join('') || '<tr><td colspan="10" class="nota">Ninguna solicitud del filtro ha salido del formulario</td></tr>';
 }
 
+const PERDIDOS = DATA.perdidos_crm || [];
+const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+function nombreMes(ym){ const [y,m]=ym.split('-'); return MESES[Number(m)-1]+' '+y; }
+
+function initPerdidos(){
+  const meses = [...new Set(PERDIDOS.map(p=>(p.fecha_cierre||'').slice(0,7)).filter(Boolean))].sort().reverse();
+  const actual = localDateStr(new Date()).slice(0,7);
+  if(!meses.includes(actual)) meses.unshift(actual);
+  const selM = document.getElementById('p-mes');
+  meses.forEach(m=>{const o=document.createElement('option');o.value=m;o.textContent=nombreMes(m);selM.appendChild(o);});
+  selM.value = actual;
+  const selX = document.getElementById('p-ejecutivo');
+  [...new Set(PERDIDOS.map(p=>p.ejecutivo||SIN_ASIGNAR))].sort().forEach(x=>{const o=document.createElement('option');o.value=x;o.textContent=x;selX.appendChild(o);});
+  ['p-mes','p-ejecutivo'].forEach(id=>document.getElementById(id).addEventListener('change',renderPerdidos));
+}
+
+function renderPerdidos(){
+  const mes = document.getElementById('p-mes').value;
+  const ejecutivo = document.getElementById('p-ejecutivo').value;
+  const rows = PERDIDOS.filter(p=>(p.fecha_cierre||'').slice(0,7)===mes && (!ejecutivo || (p.ejecutivo||SIN_ASIGNAR)===ejecutivo))
+                       .sort((a,b)=>(b.fecha_cierre||'').localeCompare(a.fecha_cierre||''));
+  const conMotivo = rows.filter(p=>p.motivo).length;
+  const dias = rows.map(p=>p.dias).filter(d=>d!=null);
+  const delForm = rows.filter(p=>p.origen_form==='moto_web').length;
+  const kpis = [
+    {label:'Perdidos en '+nombreMes(mes), value:rows.length, hint:'por fecha de cierre'},
+    {label:'Con motivo registrado', value:pct(conMotivo,rows.length), hint:`${rows.length-conMotivo} sin motivo`},
+    {label:'Dias abiertos antes de perderse', value:fmtDias(promedio(dias)), hint: dias.length? 'mediana '+fmtDias(mediana(dias)) : ''},
+    {label:'Venian del formulario web', value:delForm, hint:'origen moto_web'},
+  ];
+  document.getElementById('p-kpis').innerHTML = kpis.map(k=>`<div class="kpi"><div class="label">${k.label}</div><div class="value">${k.value}</div><div class="hint">${k.hint}</div></div>`).join('');
+  const contar = fn=>{const o={}; rows.forEach(p=>{const k=fn(p); o[k]=(o[k]||0)+1;}); return o;};
+  renderBar('p-motivos', contar(p=>p.motivo||'Sin motivo registrado'), 'var(--rojo)');
+  renderBar('p-ejecutivos', contar(p=>p.ejecutivo||SIN_ASIGNAR), 'var(--azul)');
+  renderBar('p-equipos', contar(p=>p.equipo||'Sin equipo'), 'var(--naranja)');
+  renderBar('p-fuentes', contar(p=>p.fuente||'Sin fuente'), 'var(--verde)');
+  document.getElementById('p-tabla').innerHTML = rows.map(p=>`
+    <tr>
+      <td>${fmtDate(p.fecha_cierre)}</td>
+      <td>${p.name||'-'}</td>
+      <td>${p.contacto||'-'}</td>
+      <td>${p.ejecutivo||SIN_ASIGNAR}</td>
+      <td>${p.etapa||'-'}</td>
+      <td>${p.motivo||'<span class="nota">Sin motivo registrado</span>'}</td>
+      <td class="num">${fmtDias(p.dias)}</td>
+    </tr>`).join('') || `<tr><td colspan="7" class="nota">${PERDIDOS.length? 'Sin perdidos en el mes' : 'Los perdidos del CRM se cargan en la proxima actualizacion'}</td></tr>`;
+}
+
 function renderAll(){
   renderJunta();
   renderRastreo();
@@ -626,6 +708,8 @@ document.getElementById('meta-gen').textContent = 'Generado: ' + (DATA.generado|
 document.getElementById('gen-fecha').textContent = (DATA.generado||'');
 document.getElementById('total-base').textContent = leads.length;
 document.getElementById('junta-corte').textContent = DATA.fecha_corte || '';
+initPerdidos();
+renderPerdidos();
 applyFilters();
 </script>
 </body>
