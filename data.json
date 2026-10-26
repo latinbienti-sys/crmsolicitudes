@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-26T19:43:46Z",
+  "generado": "2026-10-26T20:34:00Z",
   "perdidos_crm": [
     {
       "id": 61942,
@@ -2337,7 +2337,7 @@
       "linea_activa": "No_seria_mi_primera_vez_en_Latinbien",
       "operador": "0412",
       "zona": "El Vigia",
-      "etapa": "Prospecto LC",
+      "etapa": "Asesoria LC",
       "asignado": "YOHANA AUDREY LOPEZ",
       "nicho": "Motos",
       "producto": "",
@@ -2346,7 +2346,7 @@
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "ultimo_movimiento": "2026-10-23 15:31:30",
+      "ultimo_movimiento": "2026-10-26 16:16:59",
       "crm_id": 66362
     },
     {
@@ -2545,8 +2545,8 @@
       "name": "SLCA Solicitud - Celulares",
       "create_date": "2026-10-26 11:49:15",
       "contact_name": "MARIA COROMOTO ARAQUE ALBARRAN",
-      "estado": "",
-      "ciudad": "",
+      "estado": "MERIDA (VE)",
+      "ciudad": "MERIDA",
       "pago": "",
       "ingreso": 0,
       "inicial": 0,
@@ -2555,13 +2555,13 @@
       "linea_activa": "Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.",
       "operador": "0424",
       "zona": "",
-      "etapa": "Prospecto LC",
-      "asignado": "",
+      "etapa": "Por Entregar",
+      "asignado": "LADY DIANA TORO RIVERA",
       "situacion": "Abierto",
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "ultimo_movimiento": "2026-10-26 11:49:15",
+      "ultimo_movimiento": "2026-10-26 16:29:02",
       "en_formulario": true,
       "rastreo": "",
       "nicho": "Celulares",
