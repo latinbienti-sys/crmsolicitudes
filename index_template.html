@@ -130,7 +130,10 @@ tr:hover{background:#f8fafc;}
     <h2>Perdidos del CRM (todos los origenes)</h2>
     <div class="barra" style="margin-bottom:10px;">
       <label>Mes de cierre: <select id="p-mes"></select></label>
+      <label>Equipo: <select id="p-equipo"><option value="">Todos</option></select></label>
       <label>Ejecutivo: <select id="p-ejecutivo"><option value="">Todos</option></select></label>
+      <label>Tipo: <select id="p-tipo"><option value="">Todos</option><option>Oportunidad</option><option>Iniciativa</option></select></label>
+      <label><input type="checkbox" id="p-asignados"> Solo con ejecutivo</label>
       <span class="nota">Independiente de los filtros de arriba. Mismo criterio que el favorito "Perdidos" del CRM: archivado, por fecha de cierre.</span>
     </div>
     <div class="kpis" id="p-kpis"></div>
@@ -624,13 +627,19 @@ function initPerdidos(){
   selM.value = actual;
   const selX = document.getElementById('p-ejecutivo');
   [...new Set(PERDIDOS.map(p=>p.ejecutivo||SIN_ASIGNAR))].sort().forEach(x=>{const o=document.createElement('option');o.value=x;o.textContent=x;selX.appendChild(o);});
-  ['p-mes','p-ejecutivo'].forEach(id=>document.getElementById(id).addEventListener('change',renderPerdidos));
+  const selQ = document.getElementById('p-equipo');
+  [...new Set(PERDIDOS.map(p=>p.equipo||'Sin equipo'))].sort().forEach(x=>{const o=document.createElement('option');o.value=x;o.textContent=x;selQ.appendChild(o);});
+  ['p-mes','p-equipo','p-ejecutivo','p-tipo','p-asignados'].forEach(id=>document.getElementById(id).addEventListener('change',renderPerdidos));
 }
 
 function renderPerdidos(){
   const mes = document.getElementById('p-mes').value;
   const ejecutivo = document.getElementById('p-ejecutivo').value;
-  const rows = PERDIDOS.filter(p=>(p.fecha_cierre||'').slice(0,7)===mes && (!ejecutivo || (p.ejecutivo||SIN_ASIGNAR)===ejecutivo))
+  const equipo = document.getElementById('p-equipo').value;
+  const tipo = document.getElementById('p-tipo').value;
+  const soloAsignados = document.getElementById('p-asignados').checked;
+  const rows = PERDIDOS.filter(p=>(p.fecha_cierre||'').slice(0,7)===mes && (!ejecutivo || (p.ejecutivo||SIN_ASIGNAR)===ejecutivo)
+                         && (!equipo || (p.equipo||'Sin equipo')===equipo) && (!tipo || p.tipo===tipo) && (!soloAsignados || p.ejecutivo))
                        .sort((a,b)=>(b.fecha_cierre||'').localeCompare(a.fecha_cierre||''));
   const conMotivo = rows.filter(p=>p.motivo).length;
   const dias = rows.map(p=>p.dias).filter(d=>d!=null);

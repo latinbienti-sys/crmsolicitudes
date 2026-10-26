@@ -170,9 +170,9 @@ RUTA_CONTACTOS = os.path.join(BASE, 'privado', 'contactos.json')
 def perdidos_crm(je):
     """Todos los perdidos del CRM (cualquier origen) por fecha de cierre, como el filtro
     compartido 'Perdidos' del CRM: archivado. Solo lectura; sin telefono ni email."""
-    disponibles = je('crm.lead', 'fields_get', [['team_id', 'source_id', 'x_form_origen']], {'attributes': ['type']})
+    disponibles = je('crm.lead', 'fields_get', [['team_id', 'source_id', 'x_form_origen', 'type']], {'attributes': ['type']})
     campos = ['name', 'contact_name', 'partner_name', 'user_id', 'stage_id', 'lost_reason_id',
-              'date_closed', 'create_date'] + [c for c in ('team_id', 'source_id', 'x_form_origen') if c in disponibles]
+              'date_closed', 'create_date'] + [c for c in ('team_id', 'source_id', 'x_form_origen', 'type') if c in disponibles]
     # Mismo dominio que el favorito compartido "Perdidos" del CRM: archivado, agrupado por date_closed
     dominio = [['active', '=', False], ['date_closed', '>=', PERDIDOS_DESDE + ' 00:00:00']]
     salida, offset = [], 0
@@ -194,6 +194,7 @@ def perdidos_crm(je):
                 'equipo': user_name(r.get('team_id')) or '',
                 'fuente': user_name(r.get('source_id')) or '',
                 'origen_form': r.get('x_form_origen') or '',
+                'tipo': {'lead': 'Iniciativa', 'opportunity': 'Oportunidad'}.get(r.get('type'), ''),
             })
         offset += len(batch)
         if len(batch) < 500: break
