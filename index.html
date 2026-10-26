@@ -37,6 +37,9 @@ tr:hover{background:#f8fafc;}
 .pill.nicho{background:#e8f0fe;color:#1f3b73;font-weight:600;}
 .foot{color:#8a939c;font-size:12px;margin-top:10px;text-align:center;}
 .nota{font-size:12px;color:#56657a;}
+.num{text-align:right;font-variant-numeric:tabular-nums;}
+.avance{display:inline-block;min-width:44px;text-align:right;font-weight:600;}
+.pill.sin{background:#fdecea;color:var(--rojo);font-weight:600;}
 </style>
 </head>
 <body>
@@ -53,6 +56,7 @@ tr:hover{background:#f8fafc;}
     <label>Hasta: <input type="date" id="f-hasta"></label>
     <label>Nicho: <select id="f-nicho"><option value="">Todos</option></select></label>
     <label>Estado: <select id="f-estado"><option value="">Todos</option></select></label>
+    <label>Ejecutivo: <select id="f-ejecutivo"><option value="">Todos</option></select></label>
     <label>Buscar: <input type="text" id="f-buscar" placeholder="contacto, telefono, email, producto"></label>
     <button class="btn" id="btn-aplicar">Aplicar</button>
     <button class="btn" id="btn-limpiar">Limpiar</button>
@@ -60,6 +64,39 @@ tr:hover{background:#f8fafc;}
   </div>
 
   <div class="kpis" id="kpis"></div>
+
+  <section class="tarjeta">
+    <h2>Ejecutivos de venta</h2>
+    <div style="overflow-x:auto;">
+      <table>
+        <thead>
+          <tr>
+            <th>Ejecutivo</th>
+            <th class="num">Leads</th>
+            <th class="num">% del total</th>
+            <th class="num">En prospecto</th>
+            <th class="num">En gestion</th>
+            <th class="num">% avance</th>
+            <th>Nichos</th>
+            <th>Ultimo lead</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-ejecutivos"></tbody>
+      </table>
+    </div>
+    <div class="nota">"En gestion" = leads que ya salieron de la etapa inicial de prospecto. Solo lectura: datos tomados del CRM, no se modifica nada en Odoo.</div>
+  </section>
+
+  <div class="grid2">
+    <section class="tarjeta">
+      <h2>Leads por ejecutivo</h2>
+      <div class="barlist" id="chart-ejecutivo"></div>
+    </section>
+    <section class="tarjeta">
+      <h2>Leads por etapa</h2>
+      <div class="barlist" id="chart-etapa"></div>
+    </section>
+  </div>
 
   <div class="grid2">
     <section class="tarjeta">
@@ -110,6 +147,7 @@ tr:hover{background:#f8fafc;}
             <th>Ingreso $</th>
             <th>Linea activa</th>
             <th>Etapa</th>
+            <th>Ejecutivo</th>
           </tr>
         </thead>
         <tbody id="tabla-body"></tbody>
@@ -122,9 +160,12 @@ tr:hover{background:#f8fafc;}
 </main>
 
 <script>
-const DATA = {"generado": "2026-10-25T15:12:29Z", "fecha_corte": "2026-10-22", "total": 11, "leads": [{"id": 66340, "name": "SLCA Solicitud - Bicicletas", "create_date": "2026-10-22 17:18:27", "contact_name": "test", "phone": "+5804127305385", "email_from": "digitalyc2026@gmail.com", "estado": "", "ciudad": "", "pago": "", "ingreso": 0, "inicial": 0, "tiempo_inicial": "", "ingresos_proviene": "", "linea_activa": "Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.", "operador": "0412", "zona": "", "etapa": "Prospecto LC", "asignado": "", "nicho": "Bicicletas", "producto": ""}, {"id": 66349, "name": "Solicitud - Motos", "create_date": "2026-10-22 19:19:33", "contact_name": "YEIFERSSON JOSUE QUINTERO CALDERON", "phone": "+5804247199340", "email_from": "yeiferssonjosue4@gmail.com", "estado": "MERIDA (VE)", "ciudad": "El chama", "pago": "hasta_200", "ingreso": 600.0, "inicial": 400.0, "tiempo_inicial": "", "ingresos_proviene": "contratado_en_Institucion_publica", "linea_activa": "No_seria_mi_primera_vez_en_Latinbien", "operador": "0424", "zona": "Libertador", "etapa": "Prospecto LC", "asignado": "YOHANA AUDREY LOPEZ", "nicho": "Motos", "producto": ""}, {"id": 66350, "name": "Solicitud - Motos", "create_date": "2026-10-22 20:48:27", "contact_name": "MAELO QUINTERO ", "phone": "+5804247227943", "email_from": "maekardashian@gmail.com", "estado": "MERIDA (VE)", "ciudad": "El vigía ", "pago": "mas_200", "ingreso": 600.0, "inicial": 200.0, "tiempo_inicial": "", "ingresos_proviene": "generacion_independiente", "linea_activa": "No_seria_mi_primera_vez_en_Latinbien", "operador": "0424", "zona": "El Vigia", "etapa": "Prospecto LC", "asignado": "YOHANA AUDREY LOPEZ", "nicho": "Motos", "producto": ""}, {"id": 66351, "name": "Solicitud - Motos", "create_date": "2026-10-22 22:22:37", "contact_name": "ALEXANDER JOSE DIAZ RONDON", "phone": "+5804147528197", "email_from": "alexanderjosediazrondon@gmail.com", "estado": "MERIDA (VE)", "ciudad": "Ejido Urbanización Carlos Sánchez ", "pago": "Hasta_50", "ingreso": 500.0, "inicial": 300.0, "tiempo_inicial": "", "ingresos_proviene": "contratado_en_empresa_privada", "linea_activa": "No_seria_mi_primera_vez_en_Latinbien", "operador": "0414", "zona": "Ejido y Sucre", "etapa": "Prospecto LC", "asignado": "YOHANA AUDREY LOPEZ", "nicho": "Motos", "producto": ""}, {"id": 66354, "name": "Solicitud - Motos", "create_date": "2026-10-22 23:56:19", "contact_name": "JESUS PEÑALOZA", "phone": "+5804247352171", "email_from": "penalozajesusorlando@gmail.com", "estado": "ZULIA (VE)", "ciudad": "Pueblo nuevo el chivo", "pago": "hasta_150", "ingreso": 550.0, "inicial": 800.0, "tiempo_inicial": "", "ingresos_proviene": "contratado_en_empresa_privada", "linea_activa": "No_seria_mi_primera_vez_en_Latinbien", "operador": "0424", "zona": "", "etapa": "Prospecto LC", "asignado": "YOHANA AUDREY LOPEZ", "nicho": "Motos", "producto": ""}, {"id": 66355, "name": "Solicitud - Motos", "create_date": "2026-10-23 00:45:00", "contact_name": "LUIS ERNESTO GAMEZ PEREZ", "phone": "+5804247127790", "email_from": "luisgg0308@gmail.com", "estado": "MERIDA (VE)", "ciudad": "Mérida", "pago": "hasta_150", "ingreso": 500.0, "inicial": 0, "tiempo_inicial": "proximo_mes", "ingresos_proviene": "contratado_en_empresa_privada", "linea_activa": "No_seria_mi_primera_vez_en_Latinbien", "operador": "0424", "zona": "Ejido y Sucre", "etapa": "Prospecto LC", "asignado": "YOHANA AUDREY LOPEZ", "nicho": "Motos", "producto": ""}, {"id": 66357, "name": "SLCA Solicitud - Motos", "create_date": "2026-10-23 08:56:25", "contact_name": "KATIUSKA CHIQUINQUIRA QUINTERO FERNANDEZ", "phone": "+58 416-7143151", "email_from": "katiuskaquintero446@gmail.com", "estado": "MERIDA (VE)", "ciudad": "CHACHOPO", "pago": "", "ingreso": 0, "inicial": 0, "tiempo_inicial": "", "ingresos_proviene": "", "linea_activa": "Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.", "operador": "0412", "zona": "", "etapa": "Prospecto LC", "asignado": "YOHANA AUDREY LOPEZ", "nicho": "Motos", "producto": ""}, {"id": 66362, "name": "Solicitud - Motos", "create_date": "2026-10-23 13:58:58", "contact_name": "ALVARO CANDELAS", "phone": "+5804124004467", "email_from": "candelasalvaro747@gmail.com", "estado": "MERIDA (VE)", "ciudad": "Sur america", "pago": "Hasta_50", "ingreso": 1000.0, "inicial": 200.0, "tiempo_inicial": "", "ingresos_proviene": "contratado_en_empresa_privada", "linea_activa": "No_seria_mi_primera_vez_en_Latinbien", "operador": "0412", "zona": "El Vigia", "etapa": "Prospecto LC", "asignado": "YOHANA AUDREY LOPEZ", "nicho": "Motos", "producto": ""}, {"id": 66393, "name": "Solicitud - Celulares", "create_date": "2026-10-24 15:24:54", "contact_name": "GILBRAN VILLARROEL", "phone": "+5804248285807", "email_from": "soygilfigueroa@gmail.com", "estado": "NUEVA ESPARTA (VE)", "ciudad": "PAMPATAR", "pago": "mas_200", "ingreso": 3000.0, "inicial": 0, "tiempo_inicial": "7_dias", "ingresos_proviene": "generacion_independiente", "linea_activa": "No_seria_mi_primera_vez_en_Latinbien", "operador": "0424", "zona": "", "etapa": "Prospecto LC", "asignado": "MARSOLAIRE ANGULO RANGEL ", "nicho": "Celulares", "producto": ""}, {"id": 66397, "name": "SLCA Solicitud - Celulares", "create_date": "2026-10-24 20:00:49", "contact_name": "JARLY KARIN ARAQUE ARAQUE", "phone": "+5804120769283", "email_from": "yarlyaraque28@gmail.com", "estado": "MERIDA (VE)", "ciudad": "MERIDA", "pago": "", "ingreso": 0, "inicial": 0, "tiempo_inicial": "", "ingresos_proviene": "", "linea_activa": "Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.", "operador": "0412", "zona": "", "etapa": "Negociacion Venta de Producto", "asignado": "GABRIEL ALEJANDRO PARRA MOLINA", "nicho": "Celulares", "producto": ""}, {"id": 66400, "name": "SLCA Solicitud - Celulares", "create_date": "2026-10-25 09:25:08", "contact_name": "ANA VIRGINIA GONZALEZ", "phone": "+5804147010455", "email_from": "virginialee324@gmail.com", "estado": "MERIDA (VE)", "ciudad": "MERIDA", "pago": "", "ingreso": 0, "inicial": 0, "tiempo_inicial": "", "ingresos_proviene": "", "linea_activa": "Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.", "operador": "0414", "zona": "", "etapa": "Negociacion Venta de Producto", "asignado": "GABRIEL ALEJANDRO PARRA MOLINA", "nicho": "Celulares", "producto": ""}]};
-const leads = (DATA.leads || []).map(l => ({...l}));
+const DATA = {"generado":"2026-10-25T15:12:29Z","fecha_corte":"2026-10-22","total":11,"leads":[{"id":66340,"name":"SLCA Solicitud - Bicicletas","create_date":"2026-10-22 17:18:27","contact_name":"test","phone":"+5804127305385","email_from":"digitalyc2026@gmail.com","estado":"","ciudad":"","pago":"","ingreso":0,"inicial":0,"tiempo_inicial":"","ingresos_proviene":"","linea_activa":"Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.","operador":"0412","zona":"","etapa":"Prospecto LC","asignado":"","nicho":"Bicicletas","producto":""},{"id":66349,"name":"Solicitud - Motos","create_date":"2026-10-22 19:19:33","contact_name":"YEIFERSSON JOSUE QUINTERO CALDERON","phone":"+5804247199340","email_from":"yeiferssonjosue4@gmail.com","estado":"MERIDA (VE)","ciudad":"El chama","pago":"hasta_200","ingreso":600,"inicial":400,"tiempo_inicial":"","ingresos_proviene":"contratado_en_Institucion_publica","linea_activa":"No_seria_mi_primera_vez_en_Latinbien","operador":"0424","zona":"Libertador","etapa":"Prospecto LC","asignado":"YOHANA AUDREY LOPEZ","nicho":"Motos","producto":""},{"id":66350,"name":"Solicitud - Motos","create_date":"2026-10-22 20:48:27","contact_name":"MAELO QUINTERO ","phone":"+5804247227943","email_from":"maekardashian@gmail.com","estado":"MERIDA (VE)","ciudad":"El vigía ","pago":"mas_200","ingreso":600,"inicial":200,"tiempo_inicial":"","ingresos_proviene":"generacion_independiente","linea_activa":"No_seria_mi_primera_vez_en_Latinbien","operador":"0424","zona":"El Vigia","etapa":"Prospecto LC","asignado":"YOHANA AUDREY LOPEZ","nicho":"Motos","producto":""},{"id":66351,"name":"Solicitud - Motos","create_date":"2026-10-22 22:22:37","contact_name":"ALEXANDER JOSE DIAZ RONDON","phone":"+5804147528197","email_from":"alexanderjosediazrondon@gmail.com","estado":"MERIDA (VE)","ciudad":"Ejido Urbanización Carlos Sánchez ","pago":"Hasta_50","ingreso":500,"inicial":300,"tiempo_inicial":"","ingresos_proviene":"contratado_en_empresa_privada","linea_activa":"No_seria_mi_primera_vez_en_Latinbien","operador":"0414","zona":"Ejido y Sucre","etapa":"Prospecto LC","asignado":"YOHANA AUDREY LOPEZ","nicho":"Motos","producto":""},{"id":66354,"name":"Solicitud - Motos","create_date":"2026-10-22 23:56:19","contact_name":"JESUS PEÑALOZA","phone":"+5804247352171","email_from":"penalozajesusorlando@gmail.com","estado":"ZULIA (VE)","ciudad":"Pueblo nuevo el chivo","pago":"hasta_150","ingreso":550,"inicial":800,"tiempo_inicial":"","ingresos_proviene":"contratado_en_empresa_privada","linea_activa":"No_seria_mi_primera_vez_en_Latinbien","operador":"0424","zona":"","etapa":"Prospecto LC","asignado":"YOHANA AUDREY LOPEZ","nicho":"Motos","producto":""},{"id":66355,"name":"Solicitud - Motos","create_date":"2026-10-23 00:45:00","contact_name":"LUIS ERNESTO GAMEZ PEREZ","phone":"+5804247127790","email_from":"luisgg0308@gmail.com","estado":"MERIDA (VE)","ciudad":"Mérida","pago":"hasta_150","ingreso":500,"inicial":0,"tiempo_inicial":"proximo_mes","ingresos_proviene":"contratado_en_empresa_privada","linea_activa":"No_seria_mi_primera_vez_en_Latinbien","operador":"0424","zona":"Ejido y Sucre","etapa":"Prospecto LC","asignado":"YOHANA AUDREY LOPEZ","nicho":"Motos","producto":""},{"id":66357,"name":"SLCA Solicitud - Motos","create_date":"2026-10-23 08:56:25","contact_name":"KATIUSKA CHIQUINQUIRA QUINTERO FERNANDEZ","phone":"+58 416-7143151","email_from":"katiuskaquintero446@gmail.com","estado":"MERIDA (VE)","ciudad":"CHACHOPO","pago":"","ingreso":0,"inicial":0,"tiempo_inicial":"","ingresos_proviene":"","linea_activa":"Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.","operador":"0412","zona":"","etapa":"Prospecto LC","asignado":"YOHANA AUDREY LOPEZ","nicho":"Motos","producto":""},{"id":66362,"name":"Solicitud - Motos","create_date":"2026-10-23 13:58:58","contact_name":"ALVARO CANDELAS","phone":"+5804124004467","email_from":"candelasalvaro747@gmail.com","estado":"MERIDA (VE)","ciudad":"Sur america","pago":"Hasta_50","ingreso":1000,"inicial":200,"tiempo_inicial":"","ingresos_proviene":"contratado_en_empresa_privada","linea_activa":"No_seria_mi_primera_vez_en_Latinbien","operador":"0412","zona":"El Vigia","etapa":"Prospecto LC","asignado":"YOHANA AUDREY LOPEZ","nicho":"Motos","producto":""},{"id":66393,"name":"Solicitud - Celulares","create_date":"2026-10-24 15:24:54","contact_name":"GILBRAN VILLARROEL","phone":"+5804248285807","email_from":"soygilfigueroa@gmail.com","estado":"NUEVA ESPARTA (VE)","ciudad":"PAMPATAR","pago":"mas_200","ingreso":3000,"inicial":0,"tiempo_inicial":"7_dias","ingresos_proviene":"generacion_independiente","linea_activa":"No_seria_mi_primera_vez_en_Latinbien","operador":"0424","zona":"","etapa":"Prospecto LC","asignado":"MARSOLAIRE ANGULO RANGEL ","nicho":"Celulares","producto":""},{"id":66397,"name":"SLCA Solicitud - Celulares","create_date":"2026-10-24 20:00:49","contact_name":"JARLY KARIN ARAQUE ARAQUE","phone":"+5804120769283","email_from":"yarlyaraque28@gmail.com","estado":"MERIDA (VE)","ciudad":"MERIDA","pago":"","ingreso":0,"inicial":0,"tiempo_inicial":"","ingresos_proviene":"","linea_activa":"Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.","operador":"0412","zona":"","etapa":"Negociacion Venta de Producto","asignado":"GABRIEL ALEJANDRO PARRA MOLINA","nicho":"Celulares","producto":""},{"id":66400,"name":"SLCA Solicitud - Celulares","create_date":"2026-10-25 09:25:08","contact_name":"ANA VIRGINIA GONZALEZ","phone":"+5804147010455","email_from":"virginialee324@gmail.com","estado":"MERIDA (VE)","ciudad":"MERIDA","pago":"","ingreso":0,"inicial":0,"tiempo_inicial":"","ingresos_proviene":"","linea_activa":"Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.","operador":"0414","zona":"","etapa":"Negociacion Venta de Producto","asignado":"GABRIEL ALEJANDRO PARRA MOLINA","nicho":"Celulares","producto":""}]};
+const SIN_ASIGNAR = 'Sin asignar';
+const leads = (DATA.leads || []).map(l => ({...l, ejecutivo: (l.asignado||'').trim() || SIN_ASIGNAR}));
 let filtered = [...leads];
+// Etapa inicial: el lead aun no ha sido trabajado por el ejecutivo
+function enProspecto(l){ return /^prospecto/i.test((l.etapa||'').trim()); }
 function localDateStr(dt){ return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0'); }
 
 function fmtDate(s){ return (s||'').slice(0,10); }
@@ -137,6 +178,9 @@ function populateSelects(){
   nichos.forEach(n=>{const o=document.createElement('option');o.value=n;o.textContent=n;selN.appendChild(o);});
   const selE = document.getElementById('f-estado');
   estados.forEach(e=>{const o=document.createElement('option');o.value=e;o.textContent=e;selE.appendChild(o);});
+  const ejecutivos = [...new Set(leads.map(l=>l.ejecutivo))].sort();
+  const selX = document.getElementById('f-ejecutivo');
+  ejecutivos.forEach(x=>{const o=document.createElement('option');o.value=x;o.textContent=x;selX.appendChild(o);});
 }
 
 function applyFilters(){
@@ -144,6 +188,7 @@ function applyFilters(){
   const hasta = document.getElementById('f-hasta').value;
   const nicho = document.getElementById('f-nicho').value;
   const estado = document.getElementById('f-estado').value;
+  const ejecutivo = document.getElementById('f-ejecutivo').value;
   const q = (document.getElementById('f-buscar').value||'').toLowerCase().trim();
   filtered = leads.filter(l=>{
     const d = fmtDate(l.create_date);
@@ -151,8 +196,9 @@ function applyFilters(){
     if(hasta && d > hasta) return false;
     if(nicho && l.nicho !== nicho) return false;
     if(estado && l.estado !== estado) return false;
+    if(ejecutivo && l.ejecutivo !== ejecutivo) return false;
     if(q){
-      const hay = [l.contact_name,l.phone,l.email_from,l.ciudad,l.producto,l.nicho,l.estado].join(' ').toLowerCase();
+      const hay = [l.contact_name,l.phone,l.email_from,l.ciudad,l.producto,l.nicho,l.estado,l.ejecutivo].join(' ').toLowerCase();
       if(!hay.includes(q)) return false;
     }
     return true;
@@ -172,8 +218,11 @@ function renderKPIs(){
   const topNicho = Object.entries(nc).sort((a,b)=>b[1]-a[1])[0];
   const ingresos = filtered.map(l=>Number(l.ingreso||0)).filter(v=>v>0);
   const avgIngreso = ingresos.length? (ingresos.reduce((a,b)=>a+b,0)/ingresos.length) : 0;
-  const lineaActiva = filtered.filter(l=>/linea de credito activa/i.test(l.linea_activa||'')).length;
+  const lineaActiva = filtered.filter(l=>/linea de credito activa/i.test((l.linea_activa||'').replace(/_/g,' '))).length;
   const conTelefono = filtered.filter(l=>l.phone).length;
+  const sinAsignar = filtered.filter(l=>l.ejecutivo===SIN_ASIGNAR).length;
+  const ejecutivosActivos = new Set(filtered.map(l=>l.ejecutivo).filter(x=>x!==SIN_ASIGNAR)).size;
+  const enGestion = filtered.filter(l=>!enProspecto(l)).length;
   const kpis = [
     {label:'Total solicitudes', value:total, hint:'en el filtro actual'},
     {label:'Hoy', value:hoyCount, hint:hoy},
@@ -182,6 +231,9 @@ function renderKPIs(){
     {label:'Ingreso promedio $', value: avgIngreso? avgIngreso.toLocaleString('es-VE',{maximumFractionDigits:0}) : '-', hint:'mensual demostrable'},
     {label:'Con linea activa', value:lineaActiva, hint: total? Math.round(lineaActiva/total*100)+'%' : ''},
     {label:'Con telefono', value:conTelefono, hint:''},
+    {label:'Ejecutivos con leads', value:ejecutivosActivos, hint:'asignados en el filtro'},
+    {label:'En gestion', value:enGestion, hint: total? Math.round(enGestion/total*100)+'% fuera de prospecto' : ''},
+    {label:'Sin asignar', value:sinAsignar, hint: total? Math.round(sinAsignar/total*100)+'% del total' : ''},
   ];
   const cont = document.getElementById('kpis');
   cont.innerHTML = kpis.map(k=>`<div class="kpi"><div class="label">${k.label}</div><div class="value">${k.value}</div><div class="hint">${k.hint}</div></div>`).join('');
@@ -218,6 +270,39 @@ function renderCharts(){
   renderBar('chart-pago', groupBy(l=>l.pago), 'var(--rojo)');
   renderBar('chart-linea', groupBy(l=> (l.linea_activa||'').replace(/_/g,' ').trim() || 'Sin dato'), 'var(--verde)');
   renderBar('chart-ingresos', groupBy(l=>l.ingresos_proviene), 'var(--azul)');
+  renderBar('chart-ejecutivo', groupBy(l=>l.ejecutivo), 'var(--azul)');
+  renderBar('chart-etapa', groupBy(l=>l.etapa), 'var(--verde)');
+}
+
+function renderEjecutivos(){
+  const total = filtered.length;
+  const por = {};
+  filtered.forEach(l=>{
+    const e = por[l.ejecutivo] || (por[l.ejecutivo] = {leads:0, prospecto:0, nichos:{}, ultimo:''});
+    e.leads++;
+    if(enProspecto(l)) e.prospecto++;
+    e.nichos[l.nicho||'Sin nicho'] = (e.nichos[l.nicho||'Sin nicho']||0)+1;
+    if((l.create_date||'') > e.ultimo) e.ultimo = l.create_date||'';
+  });
+  // Ordena por volumen; "Sin asignar" siempre al final
+  const filas = Object.entries(por).sort((a,b)=> (a[0]===SIN_ASIGNAR)-(b[0]===SIN_ASIGNAR) || b[1].leads-a[1].leads);
+  document.getElementById('tabla-ejecutivos').innerHTML = filas.map(([nombre,e])=>{
+    const gestion = e.leads - e.prospecto;
+    const avance = Math.round(gestion/e.leads*100);
+    const color = avance>=50 ? 'var(--verde)' : avance>0 ? 'var(--naranja)' : 'var(--rojo)';
+    const nichos = Object.entries(e.nichos).sort((a,b)=>b[1]-a[1]).map(([n,c])=>`${n} (${c})`).join(', ');
+    const etiqueta = nombre===SIN_ASIGNAR ? `<span class="pill sin">${nombre}</span>` : nombre;
+    return `<tr>
+      <td>${etiqueta}</td>
+      <td class="num" style="font-weight:600">${e.leads}</td>
+      <td class="num">${total? Math.round(e.leads/total*100) : 0}%</td>
+      <td class="num">${e.prospecto}</td>
+      <td class="num">${gestion}</td>
+      <td class="num"><span class="avance" style="color:${color}">${avance}%</span></td>
+      <td>${nichos}</td>
+      <td>${(e.ultimo||'').slice(0,16)}</td>
+    </tr>`;
+  }).join('') || '<tr><td colspan="8" class="nota">Sin datos</td></tr>';
 }
 
 function renderTable(){
@@ -235,12 +320,14 @@ function renderTable(){
       <td style="text-align:right">${money(l.ingreso)}</td>
       <td>${(l.linea_activa||'').replace(/_/g,' ')||'-'}</td>
       <td>${l.etapa||'-'}</td>
+      <td>${l.ejecutivo===SIN_ASIGNAR? '<span class="pill sin">'+SIN_ASIGNAR+'</span>' : l.ejecutivo}</td>
     </tr>`).join('');
   document.getElementById('tabla-info').textContent = `Mostrando ${rows.length} de ${leads.length} leads`;
 }
 
 function renderAll(){
   renderKPIs();
+  renderEjecutivos();
   renderCharts();
   renderTable();
 }
@@ -251,10 +338,11 @@ document.getElementById('btn-limpiar').addEventListener('click', ()=>{
   document.getElementById('f-hasta').value='';
   document.getElementById('f-nicho').value='';
   document.getElementById('f-estado').value='';
+  document.getElementById('f-ejecutivo').value='';
   document.getElementById('f-buscar').value='';
   applyFilters();
 });
-['f-desde','f-hasta','f-nicho','f-estado'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
+['f-desde','f-hasta','f-nicho','f-estado','f-ejecutivo'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
 
 populateSelects();
 // default date range: last 30 days
