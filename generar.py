@@ -61,7 +61,15 @@ CAMPOS = ['id','name','create_date','contact_name','phone','email_from',
           'x_tiempo_inicial','x_ingresos_proviene','x_linea_activa','x_operador',
           'x_zona','stage_id','user_id','description','x_form_origen']
 # Campos estandar de Odoo para ganados/perdidos; se piden solo si existen en esta version
-CAMPOS_CIERRE = ['active','lost_reason_id','probability']
+CAMPOS_CIERRE = ['active','lost_reason_id','probability','date_closed','date_last_stage_update']
+
+def dias_entre(inicio, fin):
+    try:
+        a = datetime.strptime((inicio or '')[:19], '%Y-%m-%d %H:%M:%S')
+        b = datetime.strptime((fin or '')[:19], '%Y-%m-%d %H:%M:%S')
+    except ValueError:
+        return None
+    return round(max((b - a).total_seconds(), 0) / 86400, 1)
 
 def situacion(r):
     # En Odoo un lead perdido queda archivado (active=False)
@@ -131,6 +139,9 @@ def main():
         desc = html.unescape(r.get('description') or '')
         m = re.search(r'Producto deseado:\s*(.+?)(?:<br|\n|</|$)', desc, re.I)
         producto = re.sub(r'<[^>]+>', '', m.group(1)).strip() if m else ''
+        sit = situacion(r)
+        # Fecha de cierre: date_closed; si Odoo no la lleno, el ultimo cambio de etapa
+        cierre = (r.get('date_closed') or r.get('date_last_stage_update') or '') if sit != 'Abierto' else ''
         leads.append({
             'id': r.get('id'),
             'name': html.unescape(r.get('name') or ''),
@@ -150,8 +161,11 @@ def main():
             'zona': r.get('x_zona') or '',
             'etapa': stage_name(r.get('stage_id')),
             'asignado': user_name(r.get('user_id')),
-            'situacion': situacion(r),
+            'situacion': sit,
             'motivo_perdida': user_name(r.get('lost_reason_id')),
+            'fecha_cierre': a_local(cierre) if cierre else '',
+            'dias_cierre': dias_entre(r.get('create_date'), cierre) if cierre else None,
+            'ultimo_movimiento': a_local(r.get('date_last_stage_update')) if r.get('date_last_stage_update') else '',
             'nicho': niche,
             'producto': producto,
         })

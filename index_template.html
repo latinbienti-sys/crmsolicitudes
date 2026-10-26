@@ -95,6 +95,17 @@ tr:hover{background:#f8fafc;}
 
   <div class="grid2">
     <section class="tarjeta">
+      <h2>Tiempo hasta el cierre (ganados y perdidos)</h2>
+      <div class="barlist" id="chart-cierre"></div>
+    </section>
+    <section class="tarjeta">
+      <h2>Antiguedad de leads abiertos</h2>
+      <div class="barlist" id="chart-antiguedad"></div>
+    </section>
+  </div>
+
+  <div class="grid2">
+    <section class="tarjeta">
       <h2>Leads por semana</h2>
       <div class="barlist" id="chart-semana"></div>
     </section>
@@ -127,6 +138,8 @@ tr:hover{background:#f8fafc;}
             <th class="num">Ganados</th>
             <th class="num">Perdidos</th>
             <th class="num">% atendido</th>
+            <th class="num">Dias a ganar</th>
+            <th class="num">Edad abiertos</th>
             <th>Nichos</th>
             <th>Ultimo lead</th>
           </tr>
@@ -197,6 +210,7 @@ tr:hover{background:#f8fafc;}
             <th>Ingreso $</th>
             <th>Linea activa</th>
             <th>Etapa</th>
+            <th>Tiempo</th>
             <th>Ejecutivo</th>
           </tr>
         </thead>
@@ -227,6 +241,29 @@ function calificado(l){
   return Number(l.ingreso||0)>0 && !!l.pago && (Number(l.inicial||0)>0 || !!l.tiempo_inicial);
 }
 function etiqueta(v){ return (v||'').replace(/_/g,' ').trim(); }
+// Dias desde que llego el lead hasta ahora (fechas en hora local)
+function diasAbierto(l){
+  const d = new Date((l.create_date||'').replace(' ','T'));
+  return isNaN(d) ? null : Math.max(0,(Date.now()-d.getTime())/86400000);
+}
+function promedio(v){ return v.length? v.reduce((a,b)=>a+b,0)/v.length : null; }
+function mediana(v){
+  if(!v.length) return null;
+  const s=[...v].sort((a,b)=>a-b), m=Math.floor(s.length/2);
+  return s.length%2? s[m] : (s[m-1]+s[m])/2;
+}
+function fmtDias(v){ return v==null? '-' : v<1? Math.round(v*24)+' h' : v.toFixed(1)+' d'; }
+const TRAMOS = ['Menos de 1 dia','1 a 3 dias','4 a 7 dias','8 a 15 dias','Mas de 15 dias'];
+function tramo(d){ return d<1? TRAMOS[0] : d<=3? TRAMOS[1] : d<=7? TRAMOS[2] : d<=15? TRAMOS[3] : TRAMOS[4]; }
+// Barras en orden fijo de tramos (no por valor)
+function renderTramos(containerId, dias, color, vacio){
+  const c = {}; dias.forEach(d=>{c[tramo(d)]=(c[tramo(d)]||0)+1;});
+  const max = Math.max(1,...Object.values(c));
+  document.getElementById(containerId).innerHTML = dias.length ? TRAMOS.map(t=>{
+    const v=c[t]||0, p=Math.round(v/max*100);
+    return `<div class="barrow"><div>${t}</div><div class="barfondo"><div class="barfill" style="width:${p}%;background:${color}">${p>=15?p+'%':''}</div></div><div style="text-align:right;font-weight:600">${v}</div></div>`;
+  }).join('') : `<div class="nota">${vacio}</div>`;
+}
 function localDateStr(dt){ return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0'); }
 
 function fmtDate(s){ return (s||'').slice(0,10); }
@@ -368,10 +405,16 @@ function renderJunta(){
   const sumaInicial = iniciales.reduce((a,b)=>a+b,0);
   const ganados = filtered.filter(l=>l.situacion==='Ganado').length;
   const perdidos = filtered.filter(l=>l.situacion==='Perdido').length;
+  const diasGanar = filtered.filter(l=>l.situacion==='Ganado' && l.dias_cierre!=null).map(l=>Number(l.dias_cierre));
+  const edades = filtered.filter(abierto).map(diasAbierto).filter(d=>d!=null);
   const kpis = [
     {label:'Leads ultimos 7 dias', value:actual, hint:variacion},
     {label:'Tasa de conversion', value:pct(ganados,total), hint:`${ganados} ganados de ${total}`},
     {label:'Perdidos', value:perdidos, hint:pct(perdidos,total)+' del total'},
+    {label:'Tiempo de conversion', value:fmtDias(promedio(diasGanar)),
+     hint: diasGanar.length? `promedio llegada → ganado - mediana ${fmtDias(mediana(diasGanar))} (${diasGanar.length})` : 'aun sin leads ganados'},
+    {label:'Edad leads abiertos', value:fmtDias(promedio(edades)),
+     hint: edades.length? `${edades.filter(d=>d>7).length} con mas de 7 dias sin cerrar` : 'sin leads abiertos'},
     {label:'Leads calificados', value:pct(calif,total), hint:`${calif} de ${total}`},
     {label:'Listos para comprar', value:listos, hint:pct(listos,total)+' del total'},
     {label:'Inicial disponible $', value: sumaInicial? sumaInicial.toLocaleString('es-VE',{maximumFractionDigits:0}) : '-',
@@ -396,6 +439,9 @@ function renderJunta(){
   perdidosF.forEach(l=>{const m=l.motivo_perdida||'Sin motivo registrado'; motivos[m]=(motivos[m]||0)+1;});
   renderBar('chart-motivos', motivos, 'var(--rojo)');
   if(!perdidosF.length) document.getElementById('chart-motivos').innerHTML = '<div class="nota">Sin leads perdidos en el filtro</div>';
+  renderTramos('chart-cierre', filtered.filter(l=>!abierto(l) && l.dias_cierre!=null).map(l=>Number(l.dias_cierre)),
+               'var(--verde)', 'Aun no hay leads cerrados (ganados o perdidos) en el filtro');
+  renderTramos('chart-antiguedad', edades, 'var(--naranja)', 'Sin leads abiertos en el filtro');
 
   renderBar('chart-urgencia', groupBy(l=>{
     if(Number(l.inicial||0)>0) return 'Ya tiene inicial';
@@ -427,8 +473,10 @@ function renderEjecutivos(){
   const total = filtered.length;
   const por = {};
   filtered.forEach(l=>{
-    const e = por[l.ejecutivo] || (por[l.ejecutivo] = {leads:0, prospecto:0, gestion:0, ganados:0, perdidos:0, nichos:{}, ultimo:''});
+    const e = por[l.ejecutivo] || (por[l.ejecutivo] = {leads:0, prospecto:0, gestion:0, ganados:0, perdidos:0, diasGanar:[], edades:[], nichos:{}, ultimo:''});
     e.leads++;
+    if(l.situacion==='Ganado' && l.dias_cierre!=null) e.diasGanar.push(Number(l.dias_cierre));
+    if(abierto(l) && diasAbierto(l)!=null) e.edades.push(diasAbierto(l));
     if(enProspecto(l)) e.prospecto++;
     if(enGestion(l)) e.gestion++;
     if(l.situacion==='Ganado') e.ganados++;
@@ -452,10 +500,12 @@ function renderEjecutivos(){
       <td class="num">${e.ganados}</td>
       <td class="num">${e.perdidos}</td>
       <td class="num"><span class="avance" style="color:${color}">${avance}%</span></td>
+      <td class="num">${fmtDias(promedio(e.diasGanar))}</td>
+      <td class="num">${fmtDias(promedio(e.edades))}</td>
       <td>${nichos}</td>
       <td>${(e.ultimo||'').slice(0,16)}</td>
     </tr>`;
-  }).join('') || '<tr><td colspan="10" class="nota">Sin datos</td></tr>';
+  }).join('') || '<tr><td colspan="12" class="nota">Sin datos</td></tr>';
 }
 
 function renderTable(){
@@ -473,6 +523,7 @@ function renderTable(){
       <td style="text-align:right">${money(l.ingreso)}</td>
       <td>${(l.linea_activa||'').replace(/_/g,' ')||'-'}</td>
       <td>${abierto(l)? (l.etapa||'-') : `<span class="pill ${l.situacion.toLowerCase()}">${l.situacion}</span>${l.motivo_perdida? '<br><span class="nota">'+l.motivo_perdida+'</span>' : ''}`}</td>
+      <td>${abierto(l)? 'abierto hace '+fmtDias(diasAbierto(l)) : 'cerro en '+fmtDias(l.dias_cierre)}</td>
       <td>${l.ejecutivo===SIN_ASIGNAR? '<span class="pill sin">'+SIN_ASIGNAR+'</span>' : l.ejecutivo}</td>
     </tr>`).join('');
   document.getElementById('tabla-info').textContent = `Mostrando ${rows.length} de ${leads.length} leads`;
