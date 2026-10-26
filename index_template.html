@@ -40,6 +40,11 @@ tr:hover{background:#f8fafc;}
 .num{text-align:right;font-variant-numeric:tabular-nums;}
 .avance{display:inline-block;min-width:44px;text-align:right;font-weight:600;}
 .pill.sin{background:#fdecea;color:var(--rojo);font-weight:600;}
+.junta{border-top:4px solid var(--azul);}
+.junta .kpi{background:#f8fafc;}
+.sube{color:var(--verde);font-weight:600;}
+.baja{color:var(--rojo);font-weight:600;}
+.calor{text-align:center;font-weight:600;}
 </style>
 </head>
 <body>
@@ -62,6 +67,34 @@ tr:hover{background:#f8fafc;}
     <button class="btn" id="btn-limpiar">Limpiar</button>
     <span class="nota" id="rango-info"></span>
   </div>
+
+  <section class="tarjeta junta">
+    <h2>Resumen para Junta Directiva</h2>
+    <div class="kpis" id="kpis-junta" style="margin-bottom:8px;"></div>
+    <div class="nota">
+      <b>Calificado</b> = cliente con linea de credito activa, o que declaro ingreso, cuota y tiene inicial (o fecha para tenerla).
+      <b>Listo para comprar</b> = ya tiene inicial disponible o la tendra en 7 dias.
+      Datos desde la puesta en marcha del formulario (<span id="junta-corte"></span>).
+    </div>
+  </section>
+
+  <div class="grid2">
+    <section class="tarjeta">
+      <h2>Leads por semana</h2>
+      <div class="barlist" id="chart-semana"></div>
+    </section>
+    <section class="tarjeta">
+      <h2>Urgencia de compra (inicial)</h2>
+      <div class="barlist" id="chart-urgencia"></div>
+    </section>
+  </div>
+
+  <section class="tarjeta">
+    <h2>Mapa de demanda (estado x nicho)</h2>
+    <div style="overflow-x:auto;">
+      <table id="tabla-mapa"></table>
+    </div>
+  </section>
 
   <div class="kpis" id="kpis"></div>
 
@@ -164,8 +197,17 @@ const DATA = __DATA_JSON__;
 const SIN_ASIGNAR = 'Sin asignar';
 const leads = (DATA.leads || []).map(l => ({...l, ejecutivo: (l.asignado||'').trim() || SIN_ASIGNAR}));
 let filtered = [...leads];
+// Mismos filtros pero sin rango de fechas: la tendencia semanal compara contra la semana anterior
+let sinFecha = [...leads];
 // Etapa inicial: el lead aun no ha sido trabajado por el ejecutivo
 function enProspecto(l){ return /^prospecto/i.test((l.etapa||'').trim()); }
+function lineaActiva(l){ return /linea de credito activa/i.test((l.linea_activa||'').replace(/_/g,' ')); }
+function listoParaComprar(l){ return Number(l.inicial||0)>0 || l.tiempo_inicial==='7_dias'; }
+function calificado(l){
+  if(lineaActiva(l)) return true;
+  return Number(l.ingreso||0)>0 && !!l.pago && (Number(l.inicial||0)>0 || !!l.tiempo_inicial);
+}
+function etiqueta(v){ return (v||'').replace(/_/g,' ').trim(); }
 function localDateStr(dt){ return dt.getFullYear()+'-'+String(dt.getMonth()+1).padStart(2,'0')+'-'+String(dt.getDate()).padStart(2,'0'); }
 
 function fmtDate(s){ return (s||'').slice(0,10); }
@@ -190,10 +232,10 @@ function applyFilters(){
   const estado = document.getElementById('f-estado').value;
   const ejecutivo = document.getElementById('f-ejecutivo').value;
   const q = (document.getElementById('f-buscar').value||'').toLowerCase().trim();
-  filtered = leads.filter(l=>{
+  const pasa = (l, conFecha)=>{
     const d = fmtDate(l.create_date);
-    if(desde && d < desde) return false;
-    if(hasta && d > hasta) return false;
+    if(conFecha && desde && d < desde) return false;
+    if(conFecha && hasta && d > hasta) return false;
     if(nicho && l.nicho !== nicho) return false;
     if(estado && l.estado !== estado) return false;
     if(ejecutivo && l.ejecutivo !== ejecutivo) return false;
@@ -202,7 +244,9 @@ function applyFilters(){
       if(!hay.includes(q)) return false;
     }
     return true;
-  });
+  };
+  filtered = leads.filter(l=>pasa(l,true));
+  sinFecha = leads.filter(l=>pasa(l,false));
   renderAll();
 }
 
@@ -274,6 +318,79 @@ function renderCharts(){
   renderBar('chart-etapa', groupBy(l=>l.etapa), 'var(--verde)');
 }
 
+function pct(a,b){ return b? Math.round(a/b*100)+'%' : '-'; }
+
+// Lunes de la semana de una fecha YYYY-MM-DD
+function inicioSemana(d){
+  const dt = new Date(d+'T00:00:00');
+  dt.setDate(dt.getDate() - ((dt.getDay()+6)%7));
+  return localDateStr(dt);
+}
+
+function renderJunta(){
+  const total = filtered.length;
+  // Ultimos 7 dias vs los 7 anteriores (independiente del rango de fechas)
+  const hoy = localDateStr(new Date());
+  const ini = localDateStr(new Date(Date.now()-6*86400000));
+  const iniAnt = localDateStr(new Date(Date.now()-13*86400000));
+  const actual = sinFecha.filter(l=>{const d=fmtDate(l.create_date); return d>=ini && d<=hoy;}).length;
+  const anterior = sinFecha.filter(l=>{const d=fmtDate(l.create_date); return d>=iniAnt && d<ini;}).length;
+  let variacion = 'sin semana previa para comparar';
+  if(anterior){
+    const v = Math.round((actual-anterior)/anterior*100);
+    variacion = `<span class="${v>=0?'sube':'baja'}">${v>=0?'▲':'▼'} ${Math.abs(v)}%</span> vs 7 dias previos (${anterior})`;
+  }
+  const calif = filtered.filter(calificado).length;
+  const listos = filtered.filter(listoParaComprar).length;
+  const recurrentes = filtered.filter(lineaActiva).length;
+  const iniciales = filtered.map(l=>Number(l.inicial||0)).filter(v=>v>0);
+  const sumaInicial = iniciales.reduce((a,b)=>a+b,0);
+  const kpis = [
+    {label:'Leads ultimos 7 dias', value:actual, hint:variacion},
+    {label:'Leads calificados', value:pct(calif,total), hint:`${calif} de ${total}`},
+    {label:'Listos para comprar', value:listos, hint:pct(listos,total)+' del total'},
+    {label:'Inicial disponible $', value: sumaInicial? sumaInicial.toLocaleString('es-VE',{maximumFractionDigits:0}) : '-',
+     hint: iniciales.length? `${iniciales.length} leads - prom. ${Math.round(sumaInicial/iniciales.length).toLocaleString('es-VE')}` : ''},
+    {label:'Clientes recurrentes', value:pct(recurrentes,total), hint:`${recurrentes} con linea activa / ${total-recurrentes} nuevos`},
+  ];
+  document.getElementById('kpis-junta').innerHTML = kpis.map(k=>`<div class="kpi"><div class="label">${k.label}</div><div class="value">${k.value}</div><div class="hint">${k.hint}</div></div>`).join('');
+
+  // Leads por semana (cronologico)
+  const semanas = {};
+  filtered.forEach(l=>{const s=inicioSemana(fmtDate(l.create_date)); semanas[s]=(semanas[s]||0)+1;});
+  const sem = Object.entries(semanas).sort((a,b)=>a[0].localeCompare(b[0]));
+  const maxS = sem.length? Math.max(...sem.map(e=>e[1])) : 1;
+  document.getElementById('chart-semana').innerHTML = sem.map(([s,v])=>{
+    const p = Math.round(v/maxS*100);
+    return `<div class="barrow"><div>Sem. ${s.slice(5)}</div><div class="barfondo"><div class="barfill" style="width:${p}%;background:var(--azul)">${p>=15?p+'%':''}</div></div><div style="text-align:right;font-weight:600">${v}</div></div>`;
+  }).join('') || '<div class="nota">Sin datos</div>';
+
+  renderBar('chart-urgencia', groupBy(l=>{
+    if(Number(l.inicial||0)>0) return 'Ya tiene inicial';
+    if(l.tiempo_inicial) return etiqueta(l.tiempo_inicial);
+    return lineaActiva(l) ? 'Cliente con linea activa' : 'Sin dato';
+  }), 'var(--naranja)');
+
+  // Mapa de demanda: estados en filas, nichos en columnas
+  const nichos = [...new Set(filtered.map(l=>l.nicho||'Sin nicho'))].sort();
+  const mapa = {};
+  filtered.forEach(l=>{
+    const e = l.estado||'Sin dato';
+    mapa[e] = mapa[e] || {};
+    mapa[e][l.nicho||'Sin nicho'] = (mapa[e][l.nicho||'Sin nicho']||0)+1;
+  });
+  const filas = Object.entries(mapa).map(([e,c])=>[e,c,Object.values(c).reduce((a,b)=>a+b,0)]).sort((a,b)=>b[2]-a[2]);
+  const maxM = Math.max(1,...filas.flatMap(f=>Object.values(f[1])));
+  document.getElementById('tabla-mapa').innerHTML = filas.length ? `
+    <thead><tr><th>Estado</th>${nichos.map(n=>`<th class="calor">${n}</th>`).join('')}<th class="num">Total</th></tr></thead>
+    <tbody>${filas.map(([e,c,t])=>`<tr><td>${e}</td>${nichos.map(n=>{
+      const v = c[n]||0;
+      const a = v? (0.15+0.65*v/maxM).toFixed(2) : 0;
+      return `<td class="calor" style="background:rgba(31,59,115,${a});color:${v/maxM>0.5?'#fff':'#1c2733'}">${v||''}</td>`;
+    }).join('')}<td class="num" style="font-weight:600">${t}</td></tr>`).join('')}</tbody>`
+    : '<tr><td class="nota">Sin datos</td></tr>';
+}
+
 function renderEjecutivos(){
   const total = filtered.length;
   const por = {};
@@ -326,6 +443,7 @@ function renderTable(){
 }
 
 function renderAll(){
+  renderJunta();
   renderKPIs();
   renderEjecutivos();
   renderCharts();
@@ -353,6 +471,7 @@ document.getElementById('f-hasta').value = hasta;
 document.getElementById('meta-gen').textContent = 'Generado: ' + (DATA.generado||'');
 document.getElementById('gen-fecha').textContent = (DATA.generado||'');
 document.getElementById('total-base').textContent = leads.length;
+document.getElementById('junta-corte').textContent = DATA.fecha_corte || '';
 applyFilters();
 </script>
 </body>
