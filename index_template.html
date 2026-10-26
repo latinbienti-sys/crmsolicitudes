@@ -61,6 +61,7 @@ tr:hover{background:#f8fafc;}
 </header>
 <main>
   <div class="barra">
+    <label>Fecha de: <select id="f-tipo-fecha"><option value="llegada">Llegada</option><option value="cierre">Cierre</option></select></label>
     <label>Desde: <input type="date" id="f-desde"></label>
     <label>Hasta: <input type="date" id="f-hasta"></label>
     <label>Nicho: <select id="f-nicho"><option value="">Todos</option></select></label>
@@ -70,6 +71,7 @@ tr:hover{background:#f8fafc;}
     <label>Buscar: <input type="text" id="f-buscar" placeholder="contacto, telefono, email, producto"></label>
     <button class="btn" id="btn-aplicar">Aplicar</button>
     <button class="btn" id="btn-limpiar">Limpiar</button>
+    <button class="btn" id="btn-perdidos-mes" style="background:var(--rojo)">Perdidos del mes</button>
     <span class="nota" id="rango-info"></span>
   </div>
 
@@ -315,8 +317,12 @@ function applyFilters(){
   const ejecutivo = document.getElementById('f-ejecutivo').value;
   const situacion = document.getElementById('f-situacion').value;
   const q = (document.getElementById('f-buscar').value||'').toLowerCase().trim();
+  const porCierre = document.getElementById('f-tipo-fecha').value === 'cierre';
+  document.getElementById('rango-info').textContent = porCierre ? 'Fechas por cierre: solo leads ganados o perdidos' : '';
   const pasa = (l, conFecha)=>{
-    const d = fmtDate(l.create_date);
+    // Por cierre, los leads abiertos (sin fecha de cierre) quedan fuera del rango
+    const d = porCierre ? fmtDate(l.fecha_cierre) : fmtDate(l.create_date);
+    if(conFecha && porCierre && (desde || hasta) && !d) return false;
     if(conFecha && desde && d < desde) return false;
     if(conFecha && hasta && d > hasta) return false;
     if(nicho && l.nicho !== nicho) return false;
@@ -550,7 +556,7 @@ function renderTable(){
       <td style="text-align:right">${money(l.ingreso)}</td>
       <td>${(l.linea_activa||'').replace(/_/g,' ')||'-'}</td>
       <td>${abierto(l)? (l.etapa||'-') : `${pillSituacion(l)}${l.motivo_perdida? '<br><span class="nota">'+l.motivo_perdida+'</span>' : ''}`}${rastreado(l)? '<br><span class="pill rastreado" title="'+(l.rastreo||'')+'">Fuera del formulario</span>' : ''}</td>
-      <td>${abierto(l)? 'abierto hace '+fmtDias(diasAbierto(l)) : 'cerro en '+fmtDias(l.dias_cierre)}</td>
+      <td>${abierto(l)? 'abierto hace '+fmtDias(diasAbierto(l)) : (l.fecha_cierre? 'cerro el '+fmtDate(l.fecha_cierre)+' ('+fmtDias(l.dias_cierre)+')' : 'cerrado')}</td>
       <td>${l.ejecutivo===SIN_ASIGNAR? '<span class="pill sin">'+SIN_ASIGNAR+'</span>' : l.ejecutivo}</td>
     </tr>`).join('');
   document.getElementById('tabla-info').textContent = `Mostrando ${rows.length} de ${leads.length} leads`;
@@ -588,10 +594,19 @@ document.getElementById('btn-limpiar').addEventListener('click', ()=>{
   document.getElementById('f-estado').value='';
   document.getElementById('f-ejecutivo').value='';
   document.getElementById('f-situacion').value='';
+  document.getElementById('f-tipo-fecha').value='llegada';
   document.getElementById('f-buscar').value='';
   applyFilters();
 });
-['f-desde','f-hasta','f-nicho','f-estado','f-ejecutivo','f-situacion'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
+document.getElementById('btn-perdidos-mes').addEventListener('click', ()=>{
+  const hoy = new Date();
+  document.getElementById('f-tipo-fecha').value='cierre';
+  document.getElementById('f-desde').value = localDateStr(new Date(hoy.getFullYear(), hoy.getMonth(), 1));
+  document.getElementById('f-hasta').value = localDateStr(hoy);
+  document.getElementById('f-situacion').value='Perdido';
+  applyFilters();
+});
+['f-tipo-fecha','f-desde','f-hasta','f-nicho','f-estado','f-ejecutivo','f-situacion'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
 
 populateSelects();
 // default date range: last 30 days

@@ -71,10 +71,17 @@ def dias_entre(inicio, fin):
         return None
     return round(max((b - a).total_seconds(), 0) / 86400, 1)
 
+# Ids de etapas marcadas como ganadas en crm.stage (se llena en main)
+ETAPAS_GANADAS = set()
+RE_ETAPA_PERDIDA = re.compile(r'perdid|lost|descartad|rechazad|no\s+interesad|cancelad', re.I)
+RE_ETAPA_GANADA = re.compile(r'ganad|won|vendid|cerrad[oa]\s+ganad', re.I)
+
 def situacion(r):
-    # En Odoo un lead perdido queda archivado (active=False)
-    if r.get('active') is False: return 'Perdido'
-    if (r.get('probability') or 0) >= 100 or re.search(r'ganad|won', stage_name(r.get('stage_id')) or '', re.I):
+    etapa = stage_name(r.get('stage_id')) or ''
+    stage_id = r['stage_id'][0] if isinstance(r.get('stage_id'), (list, tuple)) else None
+    # Perdido: archivado en Odoo (active=False) o en una etapa de perdida
+    if r.get('active') is False or RE_ETAPA_PERDIDA.search(etapa): return 'Perdido'
+    if stage_id in ETAPAS_GANADAS or (r.get('probability') or 0) >= 100 or RE_ETAPA_GANADA.search(etapa):
         return 'Ganado'
     return 'Abierto'
 
@@ -157,6 +164,10 @@ def main():
     existentes = je('crm.lead', 'fields_get', [CAMPOS_CIERRE], {'attributes': ['type']})
     campos = CAMPOS + [c for c in CAMPOS_CIERRE if c in existentes]
     print('campos de cierre disponibles:', [c for c in CAMPOS_CIERRE if c in existentes])
+    campos_etapa = ['name', 'sequence'] + (['is_won'] if 'is_won' in je('crm.stage', 'fields_get', [['is_won']], {'attributes': ['type']}) else [])
+    etapas = je('crm.stage', 'search_read', [[]], {'fields': campos_etapa, 'order': 'sequence asc, id asc'})
+    ETAPAS_GANADAS.update(e['id'] for e in etapas if e.get('is_won'))
+    print('etapas CRM:', [(e['name'], bool(e.get('is_won'))) for e in etapas])
     leads_raw = []
     offset = 0
     while True:
@@ -226,7 +237,9 @@ def main():
           'rastreados:', sum(1 for l in leads if not l['en_formulario']))
 
     data = {'generado': datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
-            'fecha_corte': FECHA_CORTE, 'total': len(leads), 'leads': leads}
+            'fecha_corte': FECHA_CORTE, 'total': len(leads),
+            'etapas_crm': [{'nombre': e['name'], 'ganada': bool(e.get('is_won'))} for e in etapas],
+            'leads': leads}
 
     with open(os.path.join(BASE, 'data.json'), 'w', encoding='utf-8') as fh:
         json.dump(data, fh, ensure_ascii=False, indent=2)
