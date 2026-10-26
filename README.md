@@ -15,4 +15,4 @@ git commit -m "Actualizar tablero"
 git push
 ```
 
-El tablero se publica automaticamente desde GitHub Pages (rama `main`).
+El tablero se actualiza solo cada hora (GitHub Actions, consulta de solo lectura a Odoo) y se publica desde GitHub Pages (rama `main`).
