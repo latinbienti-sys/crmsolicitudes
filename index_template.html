@@ -47,6 +47,8 @@ tr:hover{background:#f8fafc;}
 .calor{text-align:center;font-weight:600;}
 .pill.perdido{background:#fdecea;color:var(--rojo);font-weight:600;}
 .pill.ganado{background:#e6f4ec;color:var(--verde);font-weight:600;}
+.pill.noencontrado{background:#eceff3;color:#56657a;font-weight:600;}
+.pill.rastreado{background:#fff4e5;color:#9a5b13;font-weight:600;}
 </style>
 </head>
 <body>
@@ -64,7 +66,7 @@ tr:hover{background:#f8fafc;}
     <label>Nicho: <select id="f-nicho"><option value="">Todos</option></select></label>
     <label>Estado: <select id="f-estado"><option value="">Todos</option></select></label>
     <label>Ejecutivo: <select id="f-ejecutivo"><option value="">Todos</option></select></label>
-    <label>Situacion: <select id="f-situacion"><option value="">Todas</option><option>Abierto</option><option>Ganado</option><option>Perdido</option></select></label>
+    <label>Situacion: <select id="f-situacion"><option value="">Todas</option><option>Abierto</option><option>Ganado</option><option>Perdido</option><option>No encontrado</option></select></label>
     <label>Buscar: <input type="text" id="f-buscar" placeholder="contacto, telefono, email, producto"></label>
     <button class="btn" id="btn-aplicar">Aplicar</button>
     <button class="btn" id="btn-limpiar">Limpiar</button>
@@ -119,6 +121,28 @@ tr:hover{background:#f8fafc;}
     <h2>Mapa de demanda (estado x nicho)</h2>
     <div style="overflow-x:auto;">
       <table id="tabla-mapa"></table>
+    </div>
+  </section>
+
+  <section class="tarjeta">
+    <h2>Solicitudes que salieron del formulario - donde estan hoy en el CRM</h2>
+    <div class="nota" style="margin-bottom:8px;">Solicitudes que llegaron por el formulario y luego dejaron de aparecer como tales en Odoo (fusionadas con un cliente existente, renombradas o eliminadas). Se rastrean por ID, email o telefono, solo lectura.</div>
+    <div style="overflow-x:auto;max-height:420px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Llego</th>
+            <th>Nicho</th>
+            <th>Contacto</th>
+            <th>Telefono</th>
+            <th>Situacion hoy</th>
+            <th>Etapa hoy</th>
+            <th>Ejecutivo</th>
+            <th>Donde esta</th>
+          </tr>
+        </thead>
+        <tbody id="tabla-rastreo"></tbody>
+      </table>
     </div>
   </section>
 
@@ -232,6 +256,8 @@ let filtered = [...leads];
 let sinFecha = [...leads];
 // Etapa inicial: el lead aun no ha sido trabajado por el ejecutivo
 function abierto(l){ return l.situacion==='Abierto'; }
+function rastreado(l){ return l.en_formulario===false; }
+function pillSituacion(l){ return `<span class="pill ${l.situacion.toLowerCase().replace(/\s+/g,'')}">${l.situacion}</span>`; }
 function enProspecto(l){ return abierto(l) && /^prospecto/i.test((l.etapa||'').trim()); }
 function enGestion(l){ return abierto(l) && !enProspecto(l); }
 function lineaActiva(l){ return /linea de credito activa/i.test((l.linea_activa||'').replace(/_/g,' ')); }
@@ -335,6 +361,7 @@ function renderKPIs(){
     {label:'Con telefono', value:conTelefono, hint:''},
     {label:'Ejecutivos con leads', value:ejecutivosActivos, hint:'asignados en el filtro'},
     {label:'En gestion', value:gestionando, hint: total? Math.round(gestionando/total*100)+'% abiertos fuera de prospecto' : ''},
+    {label:'Fuera del formulario', value:filtered.filter(rastreado).length, hint:'rastreadas en el CRM'},
     {label:'Sin asignar', value:sinAsignar, hint: total? Math.round(sinAsignar/total*100)+'% del total' : ''},
   ];
   const cont = document.getElementById('kpis');
@@ -522,15 +549,31 @@ function renderTable(){
       <td>${l.pago||'-'}</td>
       <td style="text-align:right">${money(l.ingreso)}</td>
       <td>${(l.linea_activa||'').replace(/_/g,' ')||'-'}</td>
-      <td>${abierto(l)? (l.etapa||'-') : `<span class="pill ${l.situacion.toLowerCase()}">${l.situacion}</span>${l.motivo_perdida? '<br><span class="nota">'+l.motivo_perdida+'</span>' : ''}`}</td>
+      <td>${abierto(l)? (l.etapa||'-') : `${pillSituacion(l)}${l.motivo_perdida? '<br><span class="nota">'+l.motivo_perdida+'</span>' : ''}`}${rastreado(l)? '<br><span class="pill rastreado" title="'+(l.rastreo||'')+'">Fuera del formulario</span>' : ''}</td>
       <td>${abierto(l)? 'abierto hace '+fmtDias(diasAbierto(l)) : 'cerro en '+fmtDias(l.dias_cierre)}</td>
       <td>${l.ejecutivo===SIN_ASIGNAR? '<span class="pill sin">'+SIN_ASIGNAR+'</span>' : l.ejecutivo}</td>
     </tr>`).join('');
   document.getElementById('tabla-info').textContent = `Mostrando ${rows.length} de ${leads.length} leads`;
 }
 
+function renderRastreo(){
+  const rows = filtered.filter(rastreado).sort((a,b)=> (b.create_date||'').localeCompare(a.create_date||''));
+  document.getElementById('tabla-rastreo').innerHTML = rows.map(l=>`
+    <tr>
+      <td>${(l.create_date||'').slice(0,16)}</td>
+      <td><span class="pill nicho">${l.nicho||'-'}</span></td>
+      <td>${l.contact_name||'-'}</td>
+      <td>${l.phone||'-'}</td>
+      <td>${pillSituacion(l)}${l.motivo_perdida? '<br><span class="nota">'+l.motivo_perdida+'</span>' : ''}</td>
+      <td>${l.situacion==='No encontrado'? '-' : (l.etapa||'-')}</td>
+      <td>${l.situacion==='No encontrado'? '-' : l.ejecutivo}</td>
+      <td class="nota">${l.rastreo||'-'}</td>
+    </tr>`).join('') || '<tr><td colspan="8" class="nota">Ninguna solicitud del filtro ha salido del formulario</td></tr>';
+}
+
 function renderAll(){
   renderJunta();
+  renderRastreo();
   renderKPIs();
   renderEjecutivos();
   renderCharts();

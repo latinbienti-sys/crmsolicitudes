@@ -110,6 +110,47 @@ def stage_name(v):
 def user_name(v):
     return v[1] if isinstance(v,(list,tuple)) and len(v)>=2 else (v or '')
 
+def estado_crm(r, create_local):
+    """Etapa, ejecutivo y cierre de un registro crm.lead."""
+    sit = situacion(r)
+    # Fecha de cierre: date_closed; si Odoo no la lleno, el ultimo cambio de etapa
+    cierre = (r.get('date_closed') or r.get('date_last_stage_update') or '') if sit != 'Abierto' else ''
+    return {
+        'etapa': stage_name(r.get('stage_id')),
+        'asignado': user_name(r.get('user_id')),
+        'situacion': sit,
+        'motivo_perdida': user_name(r.get('lost_reason_id')),
+        'fecha_cierre': a_local(cierre) if cierre else '',
+        'dias_cierre': dias_entre(create_local, a_local(cierre)) if cierre else None,
+        'ultimo_movimiento': a_local(r.get('date_last_stage_update')) if r.get('date_last_stage_update') else '',
+    }
+
+def rastrear(je, campos, lead):
+    """Busca en el CRM (solo lectura) un lead que ya no sale como solicitud del formulario.
+    Devuelve (registro o None, explicacion)."""
+    todos = ['active', 'in', [True, False]]
+    kw = {'fields': campos, 'limit': 1, 'order': 'id desc', 'context': {'active_test': False}}
+    recs = je('crm.lead', 'search_read', [[['id', '=', lead['id']], todos]], kw)
+    if recs:
+        r = recs[0]
+        nombre = html.unescape(r.get('name') or '')
+        if r.get('x_form_origen') != 'moto_web':
+            return r, f'Sigue en el CRM (#{r["id"]}) pero le cambiaron el origen del formulario'
+        return r, f'Sigue en el CRM (#{r["id"]}), renombrado a "{nombre}"'
+    email = (lead.get('email_from') or '').strip()
+    if email:
+        recs = je('crm.lead', 'search_read', [[['email_from', '=ilike', email], ['id', '!=', lead['id']], todos]], kw)
+        if recs:
+            r = recs[0]
+            return r, f'El lead original ya no existe (fusionado o eliminado); el cliente esta en #{r["id"]} "{html.unescape(r.get("name") or "")}" (por email)'
+    digitos = re.sub(r'\D', '', lead.get('phone') or '')[-7:]
+    if len(digitos) == 7:
+        recs = je('crm.lead', 'search_read', [[['phone', 'ilike', digitos], ['id', '!=', lead['id']], todos]], kw)
+        if recs:
+            r = recs[0]
+            return r, f'El lead original ya no existe (fusionado o eliminado); el cliente esta en #{r["id"]} "{html.unescape(r.get("name") or "")}" (por telefono)'
+    return None, 'No se encuentra en el CRM (eliminado)'
+
 def main():
     uid, je = conectar()
     print('Conectado uid', uid)
@@ -139,9 +180,6 @@ def main():
         desc = html.unescape(r.get('description') or '')
         m = re.search(r'Producto deseado:\s*(.+?)(?:<br|\n|</|$)', desc, re.I)
         producto = re.sub(r'<[^>]+>', '', m.group(1)).strip() if m else ''
-        sit = situacion(r)
-        # Fecha de cierre: date_closed; si Odoo no la lleno, el ultimo cambio de etapa
-        cierre = (r.get('date_closed') or r.get('date_last_stage_update') or '') if sit != 'Abierto' else ''
         leads.append({
             'id': r.get('id'),
             'name': html.unescape(r.get('name') or ''),
@@ -159,19 +197,33 @@ def main():
             'linea_activa': r.get('x_linea_activa') or '',
             'operador': r.get('x_operador') or '',
             'zona': r.get('x_zona') or '',
-            'etapa': stage_name(r.get('stage_id')),
-            'asignado': user_name(r.get('user_id')),
-            'situacion': sit,
-            'motivo_perdida': user_name(r.get('lost_reason_id')),
-            'fecha_cierre': a_local(cierre) if cierre else '',
-            'dias_cierre': dias_entre(r.get('create_date'), cierre) if cierre else None,
-            'ultimo_movimiento': a_local(r.get('date_last_stage_update')) if r.get('date_last_stage_update') else '',
+            **estado_crm(r, fecha_local),
+            'en_formulario': True,
+            'rastreo': '',
             'nicho': niche,
             'producto': producto,
         })
 
+    # Historico: las solicitudes que ya salieron antes (data.json previo) y hoy no devuelve
+    # la consulta se rastrean en el CRM para no perderlas del tablero
+    ruta_data = os.path.join(BASE, 'data.json')
+    previos = []
+    if os.path.isfile(ruta_data):
+        with open(ruta_data, encoding='utf-8') as fh:
+            previos = json.load(fh).get('leads', [])
+    actuales = {l['id'] for l in leads}
+    for p in previos:
+        if p['id'] in actuales: continue
+        r, nota = rastrear(je, campos, p)
+        p = {**p, **(estado_crm(r, p['create_date']) if r else
+                     {'situacion': 'No encontrado', 'fecha_cierre': '', 'dias_cierre': None}),
+             'en_formulario': False, 'rastreo': nota}
+        leads.append(p)
+    leads.sort(key=lambda l: l['id'])
+
     print('leads desde', FECHA_CORTE, ':', len(leads),
-          {s: sum(1 for l in leads if l['situacion'] == s) for s in ('Abierto', 'Ganado', 'Perdido')})
+          {s: sum(1 for l in leads if l['situacion'] == s) for s in ('Abierto', 'Ganado', 'Perdido', 'No encontrado')},
+          'rastreados:', sum(1 for l in leads if not l['en_formulario']))
 
     data = {'generado': datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
             'fecha_corte': FECHA_CORTE, 'total': len(leads), 'leads': leads}
