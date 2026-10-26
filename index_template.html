@@ -68,7 +68,7 @@ tr:hover{background:#f8fafc;}
     <label>Estado: <select id="f-estado"><option value="">Todos</option></select></label>
     <label>Ejecutivo: <select id="f-ejecutivo"><option value="">Todos</option></select></label>
     <label>Situacion: <select id="f-situacion"><option value="">Todas</option><option>Abierto</option><option>Ganado</option><option>Perdido</option><option>No encontrado</option></select></label>
-    <label>Buscar: <input type="text" id="f-buscar" placeholder="contacto, telefono, email, producto"></label>
+    <label>Buscar: <input type="text" id="f-buscar" placeholder="contacto, ciudad, producto"></label>
     <button class="btn" id="btn-aplicar">Aplicar</button>
     <button class="btn" id="btn-limpiar">Limpiar</button>
     <button class="btn" id="btn-perdidos-mes" style="background:var(--rojo)">Perdidos del mes</button>
@@ -170,7 +170,6 @@ tr:hover{background:#f8fafc;}
             <th>Llego</th>
             <th>Nicho</th>
             <th>Contacto</th>
-            <th>Telefono</th>
             <th>Situacion hoy</th>
             <th>Fecha cierre</th>
             <th>Motivo de perdida</th>
@@ -265,8 +264,6 @@ tr:hover{background:#f8fafc;}
             <th>Fecha</th>
             <th>Nicho</th>
             <th>Contacto</th>
-            <th>Telefono</th>
-            <th>Email</th>
             <th>Estado / Ciudad</th>
             <th>Cuota</th>
             <th>Ingreso $</th>
@@ -368,7 +365,7 @@ function applyFilters(){
     if(ejecutivo && l.ejecutivo !== ejecutivo) return false;
     if(situacion && l.situacion !== situacion) return false;
     if(q){
-      const hay = [l.contact_name,l.phone,l.email_from,l.ciudad,l.producto,l.nicho,l.estado,l.ejecutivo].join(' ').toLowerCase();
+      const hay = [l.contact_name,l.ciudad,l.producto,l.nicho,l.estado,l.ejecutivo].join(' ').toLowerCase();
       if(!hay.includes(q)) return false;
     }
     return true;
@@ -391,7 +388,6 @@ function renderKPIs(){
   const ingresos = filtered.map(l=>Number(l.ingreso||0)).filter(v=>v>0);
   const avgIngreso = ingresos.length? (ingresos.reduce((a,b)=>a+b,0)/ingresos.length) : 0;
   const lineaActiva = filtered.filter(l=>/linea de credito activa/i.test((l.linea_activa||'').replace(/_/g,' '))).length;
-  const conTelefono = filtered.filter(l=>l.phone).length;
   const sinAsignar = filtered.filter(l=>l.ejecutivo===SIN_ASIGNAR).length;
   const ejecutivosActivos = new Set(filtered.map(l=>l.ejecutivo).filter(x=>x!==SIN_ASIGNAR)).size;
   const gestionando = filtered.filter(enGestion).length;
@@ -402,7 +398,6 @@ function renderKPIs(){
     {label:'Nicho principal', value: topNicho? topNicho[0] : '-', hint: topNicho? (topNicho[1]+' leads') : ''},
     {label:'Ingreso promedio $', value: avgIngreso? avgIngreso.toLocaleString('es-VE',{maximumFractionDigits:0}) : '-', hint:'mensual demostrable'},
     {label:'Con linea activa', value:lineaActiva, hint: total? Math.round(lineaActiva/total*100)+'%' : ''},
-    {label:'Con telefono', value:conTelefono, hint:''},
     {label:'Ejecutivos con leads', value:ejecutivosActivos, hint:'asignados en el filtro'},
     {label:'En gestion', value:gestionando, hint: total? Math.round(gestionando/total*100)+'% abiertos fuera de prospecto' : ''},
     {label:'Fuera del formulario', value:filtered.filter(rastreado).length, hint:'rastreadas en el CRM'},
@@ -587,8 +582,6 @@ function renderTable(){
       <td>${fmtDate(l.create_date)}</td>
       <td><span class="pill nicho">${l.nicho||'-'}</span></td>
       <td>${l.contact_name||'-'}</td>
-      <td>${l.phone||'-'}</td>
-      <td>${l.email_from||'-'}</td>
       <td>${l.estado||'-'}${l.ciudad? ' / '+l.ciudad : ''}</td>
       <td>${l.pago||'-'}</td>
       <td style="text-align:right">${money(l.ingreso)}</td>
@@ -609,14 +602,13 @@ function renderRastreo(){
       <td>${(l.create_date||'').slice(0,16)}</td>
       <td><span class="pill nicho">${l.nicho||'-'}</span></td>
       <td>${l.contact_name||'-'}</td>
-      <td>${l.phone||'-'}</td>
       <td>${pillSituacion(l)}</td>
       <td>${l.fecha_cierre? fmtDate(l.fecha_cierre) : '-'}</td>
       <td>${l.situacion==='Perdido'? (l.motivo_perdida||'Sin motivo registrado') : '-'}</td>
       <td>${l.situacion==='No encontrado'? '-' : (l.etapa||'-')}</td>
       <td>${l.situacion==='No encontrado'? '-' : l.ejecutivo}</td>
       <td class="nota">${l.rastreo||'-'}</td>
-    </tr>`).join('') || '<tr><td colspan="10" class="nota">Ninguna solicitud del filtro ha salido del formulario</td></tr>';
+    </tr>`).join('') || '<tr><td colspan="9" class="nota">Ninguna solicitud del filtro ha salido del formulario</td></tr>';
 }
 
 const PERDIDOS = DATA.perdidos_crm || [];

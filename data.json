@@ -86,8 +86,6 @@
       "name": "SLCA Solicitud - Bicicletas",
       "create_date": "2026-10-22 17:18:27",
       "contact_name": "test",
-      "phone": "+5804127305385",
-      "email_from": "digitalyc2026@gmail.com",
       "estado": "",
       "ciudad": "",
       "pago": "",
@@ -116,8 +114,6 @@
       "name": "SLCA Solicitud - Motos",
       "create_date": "2026-10-22 18:01:19",
       "contact_name": "Prueba",
-      "phone": "+5804121213454",
-      "email_from": "shd@gmail.con",
       "estado": "",
       "ciudad": "",
       "pago": "",
@@ -135,7 +131,8 @@
       "en_formulario": false,
       "rastreo": "No se encuentra en el CRM (eliminado)",
       "fecha_cierre": "",
-      "dias_cierre": null
+      "dias_cierre": null,
+      "crm_id": null
     },
     {
       "situacion": "Abierto",
@@ -143,8 +140,6 @@
       "name": "SLCA Solicitud - Celulares",
       "create_date": "2026-10-22 18:06:44",
       "contact_name": "Anais Paola",
-      "phone": "+5804140414210",
-      "email_from": "anaispaola28@gmail.com",
       "estado": "",
       "ciudad": "",
       "pago": "",
@@ -164,7 +159,8 @@
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "ultimo_movimiento": "2026-07-22 15:10:23"
+      "ultimo_movimiento": "2026-07-22 15:10:23",
+      "crm_id": 61564
     },
     {
       "situacion": "Abierto",
@@ -172,8 +168,6 @@
       "name": "Solicitud - Motos",
       "create_date": "2026-10-22 19:19:33",
       "contact_name": "YEIFERSSON JOSUE QUINTERO CALDERON",
-      "phone": "+5804247199340",
-      "email_from": "yeiferssonjosue4@gmail.com",
       "estado": "MERIDA (VE)",
       "ciudad": "El chama",
       "pago": "hasta_200",
@@ -193,7 +187,8 @@
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "ultimo_movimiento": "2026-10-25 17:31:22"
+      "ultimo_movimiento": "2026-10-25 17:31:22",
+      "crm_id": 66349
     },
     {
       "situacion": "Abierto",
@@ -201,8 +196,6 @@
       "name": "Solicitud - Motos",
       "create_date": "2026-10-22 20:48:27",
       "contact_name": "MAELO QUINTERO ",
-      "phone": "+5804247227943",
-      "email_from": "maekardashian@gmail.com",
       "estado": "MERIDA (VE)",
       "ciudad": "El vigía ",
       "pago": "mas_200",
@@ -222,7 +215,8 @@
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "ultimo_movimiento": "2026-10-23 15:16:17"
+      "ultimo_movimiento": "2026-10-23 15:16:17",
+      "crm_id": 66350
     },
     {
       "situacion": "Abierto",
@@ -230,8 +224,6 @@
       "name": "Solicitud - Motos",
       "create_date": "2026-10-22 22:22:37",
       "contact_name": "ALEXANDER JOSE DIAZ RONDON",
-      "phone": "+5804147528197",
-      "email_from": "alexanderjosediazrondon@gmail.com",
       "estado": "MERIDA (VE)",
       "ciudad": "Ejido Urbanización Carlos Sánchez ",
       "pago": "Hasta_50",
@@ -251,7 +243,8 @@
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "ultimo_movimiento": "2026-10-25 17:27:36"
+      "ultimo_movimiento": "2026-10-25 17:27:36",
+      "crm_id": 66351
     },
     {
       "situacion": "Abierto",
@@ -259,8 +252,6 @@
       "name": "Solicitud - Motos",
       "create_date": "2026-10-22 22:30:59",
       "contact_name": "Paola",
-      "phone": "+580412584227142633",
-      "email_from": "genesispaolam98@gmail.com",
       "estado": "MERIDA (VE)",
       "ciudad": "Santa Juana",
       "pago": "hasta_200",
@@ -280,7 +271,8 @@
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "ultimo_movimiento": "2026-10-23 12:56:41"
+      "ultimo_movimiento": "2026-10-23 12:56:41",
+      "crm_id": 66352
     },
     {
       "situacion": "Abierto",
@@ -288,8 +280,6 @@
       "name": "Solicitud - Motos",
       "create_date": "2026-10-22 22:45:34",
       "contact_name": "RichardRamos ",
-      "phone": "+5804147487902",
-      "email_from": "ramos693@hotmail.com",
       "estado": "MERIDA (VE)",
       "ciudad": "Pedregoza",
       "pago": "hasta_150",
@@ -309,7 +299,8 @@
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "ultimo_movimiento": "2026-10-24 12:07:56"
+      "ultimo_movimiento": "2026-10-24 12:07:56",
+      "crm_id": 66353
     },
     {
       "situacion": "Abierto",
@@ -317,8 +308,6 @@
       "name": "Solicitud - Motos",
       "create_date": "2026-10-22 23:56:19",
       "contact_name": "JESUS PEÑALOZA",
-      "phone": "+5804247352171",
-      "email_from": "penalozajesusorlando@gmail.com",
       "estado": "ZULIA (VE)",
       "ciudad": "Pueblo nuevo el chivo",
       "pago": "hasta_150",
@@ -338,7 +327,8 @@
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "ultimo_movimiento": "2026-10-25 17:26:48"
+      "ultimo_movimiento": "2026-10-25 17:26:48",
+      "crm_id": 66354
     },
     {
       "situacion": "Abierto",
@@ -346,8 +336,6 @@
       "name": "Solicitud - Motos",
       "create_date": "2026-10-23 00:45:00",
       "contact_name": "LUIS ERNESTO GAMEZ PEREZ",
-      "phone": "+5804247127790",
-      "email_from": "luisgg0308@gmail.com",
       "estado": "MERIDA (VE)",
       "ciudad": "Mérida",
       "pago": "hasta_150",
@@ -367,7 +355,8 @@
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "ultimo_movimiento": "2026-10-23 15:45:48"
+      "ultimo_movimiento": "2026-10-23 15:45:48",
+      "crm_id": 66355
     },
     {
       "situacion": "Perdido",
@@ -375,8 +364,6 @@
       "name": "SLCA Solicitud - Bicicletas",
       "create_date": "2026-10-23 08:10:18",
       "contact_name": "Yarley Carmona",
-      "phone": "+5804121345085",
-      "email_from": "yarley@ula.ve",
       "estado": "",
       "ciudad": "",
       "pago": "",
@@ -395,8 +382,9 @@
       "rastreo": "El lead original ya no existe (fusionado o eliminado); el cliente esta en #66285 \"SLCA Solicitud - Motos\" (por email)",
       "motivo_perdida": "",
       "fecha_cierre": "2026-10-21 17:26:24",
-      "dias_cierre": 0.0,
-      "ultimo_movimiento": "2026-10-20 19:43:59"
+      "dias_cierre": 0,
+      "ultimo_movimiento": "2026-10-20 19:43:59",
+      "crm_id": 66285
     },
     {
       "situacion": "Abierto",
@@ -404,8 +392,6 @@
       "name": "SLCA Solicitud - Motos",
       "create_date": "2026-10-23 08:56:25",
       "contact_name": "KATIUSKA CHIQUINQUIRA QUINTERO FERNANDEZ",
-      "phone": "+58 416-7143151",
-      "email_from": "katiuskaquintero446@gmail.com",
       "estado": "MERIDA (VE)",
       "ciudad": "CHACHOPO",
       "pago": "",
@@ -425,7 +411,8 @@
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "ultimo_movimiento": "2026-10-23 15:40:58"
+      "ultimo_movimiento": "2026-10-23 15:40:58",
+      "crm_id": 66357
     },
     {
       "situacion": "Abierto",
@@ -433,8 +420,6 @@
       "name": "Solicitud - Motos",
       "create_date": "2026-10-23 13:09:08",
       "contact_name": "PEDRO JOSE ANGULO SOLANO",
-      "phone": "+5804247365848",
-      "email_from": "pjsolano.70@gmail.com",
       "estado": "MERIDA (VE)",
       "ciudad": "El Vigia Avenida 15",
       "pago": "mas_200",
@@ -454,7 +439,8 @@
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "ultimo_movimiento": "2026-10-23 17:48:10"
+      "ultimo_movimiento": "2026-10-23 17:48:10",
+      "crm_id": 66369
     },
     {
       "situacion": "Abierto",
@@ -462,8 +448,6 @@
       "name": "Solicitud - Motos",
       "create_date": "2026-10-23 13:58:58",
       "contact_name": "ALVARO CANDELAS",
-      "phone": "+5804124004467",
-      "email_from": "candelasalvaro747@gmail.com",
       "estado": "MERIDA (VE)",
       "ciudad": "Sur america",
       "pago": "Hasta_50",
@@ -483,7 +467,8 @@
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "ultimo_movimiento": "2026-10-23 15:31:30"
+      "ultimo_movimiento": "2026-10-23 15:31:30",
+      "crm_id": 66362
     },
     {
       "situacion": "Abierto",
@@ -491,8 +476,6 @@
       "name": "Solicitud - Motos",
       "create_date": "2026-10-23 18:24:42",
       "contact_name": "JAVIER IGNACIO ROJAS PEREZ",
-      "phone": "+5804123118776",
-      "email_from": "jr4732430@gmail.com",
       "estado": "MERIDA (VE)",
       "ciudad": "Av. Urdaneta",
       "pago": "hasta_150",
@@ -512,19 +495,18 @@
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "ultimo_movimiento": "2026-10-23 19:28:27"
+      "ultimo_movimiento": "2026-10-23 19:28:27",
+      "crm_id": 66381
     },
     {
       "id": 66393,
       "name": "Solicitud - Celulares",
       "create_date": "2026-10-24 15:24:54",
       "contact_name": "GILBRAN VILLARROEL",
-      "phone": "+5804248285807",
-      "email_from": "soygilfigueroa@gmail.com",
       "estado": "NUEVA ESPARTA (VE)",
       "ciudad": "PAMPATAR",
       "pago": "mas_200",
-      "ingreso": 3000.0,
+      "ingreso": 3000,
       "inicial": 0,
       "tiempo_inicial": "7_dias",
       "ingresos_proviene": "generacion_independiente",
@@ -548,8 +530,6 @@
       "name": "SLCA Solicitud - Celulares",
       "create_date": "2026-10-24 20:00:49",
       "contact_name": "JARLY KARIN ARAQUE ARAQUE",
-      "phone": "+5804120769283",
-      "email_from": "yarlyaraque28@gmail.com",
       "estado": "MERIDA (VE)",
       "ciudad": "MERIDA",
       "pago": "",
@@ -577,8 +557,6 @@
       "name": "SLCA Solicitud - Celulares",
       "create_date": "2026-10-25 09:25:08",
       "contact_name": "ANA VIRGINIA GONZALEZ",
-      "phone": "+5804147010455",
-      "email_from": "virginialee324@gmail.com",
       "estado": "MERIDA (VE)",
       "ciudad": "MERIDA",
       "pago": "",
@@ -606,8 +584,6 @@
       "name": "SLCA Solicitud - Mini upc",
       "create_date": "2026-10-25 17:04:48",
       "contact_name": "Zayda Peña",
-      "phone": "+5804247061852",
-      "email_from": "carlismarjuan10@gmail.com",
       "estado": "",
       "ciudad": "",
       "pago": "",
@@ -635,12 +611,10 @@
       "name": "Solicitud - Motos",
       "create_date": "2026-10-25 17:38:04",
       "contact_name": "Saúl Alejandro veliz Zabala ",
-      "phone": "+5804247690733",
-      "email_from": "velizsaul.2024@gmail.com",
       "estado": "MERIDA (VE)",
       "ciudad": "El Arenal Don perucho ",
       "pago": "Hasta_50",
-      "ingreso": 800.0,
+      "ingreso": 800,
       "inicial": 0,
       "tiempo_inicial": "proximo_mes",
       "ingresos_proviene": "contratado_en_empresa_privada",

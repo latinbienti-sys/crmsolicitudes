@@ -137,6 +137,12 @@ def rastrear(je, campos, lead):
     Devuelve (registro o None, explicacion)."""
     todos = ['active', 'in', [True, False]]
     kw = {'fields': campos, 'limit': 1, 'order': 'id desc', 'context': {'active_test': False}}
+    # Si una corrida anterior ya lo encontro fusionado en otro registro, se busca ese directamente
+    if lead.get('crm_id') and lead['crm_id'] != lead['id']:
+        recs = je('crm.lead', 'search_read', [[['id', '=', lead['crm_id']], todos]], kw)
+        if recs:
+            r = recs[0]
+            return r, f'El lead original ya no existe (fusionado o eliminado); el cliente esta en #{r["id"]} "{html.unescape(r.get("name") or "")}"'
     recs = je('crm.lead', 'search_read', [[['id', '=', lead['id']], todos]], kw)
     if recs:
         r = recs[0]
@@ -159,6 +165,7 @@ def rastrear(je, campos, lead):
     return None, 'No se encuentra en el CRM (eliminado)'
 
 PERDIDOS_DESDE = os.environ.get('PERDIDOS_DESDE', '2026-08-01')
+RUTA_CONTACTOS = os.path.join(BASE, 'privado', 'contactos.json')
 
 def perdidos_crm(je):
     """Todos los perdidos del CRM (cualquier origen) por fecha de cierre, como el filtro
@@ -262,10 +269,19 @@ def main():
     if os.path.isfile(ruta_data):
         with open(ruta_data, encoding='utf-8') as fh:
             previos = json.load(fh).get('leads', [])
+    # Telefono y email no se publican: se guardan aparte (cache privada de GitHub Actions)
+    # solo para rastrear solicitudes que Odoo fusiona
+    contactos = {}
+    if os.path.isfile(RUTA_CONTACTOS):
+        with open(RUTA_CONTACTOS, encoding='utf-8') as fh:
+            contactos = json.load(fh)
+    for l in previos + leads:
+        if l.get('phone') or l.get('email_from'):
+            contactos[str(l['id'])] = {'phone': l.get('phone') or '', 'email_from': l.get('email_from') or ''}
     actuales = {l['id'] for l in leads}
     for p in previos:
         if p['id'] in actuales: continue
-        r, nota = rastrear(je, campos, p)
+        r, nota = rastrear(je, campos, {**p, **contactos.get(str(p['id']), {})})
         est = estado_crm(r, p['create_date']) if r else {}
         # Un registro del mismo cliente cerrado ANTES de que llegara la solicitud no es su cierre
         if est.get('fecha_cierre') and est['fecha_cierre'] < p['create_date']:
@@ -273,9 +289,14 @@ def main():
             est = {}
         p = {**p, **(est or {'situacion': 'No encontrado', 'fecha_cierre': '', 'dias_cierre': None,
                              'motivo_perdida': ''}),
-             'en_formulario': False, 'rastreo': nota}
+             'en_formulario': False, 'rastreo': nota, 'crm_id': r['id'] if r else p.get('crm_id')}
         leads.append(p)
     leads.sort(key=lambda l: l['id'])
+    for l in leads:
+        l.pop('phone', None); l.pop('email_from', None)
+    os.makedirs(os.path.dirname(RUTA_CONTACTOS), exist_ok=True)
+    with open(RUTA_CONTACTOS, 'w', encoding='utf-8') as fh:
+        json.dump(contactos, fh, ensure_ascii=False)
 
     print('leads desde', FECHA_CORTE, ':', len(leads),
           {s: sum(1 for l in leads if l['situacion'] == s) for s in ('Abierto', 'Ganado', 'Perdido', 'No encontrado')},

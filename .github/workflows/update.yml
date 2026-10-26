@@ -14,12 +14,24 @@ jobs:
         with:
           python-version: '3.11'
       - run: python -m pip install --upgrade pip requests
+      # Telefonos/emails para el rastreo: viven solo en la cache privada de Actions, nunca en el repo
+      - name: Restaurar contactos privados
+        uses: actions/cache/restore@v4
+        with:
+          path: privado
+          key: privado-${{ github.run_id }}
+          restore-keys: privado-
       - name: Generar
         env:
           ODOO_USER: ${{ secrets.ODOO_USER }}
           ODOO_PASS: ${{ secrets.ODOO_PASS }}
           FECHA_CORTE: '2026-10-22'
         run: python generar.py
+      - name: Guardar contactos privados
+        uses: actions/cache/save@v4
+        with:
+          path: privado
+          key: privado-${{ github.run_id }}
       - name: Commit y push
         run: |
           git config user.name "github-actions[bot]"
