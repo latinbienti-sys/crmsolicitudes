@@ -73,14 +73,14 @@ def dias_entre(inicio, fin):
 
 # Ids de etapas marcadas como ganadas en crm.stage (se llena en main)
 ETAPAS_GANADAS = set()
-RE_ETAPA_PERDIDA = re.compile(r'perdid|lost|descartad|rechazad|no\s+interesad|cancelad', re.I)
-RE_ETAPA_GANADA = re.compile(r'ganad|won|vendid|cerrad[oa]\s+ganad', re.I)
+RE_ETAPA_GANADA = re.compile(r'ganad|won|vendid', re.I)
 
 def situacion(r):
     etapa = stage_name(r.get('stage_id')) or ''
     stage_id = r['stage_id'][0] if isinstance(r.get('stage_id'), (list, tuple)) else None
-    # Perdido: archivado en Odoo (active=False) o en una etapa de perdida
-    if r.get('active') is False or RE_ETAPA_PERDIDA.search(etapa): return 'Perdido'
+    # Perdido: en el CRM se marca perdido y queda archivado (active=False);
+    # date_closed guarda la fecha y lost_reason_id el motivo
+    if r.get('active') is False: return 'Perdido'
     if stage_id in ETAPAS_GANADAS or (r.get('probability') or 0) >= 100 or RE_ETAPA_GANADA.search(etapa):
         return 'Ganado'
     return 'Abierto'

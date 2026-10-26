@@ -138,6 +138,8 @@ tr:hover{background:#f8fafc;}
             <th>Contacto</th>
             <th>Telefono</th>
             <th>Situacion hoy</th>
+            <th>Fecha cierre</th>
+            <th>Motivo de perdida</th>
             <th>Etapa hoy</th>
             <th>Ejecutivo</th>
             <th>Donde esta</th>
@@ -236,6 +238,8 @@ tr:hover{background:#f8fafc;}
             <th>Ingreso $</th>
             <th>Linea activa</th>
             <th>Etapa</th>
+            <th>Fecha cierre</th>
+            <th>Motivo de perdida</th>
             <th>Tiempo</th>
             <th>Ejecutivo</th>
           </tr>
@@ -555,8 +559,10 @@ function renderTable(){
       <td>${l.pago||'-'}</td>
       <td style="text-align:right">${money(l.ingreso)}</td>
       <td>${(l.linea_activa||'').replace(/_/g,' ')||'-'}</td>
-      <td>${abierto(l)? (l.etapa||'-') : `${pillSituacion(l)}${l.motivo_perdida? '<br><span class="nota">'+l.motivo_perdida+'</span>' : ''}`}${rastreado(l)? '<br><span class="pill rastreado" title="'+(l.rastreo||'')+'">Fuera del formulario</span>' : ''}</td>
-      <td>${abierto(l)? 'abierto hace '+fmtDias(diasAbierto(l)) : (l.fecha_cierre? 'cerro el '+fmtDate(l.fecha_cierre)+' ('+fmtDias(l.dias_cierre)+')' : 'cerrado')}</td>
+      <td>${abierto(l)? (l.etapa||'-') : pillSituacion(l)}${rastreado(l)? '<br><span class="pill rastreado" title="'+(l.rastreo||'')+'">Fuera del formulario</span>' : ''}</td>
+      <td>${l.fecha_cierre? fmtDate(l.fecha_cierre) : '-'}</td>
+      <td>${l.situacion==='Perdido'? (l.motivo_perdida||'Sin motivo registrado') : '-'}</td>
+      <td>${abierto(l)? 'abierto hace '+fmtDias(diasAbierto(l)) : (l.dias_cierre!=null? 'cerro en '+fmtDias(l.dias_cierre) : 'cerrado')}</td>
       <td>${l.ejecutivo===SIN_ASIGNAR? '<span class="pill sin">'+SIN_ASIGNAR+'</span>' : l.ejecutivo}</td>
     </tr>`).join('');
   document.getElementById('tabla-info').textContent = `Mostrando ${rows.length} de ${leads.length} leads`;
@@ -570,11 +576,13 @@ function renderRastreo(){
       <td><span class="pill nicho">${l.nicho||'-'}</span></td>
       <td>${l.contact_name||'-'}</td>
       <td>${l.phone||'-'}</td>
-      <td>${pillSituacion(l)}${l.motivo_perdida? '<br><span class="nota">'+l.motivo_perdida+'</span>' : ''}</td>
+      <td>${pillSituacion(l)}</td>
+      <td>${l.fecha_cierre? fmtDate(l.fecha_cierre) : '-'}</td>
+      <td>${l.situacion==='Perdido'? (l.motivo_perdida||'Sin motivo registrado') : '-'}</td>
       <td>${l.situacion==='No encontrado'? '-' : (l.etapa||'-')}</td>
       <td>${l.situacion==='No encontrado'? '-' : l.ejecutivo}</td>
       <td class="nota">${l.rastreo||'-'}</td>
-    </tr>`).join('') || '<tr><td colspan="8" class="nota">Ninguna solicitud del filtro ha salido del formulario</td></tr>';
+    </tr>`).join('') || '<tr><td colspan="10" class="nota">Ninguna solicitud del filtro ha salido del formulario</td></tr>';
 }
 
 function renderAll(){
