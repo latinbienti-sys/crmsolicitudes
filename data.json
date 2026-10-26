@@ -1,7 +1,85 @@
 {
-  "generado": "2026-10-26T00:48:12Z",
+  "generado": "2026-10-26T01:09:35Z",
   "fecha_corte": "2026-10-22",
   "total": 20,
+  "etapas_crm": [
+    {
+      "nombre": "Prospecto LC",
+      "ganada": false
+    },
+    {
+      "nombre": "Contacto LC",
+      "ganada": false
+    },
+    {
+      "nombre": "Asesoria LC",
+      "ganada": false
+    },
+    {
+      "nombre": "Proceso LC",
+      "ganada": false
+    },
+    {
+      "nombre": "LC Aprobada",
+      "ganada": true
+    },
+    {
+      "nombre": "Contacto Venta de Mercancia",
+      "ganada": false
+    },
+    {
+      "nombre": "Asesoria Venta de Mercancia",
+      "ganada": false
+    },
+    {
+      "nombre": "Negociacion Venta de Producto",
+      "ganada": false
+    },
+    {
+      "nombre": "Por Entregar",
+      "ganada": false
+    },
+    {
+      "nombre": "Facturado",
+      "ganada": false
+    },
+    {
+      "nombre": "Contado",
+      "ganada": false
+    },
+    {
+      "nombre": "Seguimiento 01",
+      "ganada": false
+    },
+    {
+      "nombre": "Seguimiento 02",
+      "ganada": false
+    },
+    {
+      "nombre": "Seguimiento 03",
+      "ganada": false
+    },
+    {
+      "nombre": "Postventa",
+      "ganada": false
+    },
+    {
+      "nombre": "Cobranzas",
+      "ganada": false
+    },
+    {
+      "nombre": "Fidelizacion/Recompra",
+      "ganada": false
+    },
+    {
+      "nombre": "LCA - Completada por facturar",
+      "ganada": false
+    },
+    {
+      "nombre": "Contrato",
+      "ganada": false
+    }
+  ],
   "leads": [
     {
       "id": 66340,
@@ -24,13 +102,16 @@
       "asignado": "",
       "situacion": "Abierto",
       "motivo_perdida": "",
-      "nicho": "Bicicletas",
-      "producto": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-10-22 17:18:27",
       "en_formulario": true,
-      "rastreo": ""
+      "rastreo": "",
+      "nicho": "Bicicletas",
+      "producto": ""
     },
     {
-      "situacion": "Abierto",
+      "situacion": "No encontrado",
       "id": 66342,
       "name": "SLCA Solicitud - Motos",
       "create_date": "2026-10-22 18:01:19",
@@ -52,7 +133,9 @@
       "nicho": "Motos",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "Pendiente: se rastrea en el CRM en la proxima actualizacion"
+      "rastreo": "No se encuentra en el CRM (eliminado)",
+      "fecha_cierre": "",
+      "dias_cierre": null
     },
     {
       "situacion": "Abierto",
@@ -72,12 +155,16 @@
       "linea_activa": "Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.",
       "operador": "0414",
       "zona": "",
-      "etapa": "Prospecto LC",
-      "asignado": "",
+      "etapa": "Facturado",
+      "asignado": "LADY DIANA TORO RIVERA",
       "nicho": "Celulares",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "Pendiente: se rastrea en el CRM en la proxima actualizacion"
+      "rastreo": "El lead original ya no existe (fusionado o eliminado); el cliente esta en #61564 \"Oportunidad de ANAIS PAOLA RAMIREZ FERNANDEZ\" (por email)",
+      "motivo_perdida": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-07-22 15:10:23"
     },
     {
       "situacion": "Abierto",
@@ -97,12 +184,16 @@
       "linea_activa": "No_seria_mi_primera_vez_en_Latinbien",
       "operador": "0424",
       "zona": "Libertador",
-      "etapa": "Prospecto LC",
+      "etapa": "Asesoria LC",
       "asignado": "YOHANA AUDREY LOPEZ",
       "nicho": "Motos",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "Pendiente: se rastrea en el CRM en la proxima actualizacion"
+      "rastreo": "Sigue en el CRM (#66349), renombrado a \"MOTOS\"",
+      "motivo_perdida": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-10-25 17:31:22"
     },
     {
       "situacion": "Abierto",
@@ -127,7 +218,11 @@
       "nicho": "Motos",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "Pendiente: se rastrea en el CRM en la proxima actualizacion"
+      "rastreo": "Sigue en el CRM (#66350), renombrado a \"MOTOS\"",
+      "motivo_perdida": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-10-23 15:16:17"
     },
     {
       "situacion": "Abierto",
@@ -147,12 +242,16 @@
       "linea_activa": "No_seria_mi_primera_vez_en_Latinbien",
       "operador": "0414",
       "zona": "Ejido y Sucre",
-      "etapa": "Prospecto LC",
+      "etapa": "Contacto LC",
       "asignado": "YOHANA AUDREY LOPEZ",
       "nicho": "Motos",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "Pendiente: se rastrea en el CRM en la proxima actualizacion"
+      "rastreo": "Sigue en el CRM (#66351), renombrado a \"MOTOS\"",
+      "motivo_perdida": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-10-25 17:27:36"
     },
     {
       "situacion": "Abierto",
@@ -177,7 +276,11 @@
       "nicho": "Motos",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "Pendiente: se rastrea en el CRM en la proxima actualizacion"
+      "rastreo": "Sigue en el CRM (#66352), renombrado a \"MOTOS\"",
+      "motivo_perdida": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-10-23 12:56:41"
     },
     {
       "situacion": "Abierto",
@@ -197,12 +300,16 @@
       "linea_activa": "No_seria_mi_primera_vez_en_Latinbien",
       "operador": "0414",
       "zona": "Libertador",
-      "etapa": "Prospecto LC",
-      "asignado": "",
+      "etapa": "Asesoria LC",
+      "asignado": "CLAUDIA MILENA ZAPATA",
       "nicho": "Motos",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "Pendiente: se rastrea en el CRM en la proxima actualizacion"
+      "rastreo": "Sigue en el CRM (#66353), renombrado a \"MOTOS\"",
+      "motivo_perdida": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-10-24 12:07:56"
     },
     {
       "situacion": "Abierto",
@@ -222,12 +329,16 @@
       "linea_activa": "No_seria_mi_primera_vez_en_Latinbien",
       "operador": "0424",
       "zona": "",
-      "etapa": "Prospecto LC",
+      "etapa": "Contacto LC",
       "asignado": "YOHANA AUDREY LOPEZ",
       "nicho": "Motos",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "Pendiente: se rastrea en el CRM en la proxima actualizacion"
+      "rastreo": "Sigue en el CRM (#66354), renombrado a \"MOTOS\"",
+      "motivo_perdida": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-10-25 17:26:48"
     },
     {
       "situacion": "Abierto",
@@ -252,10 +363,14 @@
       "nicho": "Motos",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "Pendiente: se rastrea en el CRM en la proxima actualizacion"
+      "rastreo": "Sigue en el CRM (#66355), renombrado a \"MOTOS\"",
+      "motivo_perdida": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-10-23 15:45:48"
     },
     {
-      "situacion": "Abierto",
+      "situacion": "Perdido",
       "id": 66356,
       "name": "SLCA Solicitud - Bicicletas",
       "create_date": "2026-10-23 08:10:18",
@@ -277,7 +392,11 @@
       "nicho": "Bicicletas",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "Pendiente: se rastrea en el CRM en la proxima actualizacion"
+      "rastreo": "El lead original ya no existe (fusionado o eliminado); el cliente esta en #66285 \"SLCA Solicitud - Motos\" (por email)",
+      "motivo_perdida": "",
+      "fecha_cierre": "2026-10-21 17:26:24",
+      "dias_cierre": 0.0,
+      "ultimo_movimiento": "2026-10-20 19:43:59"
     },
     {
       "situacion": "Abierto",
@@ -302,7 +421,11 @@
       "nicho": "Motos",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "Pendiente: se rastrea en el CRM en la proxima actualizacion"
+      "rastreo": "Sigue en el CRM (#66357), renombrado a \"MOTOS\"",
+      "motivo_perdida": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-10-23 15:40:58"
     },
     {
       "situacion": "Abierto",
@@ -322,12 +445,16 @@
       "linea_activa": "No_seria_mi_primera_vez_en_Latinbien",
       "operador": "0424",
       "zona": "El Vigia",
-      "etapa": "Prospecto LC",
+      "etapa": "Asesoria LC",
       "asignado": "YOHANA AUDREY LOPEZ",
       "nicho": "Motos",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "Pendiente: se rastrea en el CRM en la proxima actualizacion"
+      "rastreo": "El lead original ya no existe (fusionado o eliminado); el cliente esta en #66369 \"MOTOS\" (por email)",
+      "motivo_perdida": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-10-23 17:48:10"
     },
     {
       "situacion": "Abierto",
@@ -352,7 +479,11 @@
       "nicho": "Motos",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "Pendiente: se rastrea en el CRM en la proxima actualizacion"
+      "rastreo": "Sigue en el CRM (#66362), renombrado a \"MOTOS\"",
+      "motivo_perdida": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-10-23 15:31:30"
     },
     {
       "situacion": "Abierto",
@@ -372,12 +503,16 @@
       "linea_activa": "No_seria_mi_primera_vez_en_Latinbien",
       "operador": "0412",
       "zona": "Libertador",
-      "etapa": "Prospecto LC",
+      "etapa": "Asesoria LC",
       "asignado": "YOHANA AUDREY LOPEZ",
       "nicho": "Motos",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "Pendiente: se rastrea en el CRM en la proxima actualizacion"
+      "rastreo": "El lead original ya no existe (fusionado o eliminado); el cliente esta en #66381 \"MOTOS\" (por email)",
+      "motivo_perdida": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-10-23 19:28:27"
     },
     {
       "id": 66393,
@@ -389,7 +524,7 @@
       "estado": "NUEVA ESPARTA (VE)",
       "ciudad": "PAMPATAR",
       "pago": "mas_200",
-      "ingreso": 3000,
+      "ingreso": 3000.0,
       "inicial": 0,
       "tiempo_inicial": "7_dias",
       "ingresos_proviene": "generacion_independiente",
@@ -400,10 +535,13 @@
       "asignado": "MARSOLAIRE ANGULO RANGEL ",
       "situacion": "Abierto",
       "motivo_perdida": "",
-      "nicho": "Celulares",
-      "producto": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-10-25 10:44:35",
       "en_formulario": true,
-      "rastreo": ""
+      "rastreo": "",
+      "nicho": "Celulares",
+      "producto": ""
     },
     {
       "id": 66397,
@@ -426,10 +564,13 @@
       "asignado": "GABRIEL ALEJANDRO PARRA MOLINA",
       "situacion": "Abierto",
       "motivo_perdida": "",
-      "nicho": "Celulares",
-      "producto": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-10-25 09:25:46",
       "en_formulario": true,
-      "rastreo": ""
+      "rastreo": "",
+      "nicho": "Celulares",
+      "producto": ""
     },
     {
       "id": 66400,
@@ -452,10 +593,13 @@
       "asignado": "GABRIEL ALEJANDRO PARRA MOLINA",
       "situacion": "Abierto",
       "motivo_perdida": "",
-      "nicho": "Celulares",
-      "producto": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-10-25 09:48:03",
       "en_formulario": true,
-      "rastreo": ""
+      "rastreo": "",
+      "nicho": "Celulares",
+      "producto": ""
     },
     {
       "id": 66416,
@@ -478,10 +622,13 @@
       "asignado": "",
       "situacion": "Abierto",
       "motivo_perdida": "",
-      "nicho": "Mini upc",
-      "producto": "Mini upc",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-10-25 17:04:48",
       "en_formulario": true,
-      "rastreo": ""
+      "rastreo": "",
+      "nicho": "Mini upc",
+      "producto": "Mini upc"
     },
     {
       "id": 66425,
@@ -493,7 +640,7 @@
       "estado": "MERIDA (VE)",
       "ciudad": "El Arenal Don perucho ",
       "pago": "Hasta_50",
-      "ingreso": 800,
+      "ingreso": 800.0,
       "inicial": 0,
       "tiempo_inicial": "proximo_mes",
       "ingresos_proviene": "contratado_en_empresa_privada",
@@ -504,10 +651,13 @@
       "asignado": "",
       "situacion": "Abierto",
       "motivo_perdida": "",
-      "nicho": "Motos",
-      "producto": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-10-25 17:38:04",
       "en_formulario": true,
-      "rastreo": ""
+      "rastreo": "",
+      "nicho": "Motos",
+      "producto": ""
     }
   ]
 }
