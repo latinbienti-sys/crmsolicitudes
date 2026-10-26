@@ -1,5 +1,22 @@
 {
-  "generado": "2026-10-26T01:09:35Z",
+  "generado": "2026-10-26T01:20:52Z",
+  "perdidos_crm": [],
+  "favorito_perdidos": [
+    {
+      "id": 488,
+      "name": "Perdidos",
+      "domain": "[(\"active\", \"=\", False)]",
+      "context": "{'group_by': ['date_closed:year', 'date_closed:month', 'date_closed:day', 'lost_reason_id']}",
+      "user_id": ""
+    },
+    {
+      "id": 155,
+      "name": "Perdidos",
+      "domain": "[\"&\", (\"active\", \"=\", False), (\"probability\", \"=\", 0)]",
+      "context": "{'group_by': ['user_id']}",
+      "user_id": "MARIA ALEJANDRA RODRIGUEZ SOJO"
+    }
+  ],
   "fecha_corte": "2026-10-22",
   "total": 20,
   "etapas_crm": [
@@ -132,7 +149,8 @@
       "rastreo": "No se encuentra en el CRM (eliminado)",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "crm_id": null
+      "crm_id": null,
+      "motivo_perdida": ""
     },
     {
       "situacion": "Abierto",
@@ -155,7 +173,7 @@
       "nicho": "Celulares",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "El lead original ya no existe (fusionado o eliminado); el cliente esta en #61564 \"Oportunidad de ANAIS PAOLA RAMIREZ FERNANDEZ\" (por email)",
+      "rastreo": "El lead original ya no existe (fusionado o eliminado); el cliente esta en #61564 \"Oportunidad de ANAIS PAOLA RAMIREZ FERNANDEZ\"",
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
@@ -359,7 +377,7 @@
       "crm_id": 66355
     },
     {
-      "situacion": "Perdido",
+      "situacion": "No encontrado",
       "id": 66356,
       "name": "SLCA Solicitud - Bicicletas",
       "create_date": "2026-10-23 08:10:18",
@@ -379,10 +397,10 @@
       "nicho": "Bicicletas",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "El lead original ya no existe (fusionado o eliminado); el cliente esta en #66285 \"SLCA Solicitud - Motos\" (por email)",
+      "rastreo": "El lead original ya no existe (fusionado o eliminado); el cliente esta en #66285 \"SLCA Solicitud - Motos\"; ese registro se cerro el 2026-10-21, antes de la solicitud",
       "motivo_perdida": "",
-      "fecha_cierre": "2026-10-21 17:26:24",
-      "dias_cierre": 0,
+      "fecha_cierre": "",
+      "dias_cierre": null,
       "ultimo_movimiento": "2026-10-20 19:43:59",
       "crm_id": 66285
     },
@@ -435,7 +453,7 @@
       "nicho": "Motos",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "El lead original ya no existe (fusionado o eliminado); el cliente esta en #66369 \"MOTOS\" (por email)",
+      "rastreo": "El lead original ya no existe (fusionado o eliminado); el cliente esta en #66369 \"MOTOS\"",
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
@@ -491,7 +509,7 @@
       "nicho": "Motos",
       "producto": "",
       "en_formulario": false,
-      "rastreo": "El lead original ya no existe (fusionado o eliminado); el cliente esta en #66381 \"MOTOS\" (por email)",
+      "rastreo": "El lead original ya no existe (fusionado o eliminado); el cliente esta en #66381 \"MOTOS\"",
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
@@ -506,7 +524,7 @@
       "estado": "NUEVA ESPARTA (VE)",
       "ciudad": "PAMPATAR",
       "pago": "mas_200",
-      "ingreso": 3000,
+      "ingreso": 3000.0,
       "inicial": 0,
       "tiempo_inicial": "7_dias",
       "ingresos_proviene": "generacion_independiente",
@@ -614,7 +632,7 @@
       "estado": "MERIDA (VE)",
       "ciudad": "El Arenal Don perucho ",
       "pago": "Hasta_50",
-      "ingreso": 800,
+      "ingreso": 800.0,
       "inicial": 0,
       "tiempo_inicial": "proximo_mes",
       "ingresos_proviene": "contratado_en_empresa_privada",
