@@ -1,7 +1,7 @@
 ﻿name: Actualizar CRM Solicitudes
 on:
   schedule:
-    - cron: '5 * * * *'
+    - cron: '23 * * * *'
   workflow_dispatch:
 permissions:
   contents: write
