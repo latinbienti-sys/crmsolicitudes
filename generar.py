@@ -169,11 +169,12 @@ RUTA_CONTACTOS = os.path.join(BASE, 'privado', 'contactos.json')
 
 def perdidos_crm(je):
     """Todos los perdidos del CRM (cualquier origen) por fecha de cierre, como el filtro
-    estandar 'Perdidos' de Odoo: archivado y probabilidad 0. Solo lectura; sin telefono ni email."""
+    compartido 'Perdidos' del CRM: archivado. Solo lectura; sin telefono ni email."""
     disponibles = je('crm.lead', 'fields_get', [['team_id', 'source_id', 'x_form_origen']], {'attributes': ['type']})
     campos = ['name', 'contact_name', 'partner_name', 'user_id', 'stage_id', 'lost_reason_id',
               'date_closed', 'create_date'] + [c for c in ('team_id', 'source_id', 'x_form_origen') if c in disponibles]
-    dominio = [['active', '=', False], ['probability', '=', 0], ['date_closed', '>=', PERDIDOS_DESDE + ' 00:00:00']]
+    # Mismo dominio que el favorito compartido "Perdidos" del CRM: archivado, agrupado por date_closed
+    dominio = [['active', '=', False], ['date_closed', '>=', PERDIDOS_DESDE + ' 00:00:00']]
     salida, offset = [], 0
     while True:
         batch = je('crm.lead', 'search_read', [dominio],
