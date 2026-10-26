@@ -126,7 +126,7 @@ tr:hover{background:#f8fafc;}
     </div>
   </section>
 
-  <section class="tarjeta" style="border-top:4px solid var(--rojo);">
+  <section class="tarjeta" id="sec-perdidos" style="border-top:4px solid var(--rojo);">
     <h2>Perdidos del CRM (todos los origenes)</h2>
     <div class="barra" style="margin-bottom:10px;">
       <label>Mes de cierre: <select id="p-mes"></select></label>
@@ -693,12 +693,16 @@ document.getElementById('btn-limpiar').addEventListener('click', ()=>{
   applyFilters();
 });
 document.getElementById('btn-perdidos-mes').addEventListener('click', ()=>{
-  const hoy = new Date();
-  document.getElementById('f-tipo-fecha').value='cierre';
-  document.getElementById('f-desde').value = localDateStr(new Date(hoy.getFullYear(), hoy.getMonth(), 1));
-  document.getElementById('f-hasta').value = localDateStr(hoy);
-  document.getElementById('f-situacion').value='Perdido';
-  applyFilters();
+  // Lleva a 'Perdidos del CRM' con el mes actual y el equipo por defecto (cuadra con el favorito 'Perdidos')
+  const selM = document.getElementById('p-mes'), selQ = document.getElementById('p-equipo');
+  selM.value = localDateStr(new Date()).slice(0,7);
+  selQ.value = [...selQ.children].some(o=>o.value===EQUIPO_DEFECTO) ? EQUIPO_DEFECTO : '';
+  document.getElementById('p-ejecutivo').value = '';
+  document.getElementById('p-tipo').value = '';
+  document.getElementById('p-asignados').checked = false;
+  renderPerdidos();
+  const sec = document.getElementById('sec-perdidos');
+  if(sec.scrollIntoView) sec.scrollIntoView({behavior:'smooth'});
 });
 ['f-tipo-fecha','f-desde','f-hasta','f-nicho','f-estado','f-ejecutivo','f-situacion'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
 
