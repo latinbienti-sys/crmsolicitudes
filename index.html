@@ -45,6 +45,8 @@ tr:hover{background:#f8fafc;}
 .sube{color:var(--verde);font-weight:600;}
 .baja{color:var(--rojo);font-weight:600;}
 .calor{text-align:center;font-weight:600;}
+.pill.perdido{background:#fdecea;color:var(--rojo);font-weight:600;}
+.pill.ganado{background:#e6f4ec;color:var(--verde);font-weight:600;}
 </style>
 </head>
 <body>
@@ -62,6 +64,7 @@ tr:hover{background:#f8fafc;}
     <label>Nicho: <select id="f-nicho"><option value="">Todos</option></select></label>
     <label>Estado: <select id="f-estado"><option value="">Todos</option></select></label>
     <label>Ejecutivo: <select id="f-ejecutivo"><option value="">Todos</option></select></label>
+    <label>Situacion: <select id="f-situacion"><option value="">Todas</option><option>Abierto</option><option>Ganado</option><option>Perdido</option></select></label>
     <label>Buscar: <input type="text" id="f-buscar" placeholder="contacto, telefono, email, producto"></label>
     <button class="btn" id="btn-aplicar">Aplicar</button>
     <button class="btn" id="btn-limpiar">Limpiar</button>
@@ -73,10 +76,22 @@ tr:hover{background:#f8fafc;}
     <div class="kpis" id="kpis-junta" style="margin-bottom:8px;"></div>
     <div class="nota">
       <b>Calificado</b> = cliente con linea de credito activa, o que declaro ingreso, cuota y tiene inicial (o fecha para tenerla).
-      <b>Listo para comprar</b> = ya tiene inicial disponible o la tendra en 7 dias.
+      <b>Listo para comprar</b> = lead abierto que ya tiene inicial disponible o la tendra en 7 dias.
+      <b>Perdido</b> = lead archivado en el CRM.
       Datos desde la puesta en marcha del formulario (<span id="junta-corte"></span>).
     </div>
   </section>
+
+  <div class="grid2">
+    <section class="tarjeta">
+      <h2>Situacion de los leads</h2>
+      <div class="barlist" id="chart-situacion"></div>
+    </section>
+    <section class="tarjeta">
+      <h2>Motivos de perdida</h2>
+      <div class="barlist" id="chart-motivos"></div>
+    </section>
+  </div>
 
   <div class="grid2">
     <section class="tarjeta">
@@ -109,7 +124,9 @@ tr:hover{background:#f8fafc;}
             <th class="num">% del total</th>
             <th class="num">En prospecto</th>
             <th class="num">En gestion</th>
-            <th class="num">% avance</th>
+            <th class="num">Ganados</th>
+            <th class="num">Perdidos</th>
+            <th class="num">% atendido</th>
             <th>Nichos</th>
             <th>Ultimo lead</th>
           </tr>
@@ -117,7 +134,7 @@ tr:hover{background:#f8fafc;}
         <tbody id="tabla-ejecutivos"></tbody>
       </table>
     </div>
-    <div class="nota">"En gestion" = leads que ya salieron de la etapa inicial de prospecto. Solo lectura: datos tomados del CRM, no se modifica nada en Odoo.</div>
+    <div class="nota">"En prospecto" y "En gestion" cuentan solo leads abiertos. "% atendido" = leads que ya salieron de prospecto (en gestion, ganados o perdidos). Solo lectura: datos tomados del CRM, no se modifica nada en Odoo.</div>
   </section>
 
   <div class="grid2">
@@ -193,16 +210,18 @@ tr:hover{background:#f8fafc;}
 </main>
 
 <script>
-const DATA = {"generado": "2026-10-26T00:40:59Z", "fecha_corte": "2026-10-22", "total": 6, "leads": [{"id": 66340, "name": "SLCA Solicitud - Bicicletas", "create_date": "2026-10-22 17:18:27", "contact_name": "test", "phone": "+5804127305385", "email_from": "digitalyc2026@gmail.com", "estado": "", "ciudad": "", "pago": "", "ingreso": 0, "inicial": 0, "tiempo_inicial": "", "ingresos_proviene": "", "linea_activa": "Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.", "operador": "0412", "zona": "", "etapa": "Prospecto LC", "asignado": "", "nicho": "Bicicletas", "producto": ""}, {"id": 66393, "name": "Solicitud - Celulares", "create_date": "2026-10-24 15:24:54", "contact_name": "GILBRAN VILLARROEL", "phone": "+5804248285807", "email_from": "soygilfigueroa@gmail.com", "estado": "NUEVA ESPARTA (VE)", "ciudad": "PAMPATAR", "pago": "mas_200", "ingreso": 3000.0, "inicial": 0, "tiempo_inicial": "7_dias", "ingresos_proviene": "generacion_independiente", "linea_activa": "No_seria_mi_primera_vez_en_Latinbien", "operador": "0424", "zona": "", "etapa": "Prospecto LC", "asignado": "MARSOLAIRE ANGULO RANGEL ", "nicho": "Celulares", "producto": ""}, {"id": 66397, "name": "SLCA Solicitud - Celulares", "create_date": "2026-10-24 20:00:49", "contact_name": "JARLY KARIN ARAQUE ARAQUE", "phone": "+5804120769283", "email_from": "yarlyaraque28@gmail.com", "estado": "MERIDA (VE)", "ciudad": "MERIDA", "pago": "", "ingreso": 0, "inicial": 0, "tiempo_inicial": "", "ingresos_proviene": "", "linea_activa": "Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.", "operador": "0412", "zona": "", "etapa": "Negociacion Venta de Producto", "asignado": "GABRIEL ALEJANDRO PARRA MOLINA", "nicho": "Celulares", "producto": ""}, {"id": 66400, "name": "SLCA Solicitud - Celulares", "create_date": "2026-10-25 09:25:08", "contact_name": "ANA VIRGINIA GONZALEZ", "phone": "+5804147010455", "email_from": "virginialee324@gmail.com", "estado": "MERIDA (VE)", "ciudad": "MERIDA", "pago": "", "ingreso": 0, "inicial": 0, "tiempo_inicial": "", "ingresos_proviene": "", "linea_activa": "Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.", "operador": "0414", "zona": "", "etapa": "Negociacion Venta de Producto", "asignado": "GABRIEL ALEJANDRO PARRA MOLINA", "nicho": "Celulares", "producto": ""}, {"id": 66416, "name": "SLCA Solicitud - Mini upc", "create_date": "2026-10-25 17:04:48", "contact_name": "Zayda Peña", "phone": "+5804247061852", "email_from": "carlismarjuan10@gmail.com", "estado": "", "ciudad": "", "pago": "", "ingreso": 0, "inicial": 0, "tiempo_inicial": "", "ingresos_proviene": "", "linea_activa": "Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.", "operador": "0424", "zona": "", "etapa": "Prospecto LC", "asignado": "", "nicho": "Mini upc", "producto": "Mini upc"}, {"id": 66425, "name": "Solicitud - Motos", "create_date": "2026-10-25 17:38:04", "contact_name": "Saúl Alejandro veliz Zabala ", "phone": "+5804247690733", "email_from": "velizsaul.2024@gmail.com", "estado": "MERIDA (VE)", "ciudad": "El Arenal Don perucho ", "pago": "Hasta_50", "ingreso": 800.0, "inicial": 0, "tiempo_inicial": "proximo_mes", "ingresos_proviene": "contratado_en_empresa_privada", "linea_activa": "No_seria_mi_primera_vez_en_Latinbien", "operador": "0424", "zona": "Libertador", "etapa": "Prospecto LC", "asignado": "", "nicho": "Motos", "producto": ""}]};
+const DATA = {"generado":"2026-10-26T00:40:59Z","fecha_corte":"2026-10-22","total":6,"leads":[{"id":66340,"name":"SLCA Solicitud - Bicicletas","create_date":"2026-10-22 17:18:27","contact_name":"test","phone":"+5804127305385","email_from":"digitalyc2026@gmail.com","estado":"","ciudad":"","pago":"","ingreso":0,"inicial":0,"tiempo_inicial":"","ingresos_proviene":"","linea_activa":"Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.","operador":"0412","zona":"","etapa":"Prospecto LC","asignado":"","nicho":"Bicicletas","producto":""},{"id":66393,"name":"Solicitud - Celulares","create_date":"2026-10-24 15:24:54","contact_name":"GILBRAN VILLARROEL","phone":"+5804248285807","email_from":"soygilfigueroa@gmail.com","estado":"NUEVA ESPARTA (VE)","ciudad":"PAMPATAR","pago":"mas_200","ingreso":3000,"inicial":0,"tiempo_inicial":"7_dias","ingresos_proviene":"generacion_independiente","linea_activa":"No_seria_mi_primera_vez_en_Latinbien","operador":"0424","zona":"","etapa":"Prospecto LC","asignado":"MARSOLAIRE ANGULO RANGEL ","nicho":"Celulares","producto":""},{"id":66397,"name":"SLCA Solicitud - Celulares","create_date":"2026-10-24 20:00:49","contact_name":"JARLY KARIN ARAQUE ARAQUE","phone":"+5804120769283","email_from":"yarlyaraque28@gmail.com","estado":"MERIDA (VE)","ciudad":"MERIDA","pago":"","ingreso":0,"inicial":0,"tiempo_inicial":"","ingresos_proviene":"","linea_activa":"Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.","operador":"0412","zona":"","etapa":"Negociacion Venta de Producto","asignado":"GABRIEL ALEJANDRO PARRA MOLINA","nicho":"Celulares","producto":""},{"id":66400,"name":"SLCA Solicitud - Celulares","create_date":"2026-10-25 09:25:08","contact_name":"ANA VIRGINIA GONZALEZ","phone":"+5804147010455","email_from":"virginialee324@gmail.com","estado":"MERIDA (VE)","ciudad":"MERIDA","pago":"","ingreso":0,"inicial":0,"tiempo_inicial":"","ingresos_proviene":"","linea_activa":"Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.","operador":"0414","zona":"","etapa":"Negociacion Venta de Producto","asignado":"GABRIEL ALEJANDRO PARRA MOLINA","nicho":"Celulares","producto":""},{"id":66416,"name":"SLCA Solicitud - Mini upc","create_date":"2026-10-25 17:04:48","contact_name":"Zayda Peña","phone":"+5804247061852","email_from":"carlismarjuan10@gmail.com","estado":"","ciudad":"","pago":"","ingreso":0,"inicial":0,"tiempo_inicial":"","ingresos_proviene":"","linea_activa":"Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.","operador":"0424","zona":"","etapa":"Prospecto LC","asignado":"","nicho":"Mini upc","producto":"Mini upc"},{"id":66425,"name":"Solicitud - Motos","create_date":"2026-10-25 17:38:04","contact_name":"Saúl Alejandro veliz Zabala ","phone":"+5804247690733","email_from":"velizsaul.2024@gmail.com","estado":"MERIDA (VE)","ciudad":"El Arenal Don perucho ","pago":"Hasta_50","ingreso":800,"inicial":0,"tiempo_inicial":"proximo_mes","ingresos_proviene":"contratado_en_empresa_privada","linea_activa":"No_seria_mi_primera_vez_en_Latinbien","operador":"0424","zona":"Libertador","etapa":"Prospecto LC","asignado":"","nicho":"Motos","producto":""}]};
 const SIN_ASIGNAR = 'Sin asignar';
-const leads = (DATA.leads || []).map(l => ({...l, ejecutivo: (l.asignado||'').trim() || SIN_ASIGNAR}));
+const leads = (DATA.leads || []).map(l => ({...l, ejecutivo: (l.asignado||'').trim() || SIN_ASIGNAR, situacion: l.situacion || 'Abierto'}));
 let filtered = [...leads];
 // Mismos filtros pero sin rango de fechas: la tendencia semanal compara contra la semana anterior
 let sinFecha = [...leads];
 // Etapa inicial: el lead aun no ha sido trabajado por el ejecutivo
-function enProspecto(l){ return /^prospecto/i.test((l.etapa||'').trim()); }
+function abierto(l){ return l.situacion==='Abierto'; }
+function enProspecto(l){ return abierto(l) && /^prospecto/i.test((l.etapa||'').trim()); }
+function enGestion(l){ return abierto(l) && !enProspecto(l); }
 function lineaActiva(l){ return /linea de credito activa/i.test((l.linea_activa||'').replace(/_/g,' ')); }
-function listoParaComprar(l){ return Number(l.inicial||0)>0 || l.tiempo_inicial==='7_dias'; }
+function listoParaComprar(l){ return abierto(l) && (Number(l.inicial||0)>0 || l.tiempo_inicial==='7_dias'); }
 function calificado(l){
   if(lineaActiva(l)) return true;
   return Number(l.ingreso||0)>0 && !!l.pago && (Number(l.inicial||0)>0 || !!l.tiempo_inicial);
@@ -231,6 +250,7 @@ function applyFilters(){
   const nicho = document.getElementById('f-nicho').value;
   const estado = document.getElementById('f-estado').value;
   const ejecutivo = document.getElementById('f-ejecutivo').value;
+  const situacion = document.getElementById('f-situacion').value;
   const q = (document.getElementById('f-buscar').value||'').toLowerCase().trim();
   const pasa = (l, conFecha)=>{
     const d = fmtDate(l.create_date);
@@ -239,6 +259,7 @@ function applyFilters(){
     if(nicho && l.nicho !== nicho) return false;
     if(estado && l.estado !== estado) return false;
     if(ejecutivo && l.ejecutivo !== ejecutivo) return false;
+    if(situacion && l.situacion !== situacion) return false;
     if(q){
       const hay = [l.contact_name,l.phone,l.email_from,l.ciudad,l.producto,l.nicho,l.estado,l.ejecutivo].join(' ').toLowerCase();
       if(!hay.includes(q)) return false;
@@ -266,7 +287,7 @@ function renderKPIs(){
   const conTelefono = filtered.filter(l=>l.phone).length;
   const sinAsignar = filtered.filter(l=>l.ejecutivo===SIN_ASIGNAR).length;
   const ejecutivosActivos = new Set(filtered.map(l=>l.ejecutivo).filter(x=>x!==SIN_ASIGNAR)).size;
-  const enGestion = filtered.filter(l=>!enProspecto(l)).length;
+  const gestionando = filtered.filter(enGestion).length;
   const kpis = [
     {label:'Total solicitudes', value:total, hint:'en el filtro actual'},
     {label:'Hoy', value:hoyCount, hint:hoy},
@@ -276,7 +297,7 @@ function renderKPIs(){
     {label:'Con linea activa', value:lineaActiva, hint: total? Math.round(lineaActiva/total*100)+'%' : ''},
     {label:'Con telefono', value:conTelefono, hint:''},
     {label:'Ejecutivos con leads', value:ejecutivosActivos, hint:'asignados en el filtro'},
-    {label:'En gestion', value:enGestion, hint: total? Math.round(enGestion/total*100)+'% fuera de prospecto' : ''},
+    {label:'En gestion', value:gestionando, hint: total? Math.round(gestionando/total*100)+'% abiertos fuera de prospecto' : ''},
     {label:'Sin asignar', value:sinAsignar, hint: total? Math.round(sinAsignar/total*100)+'% del total' : ''},
   ];
   const cont = document.getElementById('kpis');
@@ -315,7 +336,7 @@ function renderCharts(){
   renderBar('chart-linea', groupBy(l=> (l.linea_activa||'').replace(/_/g,' ').trim() || 'Sin dato'), 'var(--verde)');
   renderBar('chart-ingresos', groupBy(l=>l.ingresos_proviene), 'var(--azul)');
   renderBar('chart-ejecutivo', groupBy(l=>l.ejecutivo), 'var(--azul)');
-  renderBar('chart-etapa', groupBy(l=>l.etapa), 'var(--verde)');
+  renderBar('chart-etapa', groupBy(l=>abierto(l)? l.etapa : l.situacion), 'var(--verde)');
 }
 
 function pct(a,b){ return b? Math.round(a/b*100)+'%' : '-'; }
@@ -343,14 +364,18 @@ function renderJunta(){
   const calif = filtered.filter(calificado).length;
   const listos = filtered.filter(listoParaComprar).length;
   const recurrentes = filtered.filter(lineaActiva).length;
-  const iniciales = filtered.map(l=>Number(l.inicial||0)).filter(v=>v>0);
+  const iniciales = filtered.filter(abierto).map(l=>Number(l.inicial||0)).filter(v=>v>0);
   const sumaInicial = iniciales.reduce((a,b)=>a+b,0);
+  const ganados = filtered.filter(l=>l.situacion==='Ganado').length;
+  const perdidos = filtered.filter(l=>l.situacion==='Perdido').length;
   const kpis = [
     {label:'Leads ultimos 7 dias', value:actual, hint:variacion},
+    {label:'Tasa de conversion', value:pct(ganados,total), hint:`${ganados} ganados de ${total}`},
+    {label:'Perdidos', value:perdidos, hint:pct(perdidos,total)+' del total'},
     {label:'Leads calificados', value:pct(calif,total), hint:`${calif} de ${total}`},
     {label:'Listos para comprar', value:listos, hint:pct(listos,total)+' del total'},
     {label:'Inicial disponible $', value: sumaInicial? sumaInicial.toLocaleString('es-VE',{maximumFractionDigits:0}) : '-',
-     hint: iniciales.length? `${iniciales.length} leads - prom. ${Math.round(sumaInicial/iniciales.length).toLocaleString('es-VE')}` : ''},
+     hint: iniciales.length? `${iniciales.length} leads abiertos - prom. ${Math.round(sumaInicial/iniciales.length).toLocaleString('es-VE')}` : 'leads abiertos'},
     {label:'Clientes recurrentes', value:pct(recurrentes,total), hint:`${recurrentes} con linea activa / ${total-recurrentes} nuevos`},
   ];
   document.getElementById('kpis-junta').innerHTML = kpis.map(k=>`<div class="kpi"><div class="label">${k.label}</div><div class="value">${k.value}</div><div class="hint">${k.hint}</div></div>`).join('');
@@ -364,6 +389,13 @@ function renderJunta(){
     const p = Math.round(v/maxS*100);
     return `<div class="barrow"><div>Sem. ${s.slice(5)}</div><div class="barfondo"><div class="barfill" style="width:${p}%;background:var(--azul)">${p>=15?p+'%':''}</div></div><div style="text-align:right;font-weight:600">${v}</div></div>`;
   }).join('') || '<div class="nota">Sin datos</div>';
+
+  renderBar('chart-situacion', groupBy(l=>l.situacion), 'var(--azul)');
+  const perdidosF = filtered.filter(l=>l.situacion==='Perdido');
+  const motivos = {};
+  perdidosF.forEach(l=>{const m=l.motivo_perdida||'Sin motivo registrado'; motivos[m]=(motivos[m]||0)+1;});
+  renderBar('chart-motivos', motivos, 'var(--rojo)');
+  if(!perdidosF.length) document.getElementById('chart-motivos').innerHTML = '<div class="nota">Sin leads perdidos en el filtro</div>';
 
   renderBar('chart-urgencia', groupBy(l=>{
     if(Number(l.inicial||0)>0) return 'Ya tiene inicial';
@@ -395,17 +427,19 @@ function renderEjecutivos(){
   const total = filtered.length;
   const por = {};
   filtered.forEach(l=>{
-    const e = por[l.ejecutivo] || (por[l.ejecutivo] = {leads:0, prospecto:0, nichos:{}, ultimo:''});
+    const e = por[l.ejecutivo] || (por[l.ejecutivo] = {leads:0, prospecto:0, gestion:0, ganados:0, perdidos:0, nichos:{}, ultimo:''});
     e.leads++;
     if(enProspecto(l)) e.prospecto++;
+    if(enGestion(l)) e.gestion++;
+    if(l.situacion==='Ganado') e.ganados++;
+    if(l.situacion==='Perdido') e.perdidos++;
     e.nichos[l.nicho||'Sin nicho'] = (e.nichos[l.nicho||'Sin nicho']||0)+1;
     if((l.create_date||'') > e.ultimo) e.ultimo = l.create_date||'';
   });
   // Ordena por volumen; "Sin asignar" siempre al final
   const filas = Object.entries(por).sort((a,b)=> (a[0]===SIN_ASIGNAR)-(b[0]===SIN_ASIGNAR) || b[1].leads-a[1].leads);
   document.getElementById('tabla-ejecutivos').innerHTML = filas.map(([nombre,e])=>{
-    const gestion = e.leads - e.prospecto;
-    const avance = Math.round(gestion/e.leads*100);
+    const avance = Math.round((e.leads - e.prospecto)/e.leads*100);
     const color = avance>=50 ? 'var(--verde)' : avance>0 ? 'var(--naranja)' : 'var(--rojo)';
     const nichos = Object.entries(e.nichos).sort((a,b)=>b[1]-a[1]).map(([n,c])=>`${n} (${c})`).join(', ');
     const etiqueta = nombre===SIN_ASIGNAR ? `<span class="pill sin">${nombre}</span>` : nombre;
@@ -414,12 +448,14 @@ function renderEjecutivos(){
       <td class="num" style="font-weight:600">${e.leads}</td>
       <td class="num">${total? Math.round(e.leads/total*100) : 0}%</td>
       <td class="num">${e.prospecto}</td>
-      <td class="num">${gestion}</td>
+      <td class="num">${e.gestion}</td>
+      <td class="num">${e.ganados}</td>
+      <td class="num">${e.perdidos}</td>
       <td class="num"><span class="avance" style="color:${color}">${avance}%</span></td>
       <td>${nichos}</td>
       <td>${(e.ultimo||'').slice(0,16)}</td>
     </tr>`;
-  }).join('') || '<tr><td colspan="8" class="nota">Sin datos</td></tr>';
+  }).join('') || '<tr><td colspan="10" class="nota">Sin datos</td></tr>';
 }
 
 function renderTable(){
@@ -436,7 +472,7 @@ function renderTable(){
       <td>${l.pago||'-'}</td>
       <td style="text-align:right">${money(l.ingreso)}</td>
       <td>${(l.linea_activa||'').replace(/_/g,' ')||'-'}</td>
-      <td>${l.etapa||'-'}</td>
+      <td>${abierto(l)? (l.etapa||'-') : `<span class="pill ${l.situacion.toLowerCase()}">${l.situacion}</span>${l.motivo_perdida? '<br><span class="nota">'+l.motivo_perdida+'</span>' : ''}`}</td>
       <td>${l.ejecutivo===SIN_ASIGNAR? '<span class="pill sin">'+SIN_ASIGNAR+'</span>' : l.ejecutivo}</td>
     </tr>`).join('');
   document.getElementById('tabla-info').textContent = `Mostrando ${rows.length} de ${leads.length} leads`;
@@ -457,10 +493,11 @@ document.getElementById('btn-limpiar').addEventListener('click', ()=>{
   document.getElementById('f-nicho').value='';
   document.getElementById('f-estado').value='';
   document.getElementById('f-ejecutivo').value='';
+  document.getElementById('f-situacion').value='';
   document.getElementById('f-buscar').value='';
   applyFilters();
 });
-['f-desde','f-hasta','f-nicho','f-estado','f-ejecutivo'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
+['f-desde','f-hasta','f-nicho','f-estado','f-ejecutivo','f-situacion'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
 
 populateSelects();
 // default date range: last 30 days

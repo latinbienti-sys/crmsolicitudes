@@ -60,6 +60,15 @@ CAMPOS = ['id','name','create_date','contact_name','phone','email_from',
           'state_id','city','x_payment','x_valor_ingreso','x_inicial_disponible_moto',
           'x_tiempo_inicial','x_ingresos_proviene','x_linea_activa','x_operador',
           'x_zona','stage_id','user_id','description','x_form_origen']
+# Campos estandar de Odoo para ganados/perdidos; se piden solo si existen en esta version
+CAMPOS_CIERRE = ['active','lost_reason_id','probability']
+
+def situacion(r):
+    # En Odoo un lead perdido queda archivado (active=False)
+    if r.get('active') is False: return 'Perdido'
+    if (r.get('probability') or 0) >= 100 or re.search(r'ganad|won', stage_name(r.get('stage_id')) or '', re.I):
+        return 'Ganado'
+    return 'Abierto'
 
 def is_solicitud_form(lead):
     name = html.unescape(lead.get('name') or '')
@@ -96,12 +105,17 @@ def user_name(v):
 def main():
     uid, je = conectar()
     print('Conectado uid', uid)
+    existentes = je('crm.lead', 'fields_get', [CAMPOS_CIERRE], {'attributes': ['type']})
+    campos = CAMPOS + [c for c in CAMPOS_CIERRE if c in existentes]
+    print('campos de cierre disponibles:', [c for c in CAMPOS_CIERRE if c in existentes])
     leads_raw = []
     offset = 0
     while True:
+        # Incluye archivados (perdidos); solo lectura
         batch = je('crm.lead', 'search_read',
-                   [[['x_form_origen', '=', 'moto_web']]],
-                   {'fields': CAMPOS, 'limit': 500, 'offset': offset, 'order': 'id asc'})
+                   [[['x_form_origen', '=', 'moto_web'], ['active', 'in', [True, False]]]],
+                   {'fields': campos, 'limit': 500, 'offset': offset, 'order': 'id asc',
+                    'context': {'active_test': False}})
         if not batch: break
         leads_raw.extend(batch)
         offset += len(batch)
@@ -136,11 +150,14 @@ def main():
             'zona': r.get('x_zona') or '',
             'etapa': stage_name(r.get('stage_id')),
             'asignado': user_name(r.get('user_id')),
+            'situacion': situacion(r),
+            'motivo_perdida': user_name(r.get('lost_reason_id')),
             'nicho': niche,
             'producto': producto,
         })
 
-    print('leads desde', FECHA_CORTE, ':', len(leads))
+    print('leads desde', FECHA_CORTE, ':', len(leads),
+          {s: sum(1 for l in leads if l['situacion'] == s) for s in ('Abierto', 'Ganado', 'Perdido')})
 
     data = {'generado': datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
             'fecha_corte': FECHA_CORTE, 'total': len(leads), 'leads': leads}
