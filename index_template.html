@@ -87,6 +87,7 @@ tr:hover{background:#f8fafc;}
     <button class="btn" id="btn-aplicar">Aplicar</button>
     <button class="btn" id="btn-limpiar">Limpiar</button>
     <button class="btn" id="btn-perdidos-mes" style="background:var(--rojo)">Perdidos del mes</button>
+    <button class="btn" id="btn-flujo" style="background:var(--naranja)">Alertas 48 h por ejecutivo</button>
     <span class="nota" id="rango-info"></span>
   </div>
 
@@ -891,6 +892,10 @@ initPerdidos();
 renderPerdidos();
 initFlujo();
 renderFlujo();
+document.getElementById('btn-flujo').addEventListener('click', ()=>{
+  const sec = document.getElementById('sec-flujo');
+  if(sec.scrollIntoView) sec.scrollIntoView({behavior:'smooth'});
+});
 applyFilters();
 </script>
 </body>
