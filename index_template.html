@@ -8,6 +8,10 @@
 :root{--azul:#1f3b73;--verde:#1e8e5a;--naranja:#e07b2a;--rojo:#c0392b;--gris:#eef1f5;--borde:#d3dae3;--fondo:#f4f6f9;}
 *{box-sizing:border-box;}
 body{font-family:"Segoe UI",Arial,sans-serif;margin:0;background:var(--fondo);color:#1c2733;}
+.tabs{background:#fff;border-bottom:1px solid var(--borde);padding:0 22px;display:flex;gap:4px;flex-wrap:wrap;position:sticky;top:0;z-index:5;}
+.tab{background:none;border:none;border-bottom:3px solid transparent;padding:12px 14px;font-size:14px;color:#56657a;cursor:pointer;}
+.tab:hover{color:var(--azul);}
+.tab.activa{color:var(--azul);border-bottom-color:var(--azul);font-weight:600;}
 header{background:var(--azul);color:#fff;padding:14px 22px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
 header h1{font-size:18px;margin:0 0 2px;}
 .sub{font-size:12px;opacity:.85;}
@@ -74,6 +78,11 @@ tr:hover{background:#f8fafc;}
   </div>
   <span class="sub" id="meta-gen"></span>
 </header>
+<nav class="tabs" role="tablist">
+  <button class="tab" role="tab" data-tab="solicitudes">Solicitudes del formulario</button>
+  <button class="tab" role="tab" data-tab="flujo">Flujo por ejecutivo y etapa</button>
+  <button class="tab" role="tab" data-tab="perdidos">Perdidos del CRM</button>
+</nav>
 <main>
   <div class="barra">
     <label>Fecha de: <select id="f-tipo-fecha"><option value="llegada">Llegada</option><option value="cierre">Cierre</option></select></label>
@@ -873,8 +882,7 @@ document.getElementById('btn-perdidos-mes').addEventListener('click', ()=>{
   document.getElementById('p-tipo').value = '';
   document.getElementById('p-asignados').checked = false;
   renderPerdidos();
-  const sec = document.getElementById('sec-perdidos');
-  if(sec.scrollIntoView) sec.scrollIntoView({behavior:'smooth'});
+  mostrarTab('perdidos');
 });
 ['f-tipo-fecha','f-desde','f-hasta','f-nicho','f-estado','f-ejecutivo','f-situacion'].forEach(id=>document.getElementById(id).addEventListener('change',applyFilters));
 
@@ -892,9 +900,25 @@ initPerdidos();
 renderPerdidos();
 initFlujo();
 renderFlujo();
+
+// Pestanas: cada seccion de <main> pertenece a una; el pie se ve en todas
+const TAB_DE = {'sec-flujo':'flujo', 'sec-perdidos':'perdidos'};
+function mostrarTab(tab){
+  [...document.querySelectorAll('main > *')].forEach(el=>{
+    if(el.classList.contains('foot')) return;
+    el.style.display = (TAB_DE[el.id]||'solicitudes')===tab ? '' : 'none';
+  });
+  document.querySelectorAll('.tab').forEach(b=>{
+    const on = b.dataset.tab===tab;
+    b.classList.toggle('activa', on); b.setAttribute('aria-selected', on);
+  });
+  try { history.replaceState(null, '', '#'+tab); } catch(e) {}
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click', ()=>mostrarTab(b.dataset.tab)));
+mostrarTab(['flujo','perdidos'].includes(location.hash.slice(1)) ? location.hash.slice(1) : 'solicitudes');
 document.getElementById('btn-flujo').addEventListener('click', ()=>{
-  const sec = document.getElementById('sec-flujo');
-  if(sec.scrollIntoView) sec.scrollIntoView({behavior:'smooth'});
+  mostrarTab('flujo');
 });
 applyFilters();
 </script>

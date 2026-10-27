@@ -207,24 +207,31 @@ def perdidos_crm(je):
     print('perdidos CRM desde', PERDIDOS_DESDE, ':', len(salida), '| favoritos:', favoritos)
     return salida, favoritos
 
-FLUJO_FAVORITO = os.environ.get('FLUJO_FAVORITO', 'flujo')
+FLUJO_FAVORITO = os.environ.get('FLUJO_FAVORITO', 'flujo AMD EJE ETAPA')
+# Si el dominio del favorito no se puede leer: leads con ejecutivo que se movieron en los ultimos N dias
+FLUJO_DIAS_RESPALDO = int(os.environ.get('FLUJO_DIAS_RESPALDO', '60'))
 FLUJO_MAX = int(os.environ.get('FLUJO_MAX', '3000'))
 
 def _a_lista(d):
     return [_a_lista(x) for x in d] if isinstance(d, (list, tuple)) else d
 
 def favorito_flujo(je):
-    """Favorito 'flujo AMD EJE ETAPA' (ir.filters). Devuelve (favorito, dominio o None si no es literal)."""
+    """Favorito FLUJO_FAVORITO (ir.filters): el que contiene todas sus palabras en el nombre.
+    Devuelve (favorito, dominio o None si no es literal, nombres de los candidatos)."""
     import ast
+    palabras = FLUJO_FAVORITO.lower().split()
     favs = je('ir.filters', 'search_read',
-              [[['model_id', '=', 'crm.lead'], ['name', 'ilike', FLUJO_FAVORITO]]],
+              [[['model_id', '=', 'crm.lead'], ['name', 'ilike', palabras[0]]]],
               {'fields': ['name', 'domain', 'context', 'user_id'], 'order': 'id desc'})
-    for f in favs:
-        try:
-            return f, _a_lista(ast.literal_eval(f.get('domain') or '[]'))
-        except (ValueError, SyntaxError):
-            pass  # dominio con expresiones (p.ej. context_today()); se usa el de respaldo
-    return (favs[0] if favs else None), None
+    candidatos = [f['name'] for f in favs]
+    elegidos = [f for f in favs if all(p in (f['name'] or '').lower() for p in palabras)]
+    if not elegidos:
+        return None, None, candidatos
+    f = elegidos[0]
+    try:
+        return f, _a_lista(ast.literal_eval(f.get('domain') or '[]')), candidatos
+    except (ValueError, SyntaxError):
+        return f, None, candidatos  # dominio con expresiones (p.ej. context_today()); se usa el de respaldo
 
 def historial_etapas(je, ids):
     """Cambios de etapa desde el chatter (mail.tracking.value), solo lectura.
@@ -254,15 +261,18 @@ def historial_etapas(je, ids):
 
 def flujo_etapas(je):
     """Leads abiertos del favorito de flujo: etapa actual, desde cuando y tiempo en cada etapa."""
-    fav, dominio = favorito_flujo(je)
-    if dominio is None:
-        dominio = [['user_id', '!=', False]]
+    fav, dominio, candidatos = favorito_flujo(je)
+    # Sin dominio legible, o vacio (todo el CRM): se acota a leads con ejecutivo y actividad reciente
+    respaldo = not dominio
+    if respaldo:
+        limite = (datetime.utcnow() - timedelta(days=FLUJO_DIAS_RESPALDO)).strftime('%Y-%m-%d 00:00:00')
+        dominio = [['user_id', '!=', False], ['date_last_stage_update', '>=', limite]]
     dominio = dominio + [['active', '=', True]]
     disponibles = je('crm.lead', 'fields_get', [['team_id', 'date_last_stage_update', 'type']], {'attributes': ['type']})
     campos = ['name', 'contact_name', 'partner_name', 'user_id', 'stage_id', 'create_date'] + \
              [c for c in ('team_id', 'date_last_stage_update', 'type') if c in disponibles]
     leads = je('crm.lead', 'search_read', [dominio],
-               {'fields': campos, 'limit': FLUJO_MAX, 'order': 'date_last_stage_update asc'})
+               {'fields': campos, 'limit': FLUJO_MAX, 'order': 'date_last_stage_update desc'})
     cambios, error = historial_etapas(je, [r['id'] for r in leads])
     ahora = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
     salida = []
@@ -290,9 +300,12 @@ def flujo_etapas(je):
             'creado': a_local(r.get('create_date')),
             'historial': segs,
         })
-    print('flujo: favorito', fav and fav.get('name'), '| dominio literal:', dominio is not None,
+    print('flujo: favorito', fav and fav.get('name'), '| candidatos:', candidatos, '| respaldo:', respaldo,
           '| leads abiertos:', len(salida), '| historial:', 'ok' if cambios is not None else 'sin acceso: ' + error)
     return {
+        'candidatos': candidatos,
+        'dominio_respaldo': respaldo,
+        'cambios_leidos': sum(len(v) for v in (cambios or {}).values()),
         'favorito': ({'name': fav['name'], 'domain': fav.get('domain'), 'context': fav.get('context'),
                       'user': user_name(fav.get('user_id'))} if fav else None),
         'historial_ok': cambios is not None,
