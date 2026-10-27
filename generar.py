@@ -207,6 +207,100 @@ def perdidos_crm(je):
     print('perdidos CRM desde', PERDIDOS_DESDE, ':', len(salida), '| favoritos:', favoritos)
     return salida, favoritos
 
+FLUJO_FAVORITO = os.environ.get('FLUJO_FAVORITO', 'flujo')
+FLUJO_MAX = int(os.environ.get('FLUJO_MAX', '3000'))
+
+def _a_lista(d):
+    return [_a_lista(x) for x in d] if isinstance(d, (list, tuple)) else d
+
+def favorito_flujo(je):
+    """Favorito 'flujo AMD EJE ETAPA' (ir.filters). Devuelve (favorito, dominio o None si no es literal)."""
+    import ast
+    favs = je('ir.filters', 'search_read',
+              [[['model_id', '=', 'crm.lead'], ['name', 'ilike', FLUJO_FAVORITO]]],
+              {'fields': ['name', 'domain', 'context', 'user_id'], 'order': 'id desc'})
+    for f in favs:
+        try:
+            return f, _a_lista(ast.literal_eval(f.get('domain') or '[]'))
+        except (ValueError, SyntaxError):
+            pass  # dominio con expresiones (p.ej. context_today()); se usa el de respaldo
+    return (favs[0] if favs else None), None
+
+def historial_etapas(je, ids):
+    """Cambios de etapa desde el chatter (mail.tracking.value), solo lectura.
+    Devuelve ({lead_id: [(fecha_utc, etapa_anterior, etapa_nueva)]}, error)."""
+    cambios = {i: [] for i in ids}
+    campos = ['old_value_char', 'new_value_char', 'create_date', 'mail_message_id']
+    filtros_campo = ([['field_id.name', '=', 'stage_id']], [['field', '=', 'stage_id']])  # Odoo 16+ / anteriores
+    for i in range(0, len(ids), 200):
+        bloque = ids[i:i + 200]
+        base = [['mail_message_id.model', '=', 'crm.lead'], ['mail_message_id.res_id', 'in', bloque]]
+        tvs, error = None, ''
+        for fc in filtros_campo:
+            try:
+                tvs = je('mail.tracking.value', 'search_read', [base + fc], {'fields': campos, 'order': 'create_date asc'})
+                break
+            except RuntimeError as e:
+                error = str(e)[:200]
+        if tvs is None:
+            return None, error
+        mids = list({t['mail_message_id'][0] for t in tvs if t.get('mail_message_id')})
+        res = {m['id']: m['res_id'] for m in je('mail.message', 'search_read', [[['id', 'in', mids]]], {'fields': ['res_id']})} if mids else {}
+        for t in tvs:
+            lid = res.get(t['mail_message_id'][0]) if t.get('mail_message_id') else None
+            if lid in cambios:
+                cambios[lid].append((t['create_date'], t.get('old_value_char') or '', t.get('new_value_char') or ''))
+    return cambios, ''
+
+def flujo_etapas(je):
+    """Leads abiertos del favorito de flujo: etapa actual, desde cuando y tiempo en cada etapa."""
+    fav, dominio = favorito_flujo(je)
+    if dominio is None:
+        dominio = [['user_id', '!=', False]]
+    dominio = dominio + [['active', '=', True]]
+    disponibles = je('crm.lead', 'fields_get', [['team_id', 'date_last_stage_update', 'type']], {'attributes': ['type']})
+    campos = ['name', 'contact_name', 'partner_name', 'user_id', 'stage_id', 'create_date'] + \
+             [c for c in ('team_id', 'date_last_stage_update', 'type') if c in disponibles]
+    leads = je('crm.lead', 'search_read', [dominio],
+               {'fields': campos, 'limit': FLUJO_MAX, 'order': 'date_last_stage_update asc'})
+    cambios, error = historial_etapas(je, [r['id'] for r in leads])
+    ahora = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')
+    salida = []
+    for r in leads:
+        etapa = stage_name(r.get('stage_id'))
+        desde = r.get('date_last_stage_update') or r.get('create_date')
+        # Segmentos [etapa, inicio local, horas]; el ultimo es la etapa actual (sigue corriendo)
+        segs = []
+        if cambios is not None:
+            inicio, actual = r.get('create_date'), None
+            for fecha, vieja, nueva in sorted(cambios.get(r['id'], [])):
+                segs.append([vieja or actual or '', a_local(inicio), round((dias_entre(inicio, fecha) or 0) * 24, 1)])
+                inicio, actual = fecha, nueva
+            if segs:
+                desde = inicio
+        salida.append({
+            'id': r['id'],
+            'name': html.unescape(r.get('name') or ''),
+            'contacto': html.unescape(r.get('contact_name') or r.get('partner_name') or ''),
+            'ejecutivo': (user_name(r.get('user_id')) or '').strip(),
+            'equipo': user_name(r.get('team_id')) or '',
+            'tipo': {'lead': 'Iniciativa', 'opportunity': 'Oportunidad'}.get(r.get('type'), ''),
+            'etapa': etapa,
+            'desde': a_local(desde),
+            'creado': a_local(r.get('create_date')),
+            'historial': segs,
+        })
+    print('flujo: favorito', fav and fav.get('name'), '| dominio literal:', dominio is not None,
+          '| leads abiertos:', len(salida), '| historial:', 'ok' if cambios is not None else 'sin acceso: ' + error)
+    return {
+        'favorito': ({'name': fav['name'], 'domain': fav.get('domain'), 'context': fav.get('context'),
+                      'user': user_name(fav.get('user_id'))} if fav else None),
+        'historial_ok': cambios is not None,
+        'historial_error': error,
+        'calculado_utc': ahora,
+        'leads': salida,
+    }
+
 def main():
     uid, je = conectar()
     print('Conectado uid', uid)
@@ -305,9 +399,16 @@ def main():
           'rastreados:', sum(1 for l in leads if not l['en_formulario']))
 
     perdidos, favoritos = perdidos_crm(je)
+    try:
+        flujo = flujo_etapas(je)
+    except RuntimeError as e:
+        # El flujo es un agregado: si falla, el resto del tablero se publica igual
+        flujo = {'error': str(e)[:300], 'leads': []}
+        print('flujo: error', flujo['error'])
 
     data = {'generado': datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
             'perdidos_crm': perdidos,
+            'flujo': flujo,
             'favorito_perdidos': [{k: (user_name(v) if k == 'user_id' else v) for k, v in f.items()} for f in favoritos],
             'fecha_corte': FECHA_CORTE, 'total': len(leads),
             'etapas_crm': [{'nombre': e['name'], 'ganada': bool(e.get('is_won'))} for e in etapas],

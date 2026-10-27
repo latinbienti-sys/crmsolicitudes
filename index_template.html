@@ -60,6 +60,10 @@ tr:hover{background:#f8fafc;}
 .gbar:hover .glabel{font-weight:600;}
 .gbar:hover .grelleno{filter:brightness(1.12);}
 .gbar.actual .glabel{font-weight:600;}
+.alerta{display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap;}
+.alerta.media{background:#fff4e5;color:#9a5b13;}
+.alerta.alta{background:#fdecea;color:var(--rojo);}
+.alerta.critica{background:var(--rojo);color:#fff;}
 </style>
 </head>
 <body>
@@ -134,6 +138,34 @@ tr:hover{background:#f8fafc;}
     <h2>Mapa de demanda (estado x nicho)</h2>
     <div style="overflow-x:auto;">
       <table id="tabla-mapa"></table>
+    </div>
+  </section>
+
+  <section class="tarjeta" id="sec-flujo" style="border-top:4px solid var(--naranja);">
+    <h2>Flujo por ejecutivo y etapa - alertas de clientes parados</h2>
+    <div class="barra" style="margin-bottom:10px;">
+      <label>Equipo: <select id="x-equipo"><option value="">Todos</option></select></label>
+      <label>Ejecutivo: <select id="x-ejecutivo"><option value="">Todos</option></select></label>
+      <label>Alerta si lleva mas de: <select id="x-umbral"><option value="24">24 h</option><option value="48" selected>48 h</option><option value="72">72 h</option><option value="168">7 dias</option></select></label>
+      <label>Gestion desde: <input type="date" id="x-desde"></label>
+      <label>hasta: <input type="date" id="x-hasta"></label>
+    </div>
+    <div class="nota" id="x-nota" style="margin-bottom:8px;"></div>
+    <div class="kpis" id="x-kpis"></div>
+    <div class="grid2">
+      <div class="grafico"><h2>Clientes parados por ejecutivo</h2><div id="x-parados" role="list"></div></div>
+      <div class="grafico"><h2>Tiempo promedio en cada etapa</h2><div id="x-tiempos" role="list"></div></div>
+    </div>
+    <h2 style="margin-top:16px;">Parados por ejecutivo y etapa</h2>
+    <div style="overflow-x:auto;"><table id="x-matriz"></table></div>
+    <h2 style="margin-top:16px;">Gestion de etapas en el periodo (movimientos por ejecutivo)</h2>
+    <div class="grafico"><div id="x-movs" role="list"></div></div>
+    <h2 style="margin-top:16px;" id="x-alertas-titulo">Alertas</h2>
+    <div style="overflow-x:auto;max-height:480px;">
+      <table>
+        <thead><tr><th>Tiempo parado</th><th>Cliente</th><th>Oportunidad</th><th>Ejecutivo</th><th>Etapa</th><th>En la etapa desde</th><th>Equipo</th></tr></thead>
+        <tbody id="x-alertas"></tbody>
+      </table>
     </div>
   </section>
 
@@ -652,18 +684,118 @@ function initPerdidos(){
 
 // Barras horizontales en el orden recibido. filas: [etiqueta, valor, destacada?].
 // Con total, muestra % del total; sin total, solo el valor.
-function graficoBarras(containerId, filas, total, color, vacio){
+function graficoBarras(containerId, filas, total, color, vacio, fmt){
+  fmt = fmt || (v=>v);
   const max = Math.max(1, ...filas.map(f=>f[1]));
   document.getElementById(containerId).innerHTML = filas.length ? filas.map(([etq,v,dest])=>{
     const ancho = Math.max(2, Math.round(v/max*100));
     const porc = total ? Math.round(v/total*100)+'%' : '';
-    const tip = `${etq}: ${v}${total? ' de '+total+' ('+porc+')' : ''}`;
+    const tip = `${etq}: ${fmt(v)}${total? ' de '+total+' ('+porc+')' : ''}`;
     return `<div class="gbar${dest?' actual':''}" role="listitem" title="${tip.replace(/"/g,'&quot;')}">
       <div class="glabel">${etq}</div>
-      <div class="gvalor">${v}${porc? '<span>'+porc+'</span>' : ''}</div>
+      <div class="gvalor">${fmt(v)}${porc? '<span>'+porc+'</span>' : ''}</div>
       <div class="gpista"><div class="grelleno" style="width:${ancho}%;background:${color};${dest===false?'opacity:.55;':''}"></div></div>
     </div>`;
   }).join('') : `<div class="nota">${vacio}</div>`;
+}
+
+const FLUJO = DATA.flujo || {leads:[]};
+const ORDEN_ETAPAS = (DATA.etapas_crm||[]).map(e=>e.nombre);
+// Horas desde una fecha local 'YYYY-MM-DD HH:MM:SS' hasta ahora
+function horasDesde(s){ const d=new Date((s||'').replace(' ','T')); return isNaN(d)? null : Math.max(0,(Date.now()-d.getTime())/3600000); }
+function fmtHoras(h){ return h==null? '-' : h<48? Math.round(h)+' h' : (h/24).toFixed(1)+' d'; }
+function nivelAlerta(h, umbral){ return h>=umbral*3.5? 'critica' : h>=umbral*1.5? 'alta' : 'media'; }
+function ordenEtapa(a,b){ const ia=ORDEN_ETAPAS.indexOf(a), ib=ORDEN_ETAPAS.indexOf(b); return (ia<0?999:ia)-(ib<0?999:ib) || a.localeCompare(b); }
+
+function initFlujo(){
+  const L = FLUJO.leads||[];
+  const llenar = (id, vals)=>{const s=document.getElementById(id); vals.forEach(x=>{const o=document.createElement('option');o.value=x;o.textContent=x;s.appendChild(o);});};
+  llenar('x-equipo', [...new Set(L.map(l=>l.equipo||'Sin equipo'))].sort());
+  llenar('x-ejecutivo', [...new Set(L.map(l=>l.ejecutivo||SIN_ASIGNAR))].sort());
+  document.getElementById('x-umbral').value = '48';
+  document.getElementById('x-desde').value = localDateStr(new Date(Date.now()-6*86400000));
+  document.getElementById('x-hasta').value = localDateStr(new Date());
+  ['x-equipo','x-ejecutivo','x-umbral','x-desde','x-hasta'].forEach(id=>document.getElementById(id).addEventListener('change',renderFlujo));
+}
+
+function renderFlujo(){
+  const L = FLUJO.leads||[];
+  const fav = FLUJO.favorito;
+  document.getElementById('x-nota').innerHTML = FLUJO.error ? 'No se pudo leer el flujo: '+FLUJO.error
+    : !L.length ? 'El flujo se carga en la proxima actualizacion.'
+    : `Leads abiertos del favorito <b>${fav? fav.name : 'asignados a un ejecutivo'}</b>. Tiempo en horas corridas (incluye noches y fines de semana).`
+      + (FLUJO.historial_ok? '' : ' El historial de etapas no esta disponible con el usuario de consulta; solo se mide la etapa actual.');
+  const equipo = document.getElementById('x-equipo').value, ejecutivo = document.getElementById('x-ejecutivo').value;
+  const umbral = Number(document.getElementById('x-umbral').value);
+  const desde = document.getElementById('x-desde').value, hasta = document.getElementById('x-hasta').value;
+  const rows = L.filter(l=>(!equipo || (l.equipo||'Sin equipo')===equipo) && (!ejecutivo || (l.ejecutivo||SIN_ASIGNAR)===ejecutivo))
+                .map(l=>({...l, horas: horasDesde(l.desde)}));
+  const parados = rows.filter(l=>l.horas!=null && l.horas>umbral).sort((a,b)=>b.horas-a.horas);
+  const etiquetaU = umbral<168? umbral+' h' : '7 dias';
+  // Movimientos de etapa (gestion) en el periodo: cada cambio registrado en el historial
+  const movs = {};
+  rows.forEach(l=>{
+    const h = l.historial||[];
+    const inicios = h.slice(1).map(s=>s[1]).concat(h.length? [l.desde] : []);
+    inicios.forEach(fe=>{const d=fmtDate(fe); if((!desde||d>=desde)&&(!hasta||d<=hasta)){const k=l.ejecutivo||SIN_ASIGNAR; movs[k]=(movs[k]||0)+1;}});
+  });
+  const totalMovs = Object.values(movs).reduce((a,b)=>a+b,0);
+  const horasAct = rows.map(l=>l.horas).filter(h=>h!=null);
+  const kpis = [
+    {label:'Clientes abiertos en el flujo', value:rows.length, hint: new Set(rows.map(l=>l.ejecutivo||SIN_ASIGNAR)).size+' ejecutivos'},
+    {label:'Parados mas de '+etiquetaU, value:parados.length, hint:pct(parados.length,rows.length)+' de los abiertos'},
+    {label:'Tiempo tipico en la etapa actual', value:fmtHoras(mediana(horasAct)), hint:'mediana'},
+    {label:'Movimientos de etapa en el periodo', value: FLUJO.historial_ok? totalMovs : '-', hint: FLUJO.historial_ok? (desde||'inicio')+' a '+(hasta||'hoy') : 'requiere historial'},
+  ];
+  document.getElementById('x-kpis').innerHTML = kpis.map(k=>`<div class="kpi"><div class="label">${k.label}</div><div class="value">${k.value}</div><div class="hint">${k.hint}</div></div>`).join('');
+
+  // Parados por ejecutivo, con el total de abiertos de cada uno en la etiqueta
+  const abiertosEj = {}, paradosEj = {};
+  rows.forEach(l=>{const k=l.ejecutivo||SIN_ASIGNAR; abiertosEj[k]=(abiertosEj[k]||0)+1;});
+  parados.forEach(l=>{const k=l.ejecutivo||SIN_ASIGNAR; paradosEj[k]=(paradosEj[k]||0)+1;});
+  graficoBarras('x-parados', Object.entries(paradosEj).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[`${k} (de ${abiertosEj[k]} abiertos)`, v]),
+                null, 'var(--rojo)', 'Ningun cliente parado mas de '+etiquetaU);
+
+  // Tiempo promedio por etapa: etapas ya terminadas del historial + la etapa actual en curso
+  const porEtapa = {};
+  rows.forEach(l=>{
+    (l.historial||[]).forEach(([e,,h])=>{ if(e) (porEtapa[e]=porEtapa[e]||[]).push(h); });
+    if(l.horas!=null) (porEtapa[l.etapa]=porEtapa[l.etapa]||[]).push(l.horas);
+  });
+  graficoBarras('x-tiempos', Object.keys(porEtapa).sort(ordenEtapa).map(e=>[e+' ('+porEtapa[e].length+')', promedio(porEtapa[e])]),
+                null, 'var(--naranja)', 'Sin datos', fmtHoras);
+
+  // Matriz ejecutivo x etapa con los parados
+  const etapas = [...new Set(parados.map(l=>l.etapa))].sort(ordenEtapa);
+  const ejs = Object.entries(paradosEj).sort((a,b)=>b[1]-a[1]).map(e=>e[0]);
+  const celda = (e,s)=>parados.filter(l=>(l.ejecutivo||SIN_ASIGNAR)===e && l.etapa===s).length;
+  const maxM = Math.max(1,...ejs.flatMap(e=>etapas.map(s=>celda(e,s))));
+  document.getElementById('x-matriz').innerHTML = ejs.length ? `
+    <thead><tr><th>Ejecutivo</th>${etapas.map(s=>`<th class="calor">${s}</th>`).join('')}<th class="num">Total</th></tr></thead>
+    <tbody>${ejs.map(e=>`<tr><td>${e}</td>${etapas.map(s=>{
+      const v = celda(e,s);
+      const a = v? (0.15+0.65*v/maxM).toFixed(2) : 0;
+      return `<td class="calor" title="${e} - ${s}: ${v} parados" style="background:rgba(192,57,43,${a});color:${v/maxM>0.5?'#fff':'#1c2733'}">${v||''}</td>`;
+    }).join('')}<td class="num" style="font-weight:600">${paradosEj[e]}</td></tr>`).join('')}</tbody>`
+    : '<tr><td class="nota">Ningun cliente parado mas de '+etiquetaU+'</td></tr>';
+
+  graficoBarras('x-movs', Object.entries(movs).sort((a,b)=>b[1]-a[1]), totalMovs, 'var(--verde)',
+                FLUJO.historial_ok? 'Sin movimientos de etapa en el periodo' : 'Requiere el historial de etapas del CRM');
+
+  // Tabla de alertas, de la mas antigua a la mas reciente
+  const MAX_FILAS = 300;
+  document.getElementById('x-alertas-titulo').textContent = `Alertas: ${parados.length} clientes con mas de ${etiquetaU} en la misma etapa`;
+  document.getElementById('x-alertas').innerHTML = parados.slice(0,MAX_FILAS).map(l=>`
+    <tr>
+      <td><span class="alerta ${nivelAlerta(l.horas,umbral)}">${fmtHoras(l.horas)}</span></td>
+      <td>${l.contacto||'-'}</td>
+      <td>${l.name||'-'}</td>
+      <td>${l.ejecutivo||SIN_ASIGNAR}</td>
+      <td>${l.etapa||'-'}</td>
+      <td>${(l.desde||'').slice(0,16)}</td>
+      <td>${l.equipo||'-'}</td>
+    </tr>`).join('') + (parados.length>MAX_FILAS? `<tr><td colspan="7" class="nota">Se muestran los ${MAX_FILAS} mas antiguos; filtre por equipo o ejecutivo para ver el resto.</td></tr>` : '')
+    || '<tr><td colspan="7" class="nota">Sin alertas</td></tr>';
 }
 
 function renderPerdidos(){
@@ -757,6 +889,8 @@ document.getElementById('total-base').textContent = leads.length;
 document.getElementById('junta-corte').textContent = DATA.fecha_corte || '';
 initPerdidos();
 renderPerdidos();
+initFlujo();
+renderFlujo();
 applyFilters();
 </script>
 </body>
