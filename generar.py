@@ -238,7 +238,8 @@ def historial_etapas(je, ids):
     Devuelve ({lead_id: [(fecha_utc, etapa_anterior, etapa_nueva)]}, error)."""
     cambios = {i: [] for i in ids}
     campos = ['old_value_char', 'new_value_char', 'create_date', 'mail_message_id']
-    filtros_campo = ([['field_id.name', '=', 'stage_id']], [['field', '=', 'stage_id']])  # Odoo 16+ / anteriores
+    # 'field' many2one a ir.model.fields (esta version) / 'field_id' (Odoo 17+) / 'field' char (antiguas)
+    filtros_campo = ([['field.name', '=', 'stage_id']], [['field_id.name', '=', 'stage_id']], [['field', '=', 'stage_id']])
     for i in range(0, len(ids), 200):
         bloque = ids[i:i + 200]
         base = [['mail_message_id.model', '=', 'crm.lead'], ['mail_message_id.res_id', 'in', bloque]]
