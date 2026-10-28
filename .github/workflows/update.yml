@@ -1,7 +1,8 @@
 ﻿name: Actualizar CRM Solicitudes
 on:
   schedule:
-    - cron: '23 * * * *'
+    # Una vez al dia de madrugada (06:23 UTC = 2:23 a.m. Venezuela) para no cargar Odoo en horario laboral
+    - cron: '23 6 * * *'
   workflow_dispatch:
 permissions:
   contents: write
@@ -26,6 +27,8 @@ jobs:
           ODOO_USER: ${{ secrets.ODOO_USER }}
           ODOO_PASS: ${{ secrets.ODOO_PASS }}
           FECHA_CORTE: '2026-10-22'
+          # Seccion Flujo en pausa (consulta pesada) mientras Odoo se estabiliza; '1' la reactiva
+          FLUJO_ACTIVO: '0'
         run: python generar.py
       - name: Guardar contactos privados
         uses: actions/cache/save@v4

@@ -40,7 +40,7 @@
       "motivo": "No reside en el Estado Mérida",
       "fecha_cierre": "2026-10-27 16:34:04",
       "llegada": "2026-10-27 16:33:29",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -55,7 +55,7 @@
       "motivo": "No reside en el Estado Mérida",
       "fecha_cierre": "2026-10-27 16:31:47",
       "llegada": "2026-10-27 16:30:57",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -145,7 +145,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:50:14",
       "llegada": "2026-10-11 13:30:49",
-      "dias": 16.0,
+      "dias": 16,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -160,7 +160,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:49:49",
       "llegada": "2026-10-11 13:31:38",
-      "dias": 16.0,
+      "dias": 16,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -175,7 +175,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:49:22",
       "llegada": "2026-10-11 13:31:59",
-      "dias": 16.0,
+      "dias": 16,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -190,7 +190,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:48:54",
       "llegada": "2026-10-11 13:32:46",
-      "dias": 16.0,
+      "dias": 16,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -205,7 +205,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:48:16",
       "llegada": "2026-10-11 13:33:07",
-      "dias": 16.0,
+      "dias": 16,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -220,7 +220,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:47:44",
       "llegada": "2026-10-11 13:33:54",
-      "dias": 16.0,
+      "dias": 16,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -235,7 +235,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:47:25",
       "llegada": "2026-10-11 13:36:04",
-      "dias": 16.0,
+      "dias": 16,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -505,7 +505,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:16:56",
       "llegada": "2026-10-13 11:05:06",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -520,7 +520,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:16:28",
       "llegada": "2026-10-13 11:05:47",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -535,7 +535,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:13:20",
       "llegada": "2026-10-13 11:06:56",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -550,7 +550,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:13:03",
       "llegada": "2026-10-13 11:07:58",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -565,7 +565,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:12:45",
       "llegada": "2026-10-13 11:08:45",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -580,7 +580,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:12:22",
       "llegada": "2026-10-13 11:09:03",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -595,7 +595,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:11:55",
       "llegada": "2026-10-13 11:09:40",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -610,7 +610,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:06:57",
       "llegada": "2026-10-13 11:12:32",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -625,7 +625,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:04:30",
       "llegada": "2026-10-13 11:31:26",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -640,7 +640,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:03:08",
       "llegada": "2026-10-13 11:31:41",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -655,7 +655,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:02:39",
       "llegada": "2026-10-13 11:32:38",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -670,7 +670,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:01:37",
       "llegada": "2026-10-13 11:32:52",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -685,7 +685,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:01:06",
       "llegada": "2026-10-13 11:33:32",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -700,7 +700,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:00:46",
       "llegada": "2026-10-13 11:33:47",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -715,7 +715,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 12:00:19",
       "llegada": "2026-10-13 11:36:14",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -730,7 +730,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 11:59:54",
       "llegada": "2026-10-13 11:36:27",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -745,7 +745,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 11:59:26",
       "llegada": "2026-10-13 11:37:47",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -760,7 +760,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 11:58:57",
       "llegada": "2026-10-13 11:38:11",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -775,7 +775,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 11:58:13",
       "llegada": "2026-10-13 11:38:51",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -790,7 +790,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 11:57:53",
       "llegada": "2026-10-13 11:39:05",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -805,7 +805,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 11:57:34",
       "llegada": "2026-10-13 11:39:54",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -820,7 +820,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 11:57:10",
       "llegada": "2026-10-13 11:40:32",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -835,7 +835,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 11:56:48",
       "llegada": "2026-10-13 11:41:30",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -850,7 +850,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 11:56:30",
       "llegada": "2026-10-13 11:52:55",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -865,7 +865,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 11:55:53",
       "llegada": "2026-10-13 12:04:32",
-      "dias": 14.0,
+      "dias": 14,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -1075,7 +1075,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 11:39:09",
       "llegada": "2026-10-14 10:30:20",
-      "dias": 13.0,
+      "dias": 13,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -1090,7 +1090,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 11:38:40",
       "llegada": "2026-10-14 10:39:41",
-      "dias": 13.0,
+      "dias": 13,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -1105,7 +1105,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 11:31:43",
       "llegada": "2026-10-14 11:51:34",
-      "dias": 13.0,
+      "dias": 13,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
       "origen_form": "",
@@ -1180,7 +1180,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 11:23:39",
       "llegada": "2026-10-15 11:55:27",
-      "dias": 12.0,
+      "dias": 12,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -1195,7 +1195,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 11:23:13",
       "llegada": "2026-10-15 12:19:32",
-      "dias": 12.0,
+      "dias": 12,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -1210,7 +1210,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 11:22:07",
       "llegada": "2026-10-15 12:22:59",
-      "dias": 12.0,
+      "dias": 12,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -1570,7 +1570,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 10:55:40",
       "llegada": "2026-10-18 10:30:17",
-      "dias": 9.0,
+      "dias": 9,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -1585,7 +1585,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 10:55:17",
       "llegada": "2026-10-18 10:30:58",
-      "dias": 9.0,
+      "dias": 9,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -1690,7 +1690,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 10:51:15",
       "llegada": "2026-10-19 10:37:03",
-      "dias": 8.0,
+      "dias": 8,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -1705,7 +1705,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 10:50:54",
       "llegada": "2026-10-19 10:37:42",
-      "dias": 8.0,
+      "dias": 8,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -1720,7 +1720,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 10:50:18",
       "llegada": "2026-10-19 10:38:45",
-      "dias": 8.0,
+      "dias": 8,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -1735,7 +1735,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 10:49:55",
       "llegada": "2026-10-19 11:04:44",
-      "dias": 8.0,
+      "dias": 8,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -1750,7 +1750,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 10:49:31",
       "llegada": "2026-10-19 11:05:39",
-      "dias": 8.0,
+      "dias": 8,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -1765,7 +1765,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-27 10:49:03",
       "llegada": "2026-10-19 11:20:28",
-      "dias": 8.0,
+      "dias": 8,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -1855,7 +1855,7 @@
       "motivo": "PRECIO: Supera mi presupuesto actual para este equipo/artículo.",
       "fecha_cierre": "2026-10-26 17:41:26",
       "llegada": "2026-10-10 17:45:47",
-      "dias": 16.0,
+      "dias": 16,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
       "origen_form": "",
@@ -1885,7 +1885,7 @@
       "motivo": "No estoy interesado(a)",
       "fecha_cierre": "2026-10-26 17:15:09",
       "llegada": "2026-10-20 17:05:26",
-      "dias": 6.0,
+      "dias": 6,
       "equipo": "EQUIPO DE VENTA MILENIUM",
       "fuente": "",
       "origen_form": "",
@@ -1900,7 +1900,7 @@
       "motivo": "No reside en el Estado Mérida",
       "fecha_cierre": "2026-10-26 16:46:31",
       "llegada": "2026-10-13 17:02:36",
-      "dias": 13.0,
+      "dias": 13,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
       "origen_form": "",
@@ -1915,7 +1915,7 @@
       "motivo": "No reside en el Estado Mérida",
       "fecha_cierre": "2026-10-26 16:42:13",
       "llegada": "2026-10-13 17:06:39",
-      "dias": 13.0,
+      "dias": 13,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
       "origen_form": "",
@@ -1990,7 +1990,7 @@
       "motivo": "No responde por ningún medio. Dejo de responder",
       "fecha_cierre": "2026-10-26 13:23:40",
       "llegada": "2026-10-18 12:56:00",
-      "dias": 8.0,
+      "dias": 8,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
       "origen_form": "",
@@ -2020,7 +2020,7 @@
       "motivo": "No reside en el Estado Mérida",
       "fecha_cierre": "2026-10-25 18:19:29",
       "llegada": "2026-10-13 17:14:45",
-      "dias": 12.0,
+      "dias": 12,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
       "origen_form": "",
@@ -2035,7 +2035,7 @@
       "motivo": "No reside en el Estado Mérida",
       "fecha_cierre": "2026-10-25 18:18:24",
       "llegada": "2026-10-13 17:19:07",
-      "dias": 12.0,
+      "dias": 12,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
       "origen_form": "",
@@ -2050,7 +2050,7 @@
       "motivo": "No reside en el Estado Mérida",
       "fecha_cierre": "2026-10-25 18:14:58",
       "llegada": "2026-10-13 17:26:25",
-      "dias": 12.0,
+      "dias": 12,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
       "origen_form": "",
@@ -2065,7 +2065,7 @@
       "motivo": "3. REQUISITOS: El proceso de recaudos me pareció complejo o difícil de completar.",
       "fecha_cierre": "2026-10-25 18:12:19",
       "llegada": "2026-10-13 17:31:42",
-      "dias": 12.0,
+      "dias": 12,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
       "origen_form": "",
@@ -2080,7 +2080,7 @@
       "motivo": "No reside en el Estado Mérida",
       "fecha_cierre": "2026-10-25 18:09:05",
       "llegada": "2026-10-13 17:34:34",
-      "dias": 12.0,
+      "dias": 12,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
       "origen_form": "",
@@ -2095,7 +2095,7 @@
       "motivo": "CRÉDITO: Las condiciones de financiamiento no se adaptaron a mi capacidad.",
       "fecha_cierre": "2026-10-25 18:07:05",
       "llegada": "2026-10-13 17:38:51",
-      "dias": 12.0,
+      "dias": 12,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
       "origen_form": "",
@@ -2110,7 +2110,7 @@
       "motivo": "No reside en el Estado Mérida",
       "fecha_cierre": "2026-10-25 18:05:33",
       "llegada": "2026-10-13 17:47:22",
-      "dias": 12.0,
+      "dias": 12,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
       "origen_form": "",
@@ -2125,7 +2125,7 @@
       "motivo": "PRECIO: Supera mi presupuesto actual para este equipo/artículo.",
       "fecha_cierre": "2026-10-25 17:04:59",
       "llegada": "2026-10-20 18:04:41",
-      "dias": 5.0,
+      "dias": 5,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
       "origen_form": "",
@@ -2230,7 +2230,7 @@
       "motivo": "No estoy interesado(a)",
       "fecha_cierre": "2026-10-24 18:44:00",
       "llegada": "2026-09-09 18:10:55",
-      "dias": 45.0,
+      "dias": 45,
       "equipo": "EQUIPO DE VENTA MILENIUM",
       "fuente": "",
       "origen_form": "",
@@ -2575,7 +2575,7 @@
       "motivo": "No estoy interesado(a)",
       "fecha_cierre": "2026-10-22 12:19:02",
       "llegada": "2026-08-28 11:42:56",
-      "dias": 55.0,
+      "dias": 55,
       "equipo": "EQUIPO DE VENTA MILENIUM",
       "fuente": "",
       "origen_form": "",
@@ -2605,7 +2605,7 @@
       "motivo": "PRECIO: Supera mi presupuesto actual para este equipo/artículo.",
       "fecha_cierre": "2026-10-21 18:01:10",
       "llegada": "2026-10-13 16:57:54",
-      "dias": 8.0,
+      "dias": 8,
       "equipo": "EQUIPO DE VENTA MILENIUM",
       "fuente": "",
       "origen_form": "",
@@ -2710,7 +2710,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-21 17:26:24",
       "llegada": "2026-10-21 17:25:35",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "moto_web",
@@ -2740,7 +2740,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-21 17:26:24",
       "llegada": "2026-10-21 17:04:52",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "moto_web",
@@ -2770,7 +2770,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-21 17:26:24",
       "llegada": "2026-10-21 17:03:21",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "ZonaDiag",
@@ -2800,7 +2800,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-21 17:00:32",
       "llegada": "2026-10-21 16:48:54",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "moto_web",
@@ -2830,7 +2830,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-21 17:00:32",
       "llegada": "2026-10-21 16:18:11",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "RealDiag",
@@ -2845,7 +2845,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-21 17:00:32",
       "llegada": "2026-10-21 16:18:05",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "RealDiag",
@@ -2860,7 +2860,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-21 17:00:32",
       "llegada": "2026-10-21 16:21:41",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "moto_web",
@@ -2875,7 +2875,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-20 18:53:56",
       "llegada": "2026-10-20 18:49:16",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "RealDiag",
@@ -2890,7 +2890,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-20 18:53:56",
       "llegada": "2026-10-20 18:49:11",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "RealDiag",
@@ -2905,7 +2905,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-20 18:53:56",
       "llegada": "2026-10-20 18:48:37",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "RealDiag",
@@ -2980,7 +2980,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-20 18:47:48",
       "llegada": "2026-10-20 18:22:20",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "moto_web",
@@ -2995,7 +2995,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-20 18:47:48",
       "llegada": "2026-10-20 18:44:43",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "moto_web",
@@ -3010,7 +3010,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-20 18:47:37",
       "llegada": "2026-10-20 18:40:39",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "RealDiag",
@@ -3025,7 +3025,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-20 18:47:37",
       "llegada": "2026-10-20 18:41:01",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "RealDiag",
@@ -3040,7 +3040,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-20 18:47:37",
       "llegada": "2026-10-20 18:33:56",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "Diag",
@@ -3055,7 +3055,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-20 18:47:37",
       "llegada": "2026-10-20 18:36:11",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "Diag",
@@ -3070,7 +3070,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-20 18:47:37",
       "llegada": "2026-10-20 18:36:08",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "Diag",
@@ -3190,7 +3190,7 @@
       "motivo": "No reside en el Estado Mérida",
       "fecha_cierre": "2026-10-19 18:08:59",
       "llegada": "2026-10-18 17:19:48",
-      "dias": 1.0,
+      "dias": 1,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
       "origen_form": "",
@@ -3205,7 +3205,7 @@
       "motivo": "No reside en el Estado Mérida",
       "fecha_cierre": "2026-10-19 18:05:46",
       "llegada": "2026-10-19 18:05:16",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
       "origen_form": "",
@@ -3235,7 +3235,7 @@
       "motivo": "No reside en el Estado Mérida",
       "fecha_cierre": "2026-10-19 17:00:01",
       "llegada": "2026-10-19 16:59:17",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "EQUIPO DE VENTA RODEO",
       "fuente": "",
       "origen_form": "",
@@ -3265,7 +3265,7 @@
       "motivo": "6. DECISIÓN: Ya lo adquirí en otro lugar o decidí esperar un poco más.",
       "fecha_cierre": "2026-10-19 16:12:35",
       "llegada": "2026-10-19 16:02:33",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "EQUIPO DE LINEA DE CREDITO",
       "fuente": "",
       "origen_form": "",
@@ -3325,7 +3325,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-19 10:34:03",
       "llegada": "2026-10-19 10:32:30",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "moto_web",
@@ -3475,7 +3475,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-15 11:19:06",
       "llegada": "2026-10-15 11:18:54",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "",
@@ -3490,7 +3490,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-15 11:17:46",
       "llegada": "2026-10-15 11:13:53",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "",
@@ -3505,7 +3505,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-14 14:12:00",
       "llegada": "2026-10-14 14:11:26",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "EQUIPO DE VENTA MILENIUM",
       "fuente": "",
       "origen_form": "",
@@ -3520,7 +3520,7 @@
       "motivo": "",
       "fecha_cierre": "2026-10-10 19:08:36",
       "llegada": "2026-10-10 19:07:32",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "EQUIPO DE VENTA MILENIUM",
       "fuente": "",
       "origen_form": "",
@@ -3535,7 +3535,7 @@
       "motivo": "",
       "fecha_cierre": "2026-09-14 11:56:34",
       "llegada": "2026-09-12 11:21:29",
-      "dias": 2.0,
+      "dias": 2,
       "equipo": "EQUIPO DE VENTA MILENIUM",
       "fuente": "",
       "origen_form": "",
@@ -3580,7 +3580,7 @@
       "motivo": "",
       "fecha_cierre": "2026-08-26 17:14:01",
       "llegada": "2026-08-26 17:13:29",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "",
@@ -3595,7 +3595,7 @@
       "motivo": "",
       "fecha_cierre": "2026-08-25 17:53:47",
       "llegada": "2026-08-25 17:50:47",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "",
@@ -3610,7 +3610,7 @@
       "motivo": "",
       "fecha_cierre": "2026-08-25 17:17:45",
       "llegada": "2026-08-25 17:16:21",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "",
@@ -3625,7 +3625,7 @@
       "motivo": "",
       "fecha_cierre": "2026-08-25 17:15:17",
       "llegada": "2026-08-25 17:08:43",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "",
@@ -3640,7 +3640,7 @@
       "motivo": "",
       "fecha_cierre": "2026-08-25 17:15:17",
       "llegada": "2026-08-25 17:14:18",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "",
@@ -3655,7 +3655,7 @@
       "motivo": "",
       "fecha_cierre": "2026-08-17 17:13:34",
       "llegada": "2026-08-17 17:11:53",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "",
@@ -3670,7 +3670,7 @@
       "motivo": "",
       "fecha_cierre": "2026-08-17 17:00:09",
       "llegada": "2026-08-17 16:44:22",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "",
@@ -3685,7 +3685,7 @@
       "motivo": "",
       "fecha_cierre": "2026-08-17 17:00:09",
       "llegada": "2026-08-14 16:50:26",
-      "dias": 3.0,
+      "dias": 3,
       "equipo": "",
       "fuente": "",
       "origen_form": "",
@@ -3700,7 +3700,7 @@
       "motivo": "",
       "fecha_cierre": "2026-08-17 17:00:09",
       "llegada": "2026-08-14 16:41:21",
-      "dias": 3.0,
+      "dias": 3,
       "equipo": "",
       "fuente": "",
       "origen_form": "",
@@ -3715,7 +3715,7 @@
       "motivo": "",
       "fecha_cierre": "2026-08-17 17:00:09",
       "llegada": "2026-08-14 16:33:11",
-      "dias": 3.0,
+      "dias": 3,
       "equipo": "",
       "fuente": "",
       "origen_form": "",
@@ -3745,7 +3745,7 @@
       "motivo": "",
       "fecha_cierre": "2026-08-17 17:00:09",
       "llegada": "2026-08-14 16:33:50",
-      "dias": 3.0,
+      "dias": 3,
       "equipo": "",
       "fuente": "",
       "origen_form": "",
@@ -3760,7 +3760,7 @@
       "motivo": "",
       "fecha_cierre": "2026-08-17 17:00:09",
       "llegada": "2026-08-14 16:29:54",
-      "dias": 3.0,
+      "dias": 3,
       "equipo": "",
       "fuente": "",
       "origen_form": "",
@@ -3775,7 +3775,7 @@
       "motivo": "",
       "fecha_cierre": "2026-08-17 16:46:52",
       "llegada": "2026-08-17 16:30:06",
-      "dias": 0.0,
+      "dias": 0,
       "equipo": "",
       "fuente": "",
       "origen_form": "",
@@ -4178,7 +4178,7 @@
           [
             "Asesoria Venta de Mercancia",
             "2026-10-23 18:20:14",
-            96.0
+            96
           ]
         ]
       },
@@ -4399,7 +4399,7 @@
           [
             "Prospecto LC",
             "2026-09-10 18:00:35",
-            1128.0
+            1128
           ]
         ]
       },
@@ -4435,7 +4435,7 @@
           [
             "Prospecto LC",
             "2026-09-10 16:52:03",
-            1128.0
+            1128
           ],
           [
             "Contacto LC",
@@ -4535,7 +4535,7 @@
           [
             "Prospecto LC",
             "2026-10-22 18:53:06",
-            24.0
+            24
           ],
           [
             "Contacto LC",
@@ -4635,7 +4635,7 @@
           [
             "Asesoria LC",
             "2026-10-23 17:48:10",
-            96.0
+            96
           ]
         ]
       },
@@ -4874,7 +4874,7 @@
           [
             "Prospecto LC",
             "2026-10-10 14:58:06",
-            408.0
+            408
           ],
           [
             "Contacto LC",
@@ -4902,7 +4902,7 @@
           [
             "Proceso LC",
             "2026-09-09 18:30:07",
-            1080.0
+            1080
           ],
           [
             "Prospecto LC",
@@ -4981,7 +4981,7 @@
           [
             "Prospecto LC",
             "2026-10-10 15:18:03",
-            408.0
+            408
           ]
         ]
       },
@@ -4999,7 +4999,7 @@
           [
             "Prospecto LC",
             "2026-10-13 16:57:14",
-            312.0
+            312
           ],
           [
             "Contacto LC",
@@ -5022,7 +5022,7 @@
           [
             "Prospecto LC",
             "2026-10-11 12:06:10",
-            384.0
+            384
           ]
         ]
       },
@@ -5040,7 +5040,7 @@
           [
             "Prospecto LC",
             "2026-10-11 13:30:35",
-            384.0
+            384
           ]
         ]
       },
@@ -5112,7 +5112,7 @@
           [
             "Prospecto LC",
             "2026-10-13 11:06:06",
-            336.0
+            336
           ]
         ]
       },
@@ -5130,7 +5130,7 @@
           [
             "Prospecto LC",
             "2026-10-13 11:09:57",
-            336.0
+            336
           ]
         ]
       },
@@ -5148,7 +5148,7 @@
           [
             "Prospecto LC",
             "2026-10-13 11:39:38",
-            336.0
+            336
           ]
         ]
       },
@@ -5194,7 +5194,7 @@
           [
             "Contrato",
             "2024-07-09 12:41:55",
-            20160.0
+            20160
           ],
           [
             "Por Entregar",
@@ -5217,7 +5217,7 @@
           [
             "Prospecto LC",
             "2026-10-14 10:29:00",
-            312.0
+            312
           ]
         ]
       },
@@ -5235,7 +5235,7 @@
           [
             "Prospecto LC",
             "2026-10-14 11:19:08",
-            312.0
+            312
           ]
         ]
       },
@@ -5424,7 +5424,7 @@
           [
             "Asesoria LC",
             "2026-10-19 17:03:59",
-            48.0
+            48
           ],
           [
             "Proceso LC",
@@ -5449,7 +5449,7 @@
           [
             "Negociacion Venta de Producto",
             "2026-10-26 11:37:22",
-            24.0
+            24
           ]
         ]
       },
@@ -5477,7 +5477,7 @@
           [
             "Asesoria Venta de Mercancia",
             "2026-10-25 07:33:31",
-            36.0
+            36
           ],
           [
             "Negociacion Venta de Producto",
@@ -5541,7 +5541,7 @@
           [
             "Prospecto LC",
             "2026-10-25 18:08:51",
-            24.0
+            24
           ]
         ]
       },
@@ -5648,7 +5648,7 @@
           [
             "Prospecto LC",
             "2026-10-08 19:02:53",
-            432.0
+            432
           ],
           [
             "Contacto LC",
@@ -5789,7 +5789,7 @@
           [
             "Prospecto LC",
             "2026-10-13 16:56:04",
-            312.0
+            312
           ],
           [
             "Contacto LC",
@@ -5830,7 +5830,7 @@
           [
             "Prospecto LC",
             "2026-10-13 16:58:37",
-            312.0
+            312
           ]
         ]
       },
@@ -5943,7 +5943,7 @@
           [
             "Proceso LC",
             "2026-10-21 15:45:58",
-            120.0
+            120
           ],
           [
             "LC Aprobada",
@@ -6045,7 +6045,7 @@
           [
             "Prospecto LC",
             "2026-10-13 17:10:08",
-            312.0
+            312
           ],
           [
             "Contacto LC",
@@ -6304,7 +6304,7 @@
           [
             "LC Aprobada",
             "2026-09-27 14:41:27",
-            696.0
+            696
           ]
         ]
       },
@@ -6327,7 +6327,7 @@
           [
             "Proceso LC",
             "2026-09-27 16:16:01",
-            120.0
+            120
           ],
           [
             "LC Aprobada",
@@ -6559,7 +6559,7 @@
           [
             "Prospecto LC",
             "2026-09-19 19:11:52",
-            864.0
+            864
           ]
         ]
       },
@@ -6658,7 +6658,7 @@
           [
             "LC Aprobada",
             "2026-10-08 12:07:54",
-            264.0
+            264
           ],
           [
             "Facturado",
@@ -6714,7 +6714,7 @@
           [
             "Prospecto LC",
             "2026-10-08 19:02:53",
-            408.0
+            408
           ],
           [
             "Contacto LC",
@@ -6747,7 +6747,7 @@
           [
             "Prospecto LC",
             "2026-10-08 19:02:53",
-            408.0
+            408
           ],
           [
             "Contacto LC",
@@ -6841,7 +6841,7 @@
           [
             "Prospecto LC",
             "2026-10-08 19:02:53",
-            408.0
+            408
           ],
           [
             "Contacto LC",
@@ -6940,7 +6940,7 @@
           [
             "Prospecto LC",
             "2026-10-08 19:02:53",
-            408.0
+            408
           ],
           [
             "Contacto LC",
@@ -6968,7 +6968,7 @@
           [
             "Prospecto LC",
             "2026-10-13 17:21:47",
-            288.0
+            288
           ],
           [
             "Contacto LC",
@@ -6991,7 +6991,7 @@
           [
             "Prospecto LC",
             "2026-10-08 19:02:53",
-            408.0
+            408
           ],
           [
             "Contacto LC",
@@ -7057,7 +7057,7 @@
           [
             "Prospecto LC",
             "2026-10-13 17:30:04",
-            288.0
+            288
           ],
           [
             "Contacto LC",
@@ -7080,12 +7080,12 @@
           [
             "Prospecto LC",
             "2026-10-08 19:02:53",
-            72.0
+            72
           ],
           [
             "Contacto LC",
             "2026-10-11 18:16:14",
-            336.0
+            336
           ],
           [
             "Asesoria LC",
@@ -7113,12 +7113,12 @@
           [
             "Prospecto LC",
             "2026-10-08 19:02:53",
-            72.0
+            72
           ],
           [
             "Contacto LC",
             "2026-10-11 18:25:24",
-            336.0
+            336
           ],
           [
             "Asesoria LC",
@@ -7146,12 +7146,12 @@
           [
             "Prospecto LC",
             "2026-10-08 19:02:53",
-            264.0
+            264
           ],
           [
             "Contacto LC",
             "2026-10-19 18:30:20",
-            144.0
+            144
           ],
           [
             "Asesoria LC",
@@ -7179,7 +7179,7 @@
           [
             "Prospecto LC",
             "2026-10-13 17:32:57",
-            288.0
+            288
           ]
         ]
       },
@@ -7197,7 +7197,7 @@
           [
             "Prospecto LC",
             "2026-10-08 19:02:53",
-            408.0
+            408
           ],
           [
             "Contacto LC",
@@ -7319,7 +7319,7 @@
           [
             "Proceso LC",
             "2026-10-13 17:19:10",
-            288.0
+            288
           ]
         ]
       },
@@ -7370,7 +7370,7 @@
           [
             "Prospecto LC",
             "2026-10-13 17:51:31",
-            288.0
+            288
           ]
         ]
       },
@@ -7388,7 +7388,7 @@
           [
             "Prospecto LC",
             "2026-10-08 19:02:53",
-            408.0
+            408
           ],
           [
             "Contacto LC",
@@ -7459,7 +7459,7 @@
           [
             "Contacto LC",
             "2026-10-13 17:56:04",
-            288.0
+            288
           ]
         ]
       },
@@ -7548,7 +7548,7 @@
           [
             "Contacto LC",
             "2026-10-13 17:56:29",
-            288.0
+            288
           ]
         ]
       },
@@ -7571,7 +7571,7 @@
           [
             "Contacto LC",
             "2026-10-13 17:57:43",
-            288.0
+            288
           ]
         ]
       },
@@ -7594,7 +7594,7 @@
           [
             "Contacto LC",
             "2026-10-13 17:58:20",
-            288.0
+            288
           ]
         ]
       },
@@ -7645,7 +7645,7 @@
           [
             "Prospecto LC",
             "2026-10-08 19:02:53",
-            408.0
+            408
           ],
           [
             "Contacto LC",
@@ -7678,7 +7678,7 @@
           [
             "Prospecto LC",
             "2026-10-08 19:02:53",
-            408.0
+            408
           ],
           [
             "Contacto LC",
@@ -7711,12 +7711,12 @@
           [
             "Prospecto LC",
             "2026-10-08 19:02:53",
-            336.0
+            336
           ],
           [
             "Contacto LC",
             "2026-10-22 18:42:36",
-            72.0
+            72
           ],
           [
             "Asesoria LC",
@@ -7744,7 +7744,7 @@
           [
             "Prospecto LC",
             "2026-10-14 17:41:03",
-            264.0
+            264
           ]
         ]
       },
@@ -7795,7 +7795,7 @@
           [
             "Prospecto LC",
             "2026-10-14 17:44:04",
-            264.0
+            264
           ]
         ]
       },
@@ -7813,7 +7813,7 @@
           [
             "Prospecto LC",
             "2026-10-14 17:46:40",
-            264.0
+            264
           ]
         ]
       },
@@ -7836,7 +7836,7 @@
           [
             "Contacto LC",
             "2026-10-11 16:44:46",
-            336.0
+            336
           ],
           [
             "Asesoria LC",
@@ -7897,7 +7897,7 @@
           [
             "Prospecto LC",
             "2026-10-14 17:48:39",
-            264.0
+            264
           ]
         ]
       },
@@ -7948,7 +7948,7 @@
           [
             "Prospecto LC",
             "2026-10-14 17:54:38",
-            264.0
+            264
           ]
         ]
       },
@@ -7999,7 +7999,7 @@
           [
             "Prospecto LC",
             "2026-10-14 17:56:46",
-            264.0
+            264
           ]
         ]
       },
@@ -8073,7 +8073,7 @@
           [
             "Prospecto LC",
             "2026-10-14 17:58:29",
-            264.0
+            264
           ]
         ]
       },
@@ -8124,7 +8124,7 @@
           [
             "Prospecto LC",
             "2026-10-14 18:04:41",
-            264.0
+            264
           ]
         ]
       },
@@ -8180,7 +8180,7 @@
           [
             "Contacto LC",
             "2026-10-11 17:49:15",
-            336.0
+            336
           ],
           [
             "Asesoria LC",
@@ -8274,7 +8274,7 @@
           [
             "Prospecto LC",
             "2026-10-14 18:10:22",
-            264.0
+            264
           ]
         ]
       },
@@ -8325,7 +8325,7 @@
           [
             "Prospecto LC",
             "2026-10-19 17:09:50",
-            144.0
+            144
           ]
         ]
       },
@@ -8760,7 +8760,7 @@
           [
             "Prospecto LC",
             "2026-08-17 16:02:26",
-            1656.0
+            1656
           ]
         ]
       },
@@ -8854,12 +8854,12 @@
           [
             "Prospecto LC",
             "2026-10-08 19:02:53",
-            336.0
+            336
           ],
           [
             "Contacto LC",
             "2026-10-22 18:17:36",
-            72.0
+            72
           ],
           [
             "Asesoria LC",
@@ -9142,7 +9142,7 @@
           [
             "Contacto LC",
             "2026-10-09 15:40:11",
-            384.0
+            384
           ]
         ]
       },
@@ -9211,7 +9211,7 @@
           [
             "Asesoria LC",
             "2026-10-06 14:21:06",
-            456.0
+            456
           ],
           [
             "Proceso LC",
@@ -9288,7 +9288,7 @@
           [
             "Prospecto LC",
             "2026-10-24 13:05:12",
-            24.0
+            24
           ]
         ]
       },
@@ -9390,7 +9390,7 @@
           [
             "Asesoria LC",
             "2026-10-10 18:32:29",
-            264.0
+            264
           ]
         ]
       },
@@ -9761,12 +9761,12 @@
           [
             "Prospecto LC",
             "2026-07-25 16:41:39",
-            336.0
+            336
           ],
           [
             "LC Aprobada",
             "2026-08-08 16:57:03",
-            1728.0
+            1728
           ],
           [
             "Seguimiento 01",
@@ -9794,7 +9794,7 @@
           [
             "Proceso LC",
             "2026-08-21 16:51:27",
-            1536.0
+            1536
           ]
         ]
       },
@@ -9840,7 +9840,7 @@
           [
             "Contacto Venta de Mercancia",
             "2026-09-09 11:01:17",
-            984.0
+            984
           ],
           [
             "Asesoria Venta de Mercancia",
@@ -9873,7 +9873,7 @@
           [
             "Contacto Venta de Mercancia",
             "2026-10-01 15:05:18",
-            552.0
+            552
           ],
           [
             "Asesoria Venta de Mercancia",
@@ -9911,7 +9911,7 @@
           [
             "Asesoria LC",
             "2026-10-20 16:07:12",
-            96.0
+            96
           ]
         ]
       },
@@ -10201,7 +10201,7 @@
           [
             "Por Entregar",
             "2026-10-20 17:10:07",
-            72.0
+            72
           ]
         ]
       },
@@ -10372,7 +10372,7 @@
           [
             "Asesoria Venta de Mercancia",
             "2026-08-25 17:12:23",
-            1416.0
+            1416
           ],
           [
             "Contacto Venta de Mercancia",
@@ -10580,7 +10580,7 @@
           [
             "Prospecto LC",
             "2026-10-22 15:07:45",
-            24.0
+            24
           ]
         ]
       },
@@ -10985,7 +10985,7 @@
           [
             "Prospecto LC",
             "2026-10-11 11:21:13",
-            264.0
+            264
           ],
           [
             "LC Aprobada",
@@ -11041,7 +11041,7 @@
           [
             "Contacto Venta de Mercancia",
             "2026-10-03 19:11:13",
-            432.0
+            432
           ],
           [
             "Asesoria Venta de Mercancia",
@@ -11179,7 +11179,7 @@
           [
             "Prospecto LC",
             "2026-09-17 11:26:42",
-            816.0
+            816
           ],
           [
             "Contacto LC",
@@ -11699,7 +11699,7 @@
           [
             "Prospecto LC",
             "2026-10-19 14:10:11",
-            48.0
+            48
           ],
           [
             "Contacto LC",
@@ -11786,7 +11786,7 @@
           [
             "Prospecto LC",
             "2026-09-24 11:36:02",
-            648.0
+            648
           ]
         ]
       },
@@ -11822,7 +11822,7 @@
           [
             "Prospecto LC",
             "2026-08-17 18:04:39",
-            1536.0
+            1536
           ]
         ]
       },
@@ -12181,7 +12181,7 @@
           [
             "Prospecto LC",
             "2026-09-21 15:27:30",
-            696.0
+            696
           ]
         ]
       },
@@ -12235,7 +12235,7 @@
           [
             "Prospecto LC",
             "2026-10-13 16:10:03",
-            168.0
+            168
           ]
         ]
       },
@@ -12253,7 +12253,7 @@
           [
             "Prospecto LC",
             "2026-10-07 14:36:30",
-            312.0
+            312
           ]
         ]
       },
@@ -12271,7 +12271,7 @@
           [
             "Prospecto LC",
             "2026-10-05 15:58:21",
-            360.0
+            360
           ]
         ]
       },
@@ -12289,7 +12289,7 @@
           [
             "Prospecto LC",
             "2026-10-05 15:45:13",
-            360.0
+            360
           ]
         ]
       },
@@ -12325,7 +12325,7 @@
           [
             "Prospecto LC",
             "2026-10-05 15:50:28",
-            360.0
+            360
           ]
         ]
       },
@@ -12343,7 +12343,7 @@
           [
             "Prospecto LC",
             "2026-10-05 16:02:02",
-            360.0
+            360
           ]
         ]
       },
@@ -12379,7 +12379,7 @@
           [
             "Prospecto LC",
             "2026-10-08 14:51:43",
-            288.0
+            288
           ]
         ]
       },
@@ -12397,7 +12397,7 @@
           [
             "Prospecto LC",
             "2026-10-17 16:11:12",
-            72.0
+            72
           ]
         ]
       },
@@ -12705,7 +12705,7 @@
           [
             "Prospecto LC",
             "2026-10-17 13:52:27",
-            72.0
+            72
           ]
         ]
       },
@@ -12723,7 +12723,7 @@
           [
             "Prospecto LC",
             "2026-10-17 14:28:28",
-            72.0
+            72
           ]
         ]
       },
@@ -12741,7 +12741,7 @@
           [
             "Prospecto LC",
             "2026-10-10 15:06:56",
-            240.0
+            240
           ]
         ]
       },
@@ -13057,7 +13057,7 @@
           [
             "Prospecto LC",
             "2026-10-18 17:57:41",
-            24.0
+            24
           ]
         ]
       },
@@ -13423,7 +13423,7 @@
           [
             "Negociacion Venta de Producto",
             "2026-09-23 15:30:02",
-            624.0
+            624
           ]
         ]
       },
@@ -13546,7 +13546,7 @@
           [
             "LC Aprobada",
             "2026-09-04 12:41:28",
-            1080.0
+            1080
           ]
         ]
       },
@@ -13602,7 +13602,7 @@
           [
             "LC Aprobada",
             "2026-09-07 13:13:57",
-            1008.0
+            1008
           ]
         ]
       },
@@ -13735,7 +13735,7 @@
           [
             "Proceso LC",
             "2026-09-20 11:09:02",
-            696.0
+            696
           ]
         ]
       },
@@ -14904,17 +14904,17 @@
           [
             "Proceso Credito",
             "2025-07-17 16:55:24",
-            24.0
+            24
           ],
           [
             "Crédito Aprobado/Act.",
             "2025-07-18 17:39:01",
-            120.0
+            120
           ],
           [
             "Contrato",
             "2025-07-23 17:35:39",
-            2160.0
+            2160
           ],
           [
             "Contacto Venta de Mercancia",
@@ -14990,7 +14990,7 @@
           [
             "Proceso LC",
             "2026-10-14 14:55:32",
-            24.0
+            24
           ]
         ]
       },
@@ -15013,7 +15013,7 @@
           [
             "Asesoria",
             "2024-05-09 15:15:26",
-            24.0
+            24
           ],
           [
             "SAV (Solicitud de Aporte Voluntario)",
@@ -15790,12 +15790,12 @@
           [
             "Proceso LC",
             "2025-06-28 18:42:51",
-            2232.0
+            2232
           ],
           [
             "Contacto LC",
             "2025-09-29 18:06:11",
-            7176.0
+            7176
           ],
           [
             "Prospecto LC",
@@ -18491,7 +18491,7 @@
           [
             "Prospecto LC",
             "2026-07-21 10:07:50",
-            1920.0
+            1920
           ]
         ]
       },
@@ -19378,7 +19378,7 @@
           [
             "Asesoria LC",
             "2026-09-07 13:12:26",
-            720.0
+            720
           ]
         ]
       },
@@ -21061,7 +21061,7 @@
           [
             "Prospecto LC",
             "2026-09-30 18:36:10",
-            48.0
+            48
           ]
         ]
       },
@@ -21161,7 +21161,7 @@
           [
             "Prospecto LC",
             "2026-09-18 12:03:48",
-            24.0
+            24
           ],
           [
             "LC Aprobada",
@@ -21207,7 +21207,7 @@
           [
             "Prospecto LC",
             "2026-09-30 16:09:23",
-            48.0
+            48
           ],
           [
             "LC Aprobada",
@@ -21230,7 +21230,7 @@
           [
             "Prospecto LC",
             "2026-09-24 16:37:40",
-            48.0
+            48
           ],
           [
             "Proceso LC",
@@ -21614,7 +21614,7 @@
           [
             "Prospecto LC",
             "2026-10-01 11:50:42",
-            24.0
+            24
           ]
         ]
       },
@@ -22051,7 +22051,7 @@
           [
             "Prospecto LC",
             "2026-09-28 11:57:41",
-            24.0
+            24
           ]
         ]
       },
@@ -22511,7 +22511,7 @@
           [
             "Contacto Venta de Mercancia",
             "2026-09-26 15:50:24",
-            24.0
+            24
           ]
         ]
       },
@@ -22572,7 +22572,7 @@
           [
             "Proceso LC",
             "2026-08-28 19:57:50",
-            24.0
+            24
           ],
           [
             "Contacto Venta de Mercancia",
@@ -22774,7 +22774,7 @@
           [
             "Prospecto LC",
             "2026-09-22 17:06:48",
-            96.0
+            96
           ]
         ]
       },
@@ -22792,7 +22792,7 @@
           [
             "Prospecto LC",
             "2026-09-22 17:07:01",
-            96.0
+            96
           ]
         ]
       },
@@ -22882,7 +22882,7 @@
           [
             "Prospecto LC",
             "2026-09-24 18:15:59",
-            48.0
+            48
           ]
         ]
       },
@@ -23313,7 +23313,7 @@
           [
             "Proceso LC",
             "2026-09-05 12:04:56",
-            216.0
+            216
           ],
           [
             "LC Aprobada",
@@ -24462,7 +24462,7 @@
           [
             "Asesoria Venta de Mercancia",
             "2026-09-23 15:05:24",
-            24.0
+            24
           ]
         ]
       },
@@ -24518,7 +24518,7 @@
           [
             "Prospecto LC",
             "2026-08-29 15:26:04",
-            96.0
+            96
           ],
           [
             "Proceso LC",
@@ -24551,7 +24551,7 @@
           [
             "Prospecto LC",
             "2026-08-20 11:08:58",
-            144.0
+            144
           ],
           [
             "Asesoria LC",
@@ -25510,7 +25510,7 @@
           [
             "Por Entregar",
             "2026-09-04 16:44:15",
-            456.0
+            456
           ]
         ]
       },
@@ -28518,12 +28518,12 @@
           [
             "Prospecto LC",
             "2026-07-29 12:05:30",
-            432.0
+            432
           ],
           [
             "Contacto Venta de Mercancia",
             "2026-08-16 11:13:49",
-            840.0
+            840
           ]
         ]
       },
@@ -30454,7 +30454,7 @@
           [
             "Proceso LC",
             "2026-09-11 13:46:11",
-            168.0
+            168
           ]
         ]
       },
@@ -30500,7 +30500,7 @@
           [
             "Proceso LC",
             "2026-09-14 14:16:26",
-            96.0
+            96
           ]
         ]
       },
@@ -30667,7 +30667,7 @@
           [
             "Prospecto LC",
             "2026-08-13 10:34:14",
-            72.0
+            72
           ],
           [
             "Contacto Venta de Mercancia",
@@ -30753,7 +30753,7 @@
           [
             "Prospecto LC",
             "2026-09-15 11:49:57",
-            72.0
+            72
           ]
         ]
       },
@@ -32040,7 +32040,7 @@
           [
             "Contacto Venta de Mercancia",
             "2026-09-03 18:29:53",
-            288.0
+            288
           ]
         ]
       },
@@ -32182,7 +32182,7 @@
           [
             "Prospecto LC",
             "2026-09-11 13:07:09",
-            72.0
+            72
           ]
         ]
       },
@@ -36090,7 +36090,7 @@
           [
             "Prospecto LC",
             "2026-09-04 19:02:15",
-            96.0
+            96
           ]
         ]
       },
@@ -36108,7 +36108,7 @@
           [
             "Prospecto LC",
             "2026-09-07 18:05:53",
-            24.0
+            24
           ]
         ]
       },
@@ -37600,7 +37600,7 @@
           [
             "SAV (Solicitud de Aporte Voluntario)",
             "2024-06-13 13:41:02",
-            1920.0
+            1920
           ],
           [
             "Contrato",
@@ -37993,7 +37993,7 @@
           [
             "Asesoria LC",
             "2026-07-24 17:47:09",
-            96.0
+            96
           ],
           [
             "LC Aprobada",
@@ -39035,7 +39035,7 @@
           [
             "Proceso LC",
             "2026-08-29 13:09:33",
-            144.0
+            144
           ],
           [
             "Contacto Venta de Mercancia",
@@ -40367,7 +40367,7 @@
           [
             "Prospecto LC",
             "2026-08-28 20:09:58",
-            24.0
+            24
           ]
         ]
       },
@@ -40390,12 +40390,12 @@
           [
             "Por Entregar",
             "2026-08-27 18:44:15",
-            24.0
+            24
           ],
           [
             "Facturado",
             "2026-08-28 19:00:17",
-            24.0
+            24
           ],
           [
             "Por Entregar",
@@ -40469,7 +40469,7 @@
           [
             "Proceso LC",
             "2026-08-28 19:57:46",
-            24.0
+            24
           ],
           [
             "Contacto Venta de Mercancia",
@@ -40949,7 +40949,8 @@
         "creado": "2026-08-29 10:13:11",
         "historial": []
       }
-    ]
+    ],
+    "pausado": true
   },
   "favorito_perdidos": [
     {
@@ -41474,7 +41475,7 @@
       "estado": "NUEVA ESPARTA (VE)",
       "ciudad": "PAMPATAR",
       "pago": "mas_200",
-      "ingreso": 3000.0,
+      "ingreso": 3000,
       "inicial": 0,
       "tiempo_inicial": "7_dias",
       "ingresos_proviene": "generacion_independiente",
@@ -41691,7 +41692,7 @@
       "estado": "MERIDA (VE)",
       "ciudad": "EJIDO",
       "pago": "hasta_150",
-      "ingreso": 800.0,
+      "ingreso": 800,
       "inicial": 0,
       "tiempo_inicial": "sin_fecha",
       "ingresos_proviene": "Dueno_de_negocio",

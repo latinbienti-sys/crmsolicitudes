@@ -413,12 +413,22 @@ def main():
           'rastreados:', sum(1 for l in leads if not l['en_formulario']))
 
     perdidos, favoritos = perdidos_crm(je)
-    try:
-        flujo = flujo_etapas(je)
-    except RuntimeError as e:
-        # El flujo es un agregado: si falla, el resto del tablero se publica igual
-        flujo = {'error': str(e)[:300], 'leads': []}
-        print('flujo: error', flujo['error'])
+    if os.environ.get('FLUJO_ACTIVO', '1') == '0':
+        # En pausa (consulta pesada): no se consulta Odoo; se conservan los ultimos datos publicados
+        flujo = {'leads': []}
+        ruta_prev = os.path.join(BASE, 'data.json')
+        if os.path.isfile(ruta_prev):
+            with open(ruta_prev, encoding='utf-8') as fh:
+                flujo = json.load(fh).get('flujo') or flujo
+        flujo['pausado'] = True
+        print('flujo: en pausa (FLUJO_ACTIVO=0), sin consultar Odoo')
+    else:
+        try:
+            flujo = flujo_etapas(je)
+        except RuntimeError as e:
+            # El flujo es un agregado: si falla, el resto del tablero se publica igual
+            flujo = {'error': str(e)[:300], 'leads': []}
+            print('flujo: error', flujo['error'])
 
     data = {'generado': datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
             'perdidos_crm': perdidos,

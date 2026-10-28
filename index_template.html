@@ -731,10 +731,12 @@ function initFlujo(){
 function renderFlujo(){
   const L = FLUJO.leads||[];
   const fav = FLUJO.favorito;
-  document.getElementById('x-nota').innerHTML = FLUJO.error ? 'No se pudo leer el flujo: '+FLUJO.error
-    : !L.length ? 'El flujo se carga en la proxima actualizacion.'
+  const pausa = FLUJO.pausado ? '<b>Sección en pausa</b> para no cargar Odoo mientras se estabiliza. '
+    + (FLUJO.calculado_utc ? 'Datos del ' + FLUJO.calculado_utc.slice(0,16) + ' UTC; las horas paradas se siguen contando desde entonces. ' : '') : '';
+  document.getElementById('x-nota').innerHTML = pausa + (FLUJO.error ? 'No se pudo leer el flujo: '+FLUJO.error
+    : !L.length ? (FLUJO.pausado ? '' : 'El flujo se carga en la proxima actualizacion.')
     : `Leads abiertos del favorito <b>${fav? fav.name : 'asignados a un ejecutivo'}</b>. Tiempo en horas corridas (incluye noches y fines de semana).`
-      + (FLUJO.historial_ok? '' : ' El historial de etapas no esta disponible con el usuario de consulta; solo se mide la etapa actual.');
+      + (FLUJO.historial_ok? '' : ' El historial de etapas no esta disponible con el usuario de consulta; solo se mide la etapa actual.'));
   const equipo = document.getElementById('x-equipo').value, ejecutivo = document.getElementById('x-ejecutivo').value;
   const umbral = Number(document.getElementById('x-umbral').value);
   const desde = document.getElementById('x-desde').value, hasta = document.getElementById('x-hasta').value;
