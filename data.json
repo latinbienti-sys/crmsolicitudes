@@ -1,5 +1,5 @@
 {
-  "generado": "2026-10-28T02:22:48Z",
+  "generado": "2026-10-28T08:45:23Z",
   "perdidos_crm": [
     {
       "id": 66264,
@@ -3807,7 +3807,7 @@
     },
     "historial_ok": true,
     "historial_error": "",
-    "calculado_utc": "2026-10-28 02:22:48",
+    "calculado_utc": "2026-10-28 08:45:23",
     "leads": [
       {
         "id": 66496,
