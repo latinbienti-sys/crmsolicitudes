@@ -1,6 +1,36 @@
 {
-  "generado": "2026-11-05T14:49:58Z",
+  "generado": "2026-11-06T14:27:50Z",
   "perdidos_crm": [
+    {
+      "id": 66114,
+      "name": "MOTOS",
+      "contacto": "PEDRO CARVAJAL",
+      "ejecutivo": "ALECNY HERNANDEZ J.",
+      "etapa": "Proceso LC",
+      "motivo": "No responde por ningún medio. Dejo de responder",
+      "fecha_cierre": "2026-11-05 17:31:11",
+      "llegada": "2026-10-17 22:49:00",
+      "dias": 18.8,
+      "equipo": "EQUIPO DE LINEA DE CREDITO",
+      "fuente": "",
+      "origen_form": "",
+      "tipo": "Oportunidad"
+    },
+    {
+      "id": 62570,
+      "name": "MOTOS",
+      "contacto": "JOSE ADONAY LOPEZ ALARCON",
+      "ejecutivo": "ALECNY HERNANDEZ J.",
+      "etapa": "Proceso LC",
+      "motivo": "No estoy interesado(a)",
+      "fecha_cierre": "2026-11-05 17:15:25",
+      "llegada": "2026-09-01 16:31:12",
+      "dias": 65.0,
+      "equipo": "EQUIPO DE VENTA MILENIUM",
+      "fuente": "",
+      "origen_form": "",
+      "tipo": "Oportunidad"
+    },
     {
       "id": 66719,
       "name": "SLCA Solicitud - Celulares",
@@ -43804,7 +43834,7 @@
     }
   ],
   "fecha_corte": "2026-10-22",
-  "total": 53,
+  "total": 54,
   "etapas_crm": [
     {
       "nombre": "Prospecto LC",
@@ -43827,11 +43857,11 @@
       "ganada": true
     },
     {
-      "nombre": "Asesoria Venta de Mercancia",
+      "nombre": "Contacto Venta de Mercancia",
       "ganada": false
     },
     {
-      "nombre": "Contacto Venta de Mercancia",
+      "nombre": "Asesoria Venta de Mercancia",
       "ganada": false
     },
     {
@@ -45192,13 +45222,13 @@
       "linea_activa": "No_seria_mi_primera_vez_en_Latinbien",
       "operador": "424",
       "zona": "Ejido y Sucre",
-      "etapa": "Prospecto LC",
+      "etapa": "Contacto LC",
       "asignado": "ANGE N RAMIREZ FERNANDEZ",
       "situacion": "Abierto",
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "ultimo_movimiento": "2026-11-04 18:14:58",
+      "ultimo_movimiento": "2026-11-05 15:01:08",
       "en_formulario": true,
       "rastreo": "",
       "nicho": "Celulares",
@@ -45339,6 +45369,33 @@
       "en_formulario": true,
       "rastreo": "",
       "nicho": "Celulares",
+      "producto": ""
+    },
+    {
+      "id": 66722,
+      "name": "Solicitud - Motos",
+      "create_date": "2026-11-05 15:53:08",
+      "contact_name": "Luis Fernando Quintero maestre",
+      "estado": "MERIDA (VE)",
+      "ciudad": "Sucre ",
+      "pago": "Hasta_50",
+      "ingreso": 2999.0,
+      "inicial": 0,
+      "tiempo_inicial": "7_dias",
+      "ingresos_proviene": "Dueno_de_negocio",
+      "linea_activa": "No_seria_mi_primera_vez_en_Latinbien",
+      "operador": "412",
+      "zona": "Ejido y Sucre",
+      "etapa": "Prospecto LC",
+      "asignado": "",
+      "situacion": "Abierto",
+      "motivo_perdida": "",
+      "fecha_cierre": "",
+      "dias_cierre": null,
+      "ultimo_movimiento": "2026-11-05 15:53:08",
+      "en_formulario": true,
+      "rastreo": "",
+      "nicho": "Motos",
       "producto": ""
     }
   ]
