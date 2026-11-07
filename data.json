@@ -1,5 +1,5 @@
 {
-  "generado": "2026-11-07T13:21:33Z",
+  "generado": "2026-11-07T16:04:09Z",
   "perdidos_crm": [
     {
       "id": 64602,
@@ -45392,13 +45392,13 @@
       "linea_activa": "Sí_ya_he_comprado_y_tengo_una_linea_de_credito_activa_en_Latinbien.",
       "operador": "0414",
       "zona": "",
-      "etapa": "Contacto Venta de Mercancia",
+      "etapa": "Facturado",
       "asignado": "LADY DIANA TORO RIVERA",
       "situacion": "Abierto",
       "motivo_perdida": "",
       "fecha_cierre": "",
       "dias_cierre": null,
-      "ultimo_movimiento": "2026-11-04 11:06:41",
+      "ultimo_movimiento": "2026-11-07 11:32:27",
       "en_formulario": true,
       "rastreo": "",
       "nicho": "Celulares",
