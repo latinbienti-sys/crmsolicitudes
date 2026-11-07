@@ -7,6 +7,9 @@ BASE = os.path.dirname(os.path.abspath(__file__))
 URL = os.environ.get('ODOO_URL', 'https://latinbien.com').rstrip('/')
 DB = os.environ.get('ODOO_DB', 'erp_production')
 FECHA_CORTE = os.environ.get('FECHA_CORTE', '2026-10-22')
+# Corrida LIGERA (cada hora en horario laboral): sin el rastreo de solicitudes fusionadas ni la lista
+# de perdidos del CRM (consultas pesadas); se conservan los ultimos datos de la corrida completa nocturna.
+LIGERO = os.environ.get('LIGERO', '0') == '1'
 TZ_OFFSET_H = int(os.environ.get('ODOO_TZ_OFFSET', '-4'))
 
 def a_local(fecha_odoo):
@@ -391,6 +394,11 @@ def main():
     actuales = {l['id'] for l in leads}
     for p in previos:
         if p['id'] in actuales: continue
+        if LIGERO:
+            # Sin consultar Odoo: se mantiene lo que dejo la ultima corrida completa
+            leads.append({**p, 'en_formulario': False,
+                          'rastreo': p.get('rastreo') or 'Rastreo pendiente: se revisa en la corrida nocturna'})
+            continue
         r, nota = rastrear(je, campos, {**p, **contactos.get(str(p['id']), {})})
         est = estado_crm(r, p['create_date']) if r else {}
         # Un registro del mismo cliente cerrado ANTES de que llegara la solicitud no es su cierre
@@ -412,7 +420,13 @@ def main():
           {s: sum(1 for l in leads if l['situacion'] == s) for s in ('Abierto', 'Ganado', 'Perdido', 'No encontrado')},
           'rastreados:', sum(1 for l in leads if not l['en_formulario']))
 
-    perdidos, favoritos = perdidos_crm(je)
+    if LIGERO and os.path.isfile(os.path.join(BASE, 'data.json')):
+        with open(os.path.join(BASE, 'data.json'), encoding='utf-8') as fh:
+            prev = json.load(fh)
+        perdidos, favoritos = prev.get('perdidos_crm', []), prev.get('favorito_perdidos', [])
+        print('corrida ligera: sin rastreo ni perdidos del CRM (se conservan los de la corrida completa)')
+    else:
+        perdidos, favoritos = perdidos_crm(je)
     if os.environ.get('FLUJO_ACTIVO', '1') == '0':
         # En pausa (consulta pesada): no se consulta Odoo; se conservan los ultimos datos publicados
         flujo = {'leads': []}

@@ -1,9 +1,21 @@
 ﻿name: Actualizar CRM Solicitudes
 on:
   schedule:
-    # Una vez al dia de madrugada (06:23 UTC = 2:23 a.m. Venezuela) para no cargar Odoo en horario laboral
+    # Corrida COMPLETA una vez al dia de madrugada (06:23 UTC = 2:23 a.m. Venezuela): incluye el rastreo
+    # de solicitudes fusionadas y los perdidos del CRM (consultas pesadas), fuera del horario laboral
     - cron: '23 6 * * *'
+    # Corrida LIGERA cada hora de 06:50 a 19:50 (Venezuela): solo las solicitudes del formulario
+    # (sin rastreo ni perdidos del CRM). Va 10 min antes de la actualizacion del tablero de gestion.
+    - cron: '50 10-23 * * *'
   workflow_dispatch:
+    inputs:
+      completo:
+        description: 'Corrida completa (con rastreo y perdidos del CRM: consultas pesadas a Odoo)'
+        type: boolean
+        default: false
+concurrency:
+  group: crm-solicitudes
+  cancel-in-progress: false
 permissions:
   contents: write
 jobs:
@@ -29,6 +41,8 @@ jobs:
           FECHA_CORTE: '2026-10-22'
           # Seccion Flujo en pausa (consulta pesada) mientras Odoo se estabiliza; '1' la reactiva
           FLUJO_ACTIVO: '0'
+          # Ligera salvo la corrida nocturna o una manual marcada "completo"
+          LIGERO: ${{ (github.event.schedule == '23 6 * * *' || inputs.completo) && '0' || '1' }}
         run: python generar.py
       - name: Guardar contactos privados
         uses: actions/cache/save@v4
@@ -40,4 +54,4 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add index.html data.json
-          if git diff --cached --quiet; then echo "Sin cambios"; else git commit -m "Actualizado $(date -u '+%Y-%m-%d %H:%M UTC')"; git push; fi
+          if git diff --cached --quiet; then echo "Sin cambios"; else git commit -m "Actualizado $(date -u '+%Y-%m-%d %H:%M UTC')"; git pull --rebase -q origin main; git push; fi
